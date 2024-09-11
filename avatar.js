@@ -33,130 +33,115 @@ function setupScene(gltf) {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
     container.appendChild(renderer.domElement);
 
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(
-      45, container.clientWidth / container.clientHeight);
-    camera.position.set(0.2, 0.5, 1);
+    // Create the shader material
+    const shaderMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+            iTime: { value: 0 },
+            iResolution: { value: new THREE.Vector2(container.clientWidth, container.clientHeight) }
+        },
+        vertexShader: `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = vec4(position, 1.0);
+            }
+        `,
+        fragmentShader: `
+            #define rand(z) fract(sin(z)*1352.2342)
+            const float pi2 = acos(-1.)*2.;
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.enablePan = false;
-    controls.enableZoom = false;
-    controls.minDistance = 3;
-    controls.minPolarAngle = 1.4;
-    controls.maxPolarAngle = 1.4;
-    controls.target = new THREE.Vector3(0, 0.75, 0);
-    controls.update();
+            mat2 rotate(float a) {
+                return mat2(cos(a), -sin(a), sin(a), cos(a));
+            }
 
-    // Scene setup
+            vec2 rand2f(vec2 co) {
+                vec2 z = vec2(dot(co, vec2(1.1521, 1.4322)), dot(co, vec2(1.2341, 1.3251)));
+                return rand(z);
+            }
+
+            float voronoiBorder(vec2 x, float seed, float phase) {
+                vec2 xi = floor(x);
+                vec2 xf = fract(x);
+                
+                vec2 res = vec2(10.);
+                for(int i=-1; i<=1; i++) {
+                    for(int j=-1; j<=1; j++) {
+                        vec2 b = vec2(i,j);
+                        vec2 rv = rand2f(xi+b+seed*1.3412);
+                        rv = sin(rv*pi2 + phase)*.5+.5;
+                        rv *= .75;
+                        vec2 r = b+rv - xf;
+                        float d = dot(r,r);
+                        
+                        if(d<res.x) {
+                            res.y = res.x;
+                            res.x = d;
+                        } else if(d<res.y) {
+                            res.y = d;
+                        }
+                    }
+                }
+                
+                res = sqrt(res);
+                return 1.-smoothstep(-.1, .1, res.y-res.x);
+            }
+
+            float smoothFloor(float x, float s) {
+                return floor(x-.5)+smoothstep(.5-s, .5+s, fract(x-.5));
+            }
+
+            varying vec2 vUv;
+            uniform float iTime;
+            uniform vec2 iResolution;
+
+            void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
+                vec2 p = (fragCoord*2.-iResolution.xy) / min(iResolution.x, iResolution.y);
+                vec3 color = vec3(0);
+                
+                p *= rotate(iTime*.2);
+                float cPos = iTime;
+                float id = ceil(cPos);
+                
+                for(float i=0.; i<20.; i++) {
+                    float L = 1.-fract(cPos)+i;
+                    float a = atan(.003, L)*500.;
+                    float r = rand(id)*pi2;
+                    float phase = iTime + r;
+                    phase = smoothFloor(phase, .2);
+                    vec2 rv = rand2f(vec2(id, id*1.31223)) * 10.;
+                    
+                    float v1 = voronoiBorder(p/a+rv, id, phase);
+                    float v2 = voronoiBorder(p/a*.5+iTime*vec2(cos(r),sin(r)), id, phase);
+                    float v = pow(v1*v2, 3.) * 200.;
+                    
+                    color += (v1*vec3(.9, .4, 0.) + v) * exp(-L*L*0.001);
+                    id++;
+                }
+                
+                fragColor = vec4(color, 1.);
+            }
+
+            void main() {
+                mainImage(gl_FragColor, vUv * iResolution.xy);
+            }
+        `,
+    });
+
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const plane = new THREE.Mesh(geometry, shaderMaterial);
+
+    // Full-screen quad to render the shader as the background
     const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    scene.add(plane);
 
-    // Lighting setup
-    scene.add(new THREE.AmbientLight());
-
-    const spotlight = new THREE.SpotLight(0xffffff, 20, 8, 1);
-    spotlight.penumbra = 0.5;
-    spotlight.position.set(0, 4, 2);
-    spotlight.castShadow = true;
-    scene.add(spotlight);
-
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2);
-    keyLight.position.set(1, 1, 2);
-    keyLight.lookAt(new THREE.Vector3());
-    scene.add(keyLight);
-
-    // Load avatar
-    const avatar = gltf.scene;
-    avatar.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-    scene.add(avatar);
-
-    // Create pedestal
-    const groundGeometry = new THREE.CylinderGeometry(0.6, 0.6, 0.1, 64);
-    const groundMaterial = new THREE.MeshStandardMaterial();
-    const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
-    groundMesh.castShadow = false;
-    groundMesh.receiveShadow = true;
-    groundMesh.position.y -= 0.05;
-    scene.add(groundMesh);
-
-    // Load animations
-    const mixer = new THREE.AnimationMixer(avatar);
-    const clips = gltf.animations;
-    const waveClip = THREE.AnimationClip.findByName(clips, 'thanos');
-    const stumbleClip = THREE.AnimationClip.findByName(clips, 'cools');
-    const chClip = THREE.AnimationClip.findByName(clips, 'chi');
-    const waveAction = mixer.clipAction(waveClip);
-    const stumbleAction = mixer.clipAction(stumbleClip);
-    const chiAction = mixer.clipAction(chClip);
-
-    let isStumbling = false;
-    let isChi = false;
-    const raycaster = new THREE.Raycaster();
-    container.addEventListener('mousedown', (ev) => {
-      const coords = {
-        x: (ev.offsetX / container.clientWidth) * 2 - 1,
-        y: -(ev.offsetY / container.clientHeight) * 2 + 1
-      };
-
-      raycaster.setFromCamera(coords, camera);
-      const intersections = raycaster.intersectObject(avatar);
-  
-      if (intersections.length > 0) {
-        if (isStumbling) return;
-
-        isStumbling = true;
-        stumbleAction.reset();
-        stumbleAction.play();
-        waveAction.crossFadeTo(stumbleAction, 0.3);
-
-        setTimeout(() => {
-          waveAction.reset();
-          waveAction.play();
-          stumbleAction.crossFadeTo(waveAction, 1);
-          setTimeout(() => isStumbling = false, 1000);
-        }, 4000)
-      }
-    });
-
-    container.addEventListener('mouseout', (ev) => {
-      if (isStumbling || isChi) return;  // Prevent jumping while stumbling
-    
-      isChi = true;
-      chiAction.reset();
-      chiAction.play();
-    
-      // After jumping, return to waving action
-      setTimeout(() => {
-        waveAction.reset();
-        waveAction.play();
-        chiAction.crossFadeTo(waveAction, 1);
-        setTimeout(() => isChi = false, 1000);
-      }, 3000);  // Adjust time for the jump duration
-    });
-
-    window.addEventListener('resize', () => {
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
-    });
-
-    const clock = new THREE.Clock();
+    // Animation loop
     function animate() {
-      requestAnimationFrame(animate);
-      mixer.update(clock.getDelta());
-      renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+        shaderMaterial.uniforms.iTime.value += 0.05;  // Update time for shader animation
+        renderer.render(scene, camera);
     }
-
     animate();
-    waveAction.play();
 }
