@@ -1,0 +1,175 @@
+/* General styles */
+/* General styles */
+body {
+  font-family: 'Chrome 1', sans-serif;
+  color: #fcea4f;
+  margin: 0;
+  background: linear-gradient(0deg, #00473e, #442b66);
+  min-height: 100vh;
+}
+
+.typer {
+  display: inline-block; /* Ensures the element wraps text */
+  
+  overflow: hidden; /* Hide text as it types */
+  white-space: nowrap; /* Keep text on one line */
+  animation: typing 4s steps(50, end) forwards; /* Adjust steps based on text length */
+  max-width: 100%;
+}
+
+/* Pseudo-element for typing effect */
+.typer::before {
+  content: ''; /* Create an empty content for cursor */
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 2px; /* Width of the cursor */
+  height: 1em; /* Height of the cursor */
+  background-color: #ffffff; /* Cursor color */
+  animation: blink 0.75s step-end infinite; /* Blinking cursor */
+}
+
+/* Typing effect */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; } /* Expand to full width */
+}
+
+/* Blinking cursor effect */
+@keyframes blink {
+  from { background-color: #ffffff; }
+  to { background-color: transparent; }
+}
+
+.par{
+  font-size: 1.2em; /* Adjust font size as needed */
+  line-height: 1.6; /* Adjust line height for spacing */
+  margin: 20px 0; /* Add vertical spacing around the paragraph */
+}
+/* Header & Navigation styles */
+header {
+  padding: 10px 0px;
+  text-align: right;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 30px;
+}
+
+nav ul li a {
+  color: #f3f3f3;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 1.5em;
+}
+
+ul {
+  padding-left: 20px; /* Adjust left padding for bullets */
+  margin: 0; /* Remove default margin */
+  list-style: none; /* Remove default bullets */
+}
+
+/* Style for list items */
+li {
+  font-size: 1.5em; /* Increase font size of the text */
+  margin-bottom: 10px; /* Add space below each list item */
+  line-height: 1.4; /* Adjust line height for better spacing */
+}
+
+section {
+  border-bottom: 2px solid #ffffff; /* Adjust color and thickness as needed */
+  padding-bottom: 20px; /* Add space below the content */
+  margin-bottom: 20px; /* Add space below the border */
+}
+
+/* Section styles */
+section {
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 4em;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 3em;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 2em;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+
+p {
+  margin-top: 30px;
+  font-size: 3em;
+  font-weight: 100;
+  color: rgb(255, 255, 255);
+}
+
+.content {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px 48px;
+}
+
+.hero {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+}
+
+.gradient-text {
+  background-image: linear-gradient(-45deg, rgb(2, 255, 171), rgb(102, 89, 214));
+  background-clip: text;
+  color: transparent;
+}
+
+#avatar-container {
+  height: 500px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#avatar-loading {
+  font-size: 3em;
+}
+
+a {
+  color: #5decff; /* Normal state color */
+  text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+  color: #527aff; /* Color when hovered */
+  text-decoration: underline; /* Optional: underline on hover */
+}
+
+a:visited {
+  color: #9b59b6; /* Color after the link has been visited */
+}
+
+a:active {
+  color: #e74c3c; /* Color when the link is clicked */
+}

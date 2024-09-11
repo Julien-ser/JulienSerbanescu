@@ -1,0 +1,83 @@
+  <!doctype html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Julien Serbanescu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.158.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module" src="avatar.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="content">
+      <section id="home">
+        <div id='avatar-container'>
+          <div id='avatar-loading'></div>
+        </div>
+        <h1 class="hero-title">Hi there 👋</h1>
+        <h1>I'm <span class='gradient-text'>Julien Serbanescu</span></h1>
+        <p class="typer">AI Engineer and robotics enthusiast.</p>
+      </section>
+      <section id="about">
+        <h2 class="hero-title">About Me</h2>
+        <p class="par">I'm a University of Guelph student, majoring in Computer Engineering with a minor in Entrepreneurship. I have a strong passion for technology and innovation, particularly in the field of Artificial Intelligence.
+
+          I am deeply involved in AI research, eager to explore new ideas and apply my knowledge to real-world challenges. Through my research position, I've developed strong skills in software development, machine learning, and problem-solving, and I'm committed to expanding my expertise further.
+          
+          I am enthusiastic about leveraging my technical expertise and entrepreneurial mindset to contribute to impactful projects and make meaningful advancements in the tech industry.</p>
+        <img src="profile.jpg" alt="Julien Serbanescu" class="profile-image" style="width: 150px; height: auto;" />
+      </section>
+  
+      <section id="projects">
+        <h2 class="hero-title">Projects</h2><br><br>
+        <div class="project">
+          <h3>Project Name 1</h3>
+          <p class="par">A brief description of your project. Explain what it does, the technologies used, and any notable achievements or features.</p>
+          <a href="https://link-to-project1.com" target="_blank">View Project</a>
+        </div><br>
+        <div class="project">
+          <h3>Project Name 2</h3>
+          <p class="par">A brief description of your project. Explain what it does, the technologies used, and any notable achievements or features.</p>
+          <a href="https://link-to-project2.com" target="_blank">View Project</a>
+        </div>
+        <!-- Add more projects as needed -->
+      </section>
+  
+      <section id="contact">
+        <h2 class="hero-title">Contact</h2>
+        <p class="par">If you'd like to get in touch with me, feel free to reach out through any of the following methods:</p>
+        <ul>
+          <li>Email: <a href="mailto:julien.serbanescu@gmail.com" target="_blank">julien.serbanescu@gmail.com</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank">LinkedIn Profile</a></li>
+          <li>GitHub: <a href="https://github.com/Julien-ser" target="_blank">GitHub Profile</a></li>
+        </ul>
+      </section>
+    </div>
+  </body>
+
+  </html>
