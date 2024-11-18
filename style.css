@@ -1,175 +1,193 @@
-/* General styles */
-/* General styles */
+/* Global Styles */
 body {
-  font-family: 'Chrome 1', sans-serif;
-  color: #fcea4f;
+  font-family: 'Inter', sans-serif;
   margin: 0;
-  background: linear-gradient(0deg, #00473e, #442b66);
-  min-height: 100vh;
+  padding: 0;
+  background: #121212;
+  color: #f1f1f1;
+  line-height: 1.6;
 }
 
-.typer {
-  display: inline-block; /* Ensures the element wraps text */
-  
-  overflow: hidden; /* Hide text as it types */
-  white-space: nowrap; /* Keep text on one line */
-  animation: typing 4s steps(50, end) forwards; /* Adjust steps based on text length */
-  max-width: 100%;
+.image {
+  border-radius: 50%;
+  width: 150px; /* Fixed width */
+  height: 150px; /* Fixed height */
+  border: 3px solid #4fd1c5;
+  margin-top: 20px;
+}
+.image:hover {
+  transform: scale(1.05); /* Slightly scale up on hover */
+  transition: transform 0.3s ease;
+}
+.image-container {
+  display: flex;
+  justify-content: space-around; /* Evenly space images */
+  align-items: center; /* Vertically center images */
+  gap: 20px; /* Optional: adds space between images */
+  margin-top: 20px; /* Adds space above the image container */
 }
 
-/* Pseudo-element for typing effect */
-.typer::before {
-  content: ''; /* Create an empty content for cursor */
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 2px; /* Width of the cursor */
-  height: 1em; /* Height of the cursor */
-  background-color: #ffffff; /* Cursor color */
-  animation: blink 0.75s step-end infinite; /* Blinking cursor */
-}
 
-/* Typing effect */
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; } /* Expand to full width */
-}
-
-/* Blinking cursor effect */
-@keyframes blink {
-  from { background-color: #ffffff; }
-  to { background-color: transparent; }
-}
-
-.par{
-  font-size: 1.2em; /* Adjust font size as needed */
-  line-height: 1.6; /* Adjust line height for spacing */
-  margin: 20px 0; /* Add vertical spacing around the paragraph */
-}
-/* Header & Navigation styles */
 header {
-  padding: 10px 0px;
-  text-align: right;
+  background-color: #1a1a1a;
+  padding: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
+/* Navigation Styles */
 nav ul {
   list-style: none;
+  display: flex;
+  justify-content: center;
   padding: 0;
 }
 
 nav ul li {
-  display: inline;
-  margin: 0 30px;
+  margin: 0 20px;
 }
 
 nav ul li a {
-  color: #f3f3f3;
+  color: #f1f1f1;
   text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 100;
-  font-size: 1.5em;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s;
 }
 
-ul {
-  padding-left: 20px; /* Adjust left padding for bullets */
-  margin: 0; /* Remove default margin */
-  list-style: none; /* Remove default bullets */
+nav ul li a:hover {
+  color: #4fd1c5; /* Cool Cyan Hover Effect */
 }
 
-/* Style for list items */
-li {
-  font-size: 1.5em; /* Increase font size of the text */
-  margin-bottom: 10px; /* Add space below each list item */
-  line-height: 1.4; /* Adjust line height for better spacing */
-}
-
-section {
-  border-bottom: 2px solid #ffffff; /* Adjust color and thickness as needed */
-  padding-bottom: 20px; /* Add space below the content */
-  margin-bottom: 20px; /* Add space below the border */
-}
-
-/* Section styles */
-section {
-  padding: 20px;
+/* Hero Section */
+#home {
   text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  color: #e2e8f0;
 }
 
-h1 {
-  font-size: 4em;
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-}
-
-h2 {
-  font-size: 3em;
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-}
-
-h3 {
-  font-size: 2em;
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-}
-
-
-p {
-  margin-top: 30px;
-  font-size: 3em;
-  font-weight: 100;
-  color: rgb(255, 255, 255);
-}
-
-.content {
-  max-width: 1200px;
-  margin: auto;
-  padding: 16px 48px;
-}
-
-.hero {
-  padding-top: 60px;
-  display: flex;
-  flex-direction: row;
-  text-align: left;
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #38b2ac; /* Soft Cyan Color */
 }
 
 .gradient-text {
-  background-image: linear-gradient(-45deg, rgb(2, 255, 171), rgb(102, 89, 214));
-  background-clip: text;
-  color: transparent;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-#avatar-container {
-  height: 500px;
-  margin-top: 32px;
-  margin-bottom: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Content Sections */
+.content {
+  padding: 40px 20px;
 }
 
-#avatar-loading {
-  font-size: 3em;
+section {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 60px;
 }
 
-a {
-  color: #5decff; /* Normal state color */
-  text-decoration: none; /* Remove underline */
+.project {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-a:hover {
-  color: #527aff; /* Color when hovered */
-  text-decoration: underline; /* Optional: underline on hover */
+.project:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.3);
 }
 
-a:visited {
-  color: #9b59b6; /* Color after the link has been visited */
+/* Contact Section */
+#contact ul {
+  list-style: none;
+  padding: 0;
 }
 
-a:active {
-  color: #e74c3c; /* Color when the link is clicked */
+#contact li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+#contact a {
+  color: #4fd1c5;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+#contact a:hover {
+  color: #2c7a7b;
+}
+
+/* Profile Image */
+.profile-image {
+  border-radius: 50%;
+  border: 3px solid #4fd1c5;
+  margin-top: 20px;
+}
+
+/* Animation Styles */
+.typer {
+  animation: fadeInSlideUp 1s ease-in-out, typeEffect 2s steps(40);
+  font-size: 1.5rem;
+  color: #38b2ac;
+  margin-bottom: 20px;
+  overflow: hidden; /* Ensures text is hidden during typing */
+  display: inline-block; /* Needed for typeEffect to work */
+  white-space: nowrap; /* Keeps the text in one line during typing */
+}
+
+/* Enhanced fade-in and slide-up animation */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Slide up from 20px */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes typeEffect {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.profile-image {
+  width: 150px;
+  height: auto;
+  opacity: 0; /* Start hidden */
+  animation: fadeInImage 1s ease-in-out 0.5s forwards; /* Fade in */
+}
+
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at original position */
+  }
 }

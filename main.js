@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+/*import * as THREE from 'three'
 
 const scene = new THREE.Scene();
 
@@ -21,4 +21,13 @@ function animate(){
     renderer.render(scene, camera);
 }
 
-animate();
+animate();*/
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+  
