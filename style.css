@@ -65,8 +65,9 @@ nav ul li a:hover {
 #home {
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  background: linear-gradient(135deg, #232526 0%, #5c5d5e 100%);
   color: #e2e8f0;
+  border-radius: 20px;
 }
 
 .hero-title {
@@ -80,6 +81,105 @@ nav ul li a:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Experience Section */
+.experience-section {
+  background-color: #1e1e1e;
+  padding: 4rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #4fd1c5;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.experience-item {
+  background-color: #2d2d2d;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.job-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #e2e8f0;
+  margin-bottom: 0.8rem;
+}
+
+.job-date {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.date-range {
+  font-weight: bold;
+  color: #4fd1c5;
+}
+
+.location {
+  font-style: italic;
+  color: #b8c1c8;
+}
+
+.job-description {
+  font-size: 1.1rem;
+  color: #d1d1d1;
+  margin-bottom: 1.5rem;
+}
+
+.pdf-preview a {
+  color: #00bcd4; /* Update to a more visually appealing color */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.pdf-preview a:hover {
+  color: #4fd1c5; /* Slightly lighter color on hover */
+  text-decoration: underline;
+}
+
+.job-highlights {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.job-highlights li {
+  font-size: 1.1rem;
+  color: #b8c1c8;
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.job-highlights li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #4fd1c5;
+  font-size: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 
 /* Content Sections */
 .content {
@@ -190,4 +290,53 @@ section {
     opacity: 1;
     transform: translateY(0); /* End at original position */
   }
+}
+
+
+/* General Styles for Links */
+a {
+  text-decoration: none; /* Remove default underline */
+  color: #4fd1c5; /* Set a nice blue color for the links */
+  font-weight: 500; /* Make the text a bit bolder */
+  transition: color 0.3s, transform 0.3s; /* Smooth transition on hover */
+}
+
+a:hover {
+  color: #2980b9; /* Darken the color on hover */
+  transform: scale(1.05); /* Slightly enlarge the link on hover */
+}
+
+a:focus {
+  outline: 2px solid #4fd1c5; /* Add a blue outline when the link is focused */
+}
+
+
+ul li a {
+  color: #4fd1c5; /* Link color */
+  font-weight: 500; /* Make the text slightly bolder */
+  text-decoration: none; /* Remove default underline */
+  transition: color 0.3s, transform 0.3s; /* Smooth transition on hover */
+  padding: 8px 15px; /* Add padding */
+}
+
+ul li a:hover {
+  color: #2980b9; /* Darker blue color on hover */
+  transform: scale(1.05); /* Slightly enlarge the link */
+  text-decoration: underline; /* Underline the text on hover */
+}
+
+ul li a:focus {
+  outline: 2px solid #4fd1c5; /* Add blue outline on focus */
+}
+
+/* Style links in a navigation menu */
+.navbar a {
+  color: #fff; /* Set text color for navbar links */
+  padding: 10px 15px;
+  font-size: 18px;
+}
+
+.navbar a:hover {
+  background-color: #2980b9; /* Darken background on hover */
+  color: #fff; /* Ensure text stays white */
 }
