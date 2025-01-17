@@ -6,7 +6,7 @@ body {
   background: #121212;
   color: #f1f1f1;
   line-height: 1.6;
-}
+  }
 
 .image {
   border-radius: 50%;
@@ -46,7 +46,7 @@ nav ul {
 }
 
 nav ul li {
-  margin: 0 20px;
+  margin: 0 90px; /* Increased margin for more spacing between items */
 }
 
 nav ul li a {
@@ -54,12 +54,14 @@ nav ul li a {
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
+  padding: 10px 0; /* Add padding to create more clickable space */
   transition: color 0.3s;
 }
 
 nav ul li a:hover {
   color: #4fd1c5; /* Cool Cyan Hover Effect */
 }
+
 
 /* Hero Section */
 #home {
@@ -339,4 +341,135 @@ ul li a:focus {
 .navbar a:hover {
   background-color: #2980b9; /* Darken background on hover */
   color: #fff; /* Ensure text stays white */
+}
+
+/* Simple Header Underline Animation */
+header h1::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #4fd1c5;
+  transition: width 0.3s ease;
+  margin-top: 5px;
+}
+
+header h1:hover::after {
+  width: 100%;
+}
+
+/* Slow Fade-in for Sections */
+section {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: simpleFadeIn 0.8s ease-out forwards;
+}
+
+section:nth-child(odd) {
+  animation-delay: 0.3s;
+}
+
+section:nth-child(even) {
+  animation-delay: 0.5s;
+}
+
+@keyframes simpleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Shine Effect on Hover */
+a {
+  position: relative;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: #4fd1c5; /* Cool cyan underline */
+  border-radius: 2px; /* Rounded for smoother shape */
+  transition: all 0.5s ease-out;
+}
+
+a:hover::before {
+  width: 100%; /* Expand underline to full width */
+  left: 0;
+}
+
+/* Subtle Image Float Effect */
+img {
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: translateY(-5px);
+}
+
+/* Divider Animation */
+.experience-section::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #4fd1c5;
+  margin: 20px auto;
+  transition: width 0.5s ease;
+}
+
+.experience-section:hover::after {
+  width: 80%;
+}
+
+/* Footer Links Glow Effect */
+footer a {
+  position: relative;
+  color: #4fd1c5;
+  text-decoration: none;
+  transition: text-shadow 0.3s ease;
+}
+
+footer a:hover {
+  text-shadow: 0 0 5px #4fd1c5, 0 0 10px #4fd1c5;
+}
+
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Section Glow Outline */
+section {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(79, 209, 197, 0.5);
+  border: 1px solid rgba(79, 209, 197, 0.3);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+section:hover {
+  box-shadow: 0 0 30px rgba(79, 209, 197, 0.8);
+  transform: translateY(-10px);
 }
