@@ -464,7 +464,7 @@ section {
   max-width: 800px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(79, 209, 197, 0.5);
+  /*box-shadow: 0 0 20px rgba(79, 209, 197, 0.5);*/
   border: 1px solid rgba(79, 209, 197, 0.3);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
