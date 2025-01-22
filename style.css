@@ -97,7 +97,7 @@ nav ul li a:hover {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(135deg, #49c0db 0%, #ff48d1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
