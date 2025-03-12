@@ -55,30 +55,89 @@ header {
   z-index: 1000;
 }
 
-/* Navigation Styles */
-nav ul {
+/* General Navigation Styles */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #222; /* Dark background */
+  padding: 10px 0;
+}
+
+/* Hide the checkbox */
+#menu-toggle {
+  display: none;
+}
+
+/* Desktop Menu */
+.nav-links {
   list-style: none;
   display: flex;
   justify-content: center;
   padding: 0;
 }
 
-nav ul li {
-  margin: 0 90px; /* Increased margin for more spacing between items */
+.nav-links li {
+  margin: 0 30px; /* Reduced margin for better spacing */
 }
 
-nav ul li a {
+.nav-links li a {
   color: #f1f1f1;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
-  padding: 10px 0; /* Add padding to create more clickable space */
+  padding: 10px 0;
   transition: color 0.3s;
 }
 
-nav ul li a:hover {
+.nav-links li a:hover {
   color: #4fd1c5; /* Cool Cyan Hover Effect */
 }
+
+/* Mobile Menu Styles */
+.menu-icon {
+  display: none;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  left: 20px;
+  top: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background: #333;
+    text-align: center;
+  }
+
+  .nav-links li {
+    margin: 15px 0;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 10px;
+  }
+
+  /* Show menu when checkbox is checked */
+  #menu-toggle:checked + .nav-links {
+    display: flex;
+  }
+}
+
 
 
 /* Hero Section */
