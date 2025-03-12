@@ -18,8 +18,7 @@
 
     <header>
       <nav>
-          <input type="checkbox" id="menu-toggle">
-          <label for="menu-toggle" class="menu-icon">&#9776;</label>
+          <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
           <ul class="nav-links">
               <li><a href="#home">Home</a></li>
               <li><a href="#about">About Me</a></li>
@@ -61,6 +60,9 @@
             }
         </script>
         <script>
+            function toggleMenu() {
+                document.querySelector(".nav-links").classList.toggle("active");
+            }
             var mouseX = 0, mouseY = 0,
             windowHalfX = window.innerWidth / 2,
             windowHalfY = window.innerHeight / 2,

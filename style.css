@@ -60,14 +60,9 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #222;
+  padding: 15px 0;
   position: relative;
-  background: #222; /* Dark background */
-  padding: 10px 0;
-}
-
-/* Hide the checkbox */
-#menu-toggle {
-  display: none;
 }
 
 /* Desktop Menu */
@@ -79,7 +74,7 @@ nav {
 }
 
 .nav-links li {
-  margin: 0 30px; /* Reduced margin for better spacing */
+  margin: 0 30px;
 }
 
 .nav-links li a {
@@ -92,22 +87,28 @@ nav {
 }
 
 .nav-links li a:hover {
-  color: #4fd1c5; /* Cool Cyan Hover Effect */
+  color: #4fd1c5;
 }
 
-/* Mobile Menu Styles */
+/* Mobile Menu */
 .menu-icon {
   display: none;
   font-size: 30px;
   color: #fff;
   cursor: pointer;
+  padding: 10px;
   position: absolute;
   left: 20px;
-  top: 10px;
+  top: 15px;
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
+  nav {
+    justify-content: space-between;
+    padding: 15px;
+  }
+
   .menu-icon {
     display: block;
   }
@@ -116,7 +117,7 @@ nav {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 50px;
+    top: 60px;
     left: 0;
     width: 100%;
     background: #333;
@@ -132,12 +133,11 @@ nav {
     padding: 10px;
   }
 
-  /* Show menu when checkbox is checked */
-  #menu-toggle:checked + .nav-links {
+  /* Show menu when active */
+  .nav-links.active {
     display: flex;
   }
 }
-
 
 
 /* Hero Section */
