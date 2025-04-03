@@ -1,0 +1,137 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background-color: #e3f2fd; /* Light blue background */
+  color: #333;
+}
+
+.App {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient background */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  color: white;
+}
+
+.App-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #bbdefb; /* Soft blue */
+  border-bottom: 1px solid #90caf9;
+  padding-bottom: 15px;
+}
+
+.App-main {
+  padding: 10px;
+}
+
+.query-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.query-form textarea {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #64b5f6;
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 60px;
+  background-color: #e3f2fd;
+  color: #1e3c72;
+}
+
+.query-form textarea:focus {
+  outline: none;
+  border-color: #42a5f5;
+  box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.4);
+}
+
+.query-form button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #42a5f5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.query-form button:hover:not(:disabled) {
+  background-color: #1e88e5;
+}
+
+.query-form button:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 20px;
+  color: #64b5f6;
+  font-style: italic;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border: 1px solid #ef9a9a;
+  border-radius: 6px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.results-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #1565c0;
+  border-radius: 6px;
+  color: white;
+}
+
+.results-section h2, .results-section h3 {
+  margin-top: 0;
+  color: #bbdefb;
+  border-bottom: 1px solid #90caf9;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.response-text {
+  background-color: #64b5f6;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  border-left: 4px solid #1e88e5;
+}
+
+.sources-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sources-section li {
+  background-color: #2196f3;
+  border: 1px solid #1e88e5;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: white;
+}
+
+.sources-section li strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #bbdefb;
+}

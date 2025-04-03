@@ -1,0 +1,216 @@
+  <!doctype html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Julien Serbanescu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+    <!--<script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.158.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module" src="avatar.js"></script>-->
+  </head>
+
+  <body>
+    <!-- Galaxy background -->
+    <div id="background"></div>
+
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="content">
+      <section id="home">
+        <div class="hero-container">
+          <div class="hero-text">
+            <h1 class="hero-title">Hi there 👋</h1>
+            <h1>I'm <span class='gradient-text'>Julien Serbanescu</span></h1>
+            <p class="typer">AI Engineer</p><br>
+            <p class="typer">Robotics Enthusiast</p><br>
+            <p class="typer">Aspiring Entrepreneur</p><br>
+          </div>
+          <img src="profile.jpg" alt="Julien Serbanescu" class="profile-image" />
+        </div>
+      </section>
+      
+      <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-text">
+          <p class="par">
+            I'm a University of Guelph student, majoring in Computer Engineering with a minor in Entrepreneurship. I have a strong passion for technology and innovation, particularly in the field of Artificial Intelligence.
+            <br><br>
+            I am deeply involved in AI research, eager to explore new ideas and apply my knowledge to real-world challenges. As the current CTO and a CoFounder for AthenaGuard Inc, I've applied my knowledge in machine learning and AI into phishing email and SMS detection. Through my research position, I've developed strong skills in software development, machine learning, and problem-solving, and I'm committed to expanding my expertise further.
+            <br><br>
+            I am enthusiastic about leveraging my technical expertise and entrepreneurial mindset to contribute to impactful projects and make meaningful advancements in the tech industry.
+          </p>
+        </div>
+        <!--<div class="image-container">
+          <img src="aguard.jpg" alt="AthenaGuard Logo" class="image" />
+          <img src="guelp.png" alt="University of Guelph Logo" class="image" />
+        </div>-->
+      </section>
+
+      <section id="experience" class="experience-section">
+        <h2 class="section-title">Experience</h2>
+        
+        <div class="experience-item">
+          <h3 class="job-title">USRA Research Work Term</h3>
+          <img src="guelp.png" alt="University of Guelph Logo" class="image" />
+          <p class="job-date">
+            <span class="date-range">May. 2024 - Aug. 2024</span>
+            <span class="location">University of Guelph, Guelph, ON</span>
+          </p>
+          <p class="job-description">As part of the Undergraduate Student Research Award (USRA) program, I researched and worked on Question Answering frameworks, focusing on large language model evaluation, dataset generation, and multi-task learning (MTL) model development.</p>
+          <ul class="job-highlights">
+            <li>Trained and evaluated large language models to improve the generation of unanswerable questions.</li>
+            <li>Developed AI models using NLP libraries like NLTK and SpaCy.</li>
+            <li>Coauthored a research paper, "UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension," submitted to the SIGIR-AP 2024 conference.</li>
+          </ul>
+          <div class="pdf-preview">
+            <h4>Read my Research Paper:</h4>
+            <embed src="paper.pdf" type="application/pdf" width="100%" height="600px" />
+            <p><a href="paper.pdf" target="_blank">Download the full paper</a></p>
+          </div>
+        </div>
+        
+        <div class="experience-item">
+          <h3 class="job-title">AthenaGuard CTO and Cofounder</h3>
+          <img src="aguard.jpg" alt="AthenaGuard Logo" class="image" />
+          <p class="job-date">
+            <span class="date-range">Aug. 2024 - present</span>
+            <span class="location">AthenaGuard, Guelph, ON</span>
+          </p>
+          <p class="job-description">AthenaGuard is a startup focused on leveraging AI to detect suspicious content in communications such as emails, SMS, and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
+          <ul class="job-highlights">
+            <li>Developed AI-based classification models to detect suspicious information in text and embedded links.</li>
+            <li>Designed and implemented OAuth login for Flask web applications and integrated SMS detection with Flutter.</li>
+          </ul>
+        </div>
+      
+        <div class="experience-item">
+          <h3 class="job-title">Guelph AI Club, CSS Club, Robotics Team</h3>
+          <p class="job-date">
+            <span class="date-range">Sept. 2023 - present</span>
+            <span class="location">University of Guelph, Guelph, ON</span>
+          </p>
+          <p class="job-description">In my role as co-president and technical lead of the Guelph AI Club, I’ve organized AI workshops and led projects across various teams within the university, focusing on AI education, security, and robotics.</p>
+          <ul class="job-highlights">
+            <li>Organized Python workshops on AI libraries and led hands-on coding sessions for beginners.</li>
+            <li>Created an AI assistant inspired by Jarvis for Guelph Cyber Security Society, utilizing OpenAI API and SpeechRecognition.</li>
+            <li>Software team lead for the University of Guelph Robotics Team, integrating Docker for robotics simulations and image processing.</li>
+          </ul>
+        </div>
+      </section>
+      
+
+      <section id="competitions" class="experience-section">
+        <h2 class="section-title">Competitions and Events</h2>
+      
+        <div class="experience-item">
+          <h3 class="job-title">HackTheNorth, GDSC Guelph, GenesisAI Hackathons, DeltaHacks XI</h3>
+          <p class="job-date-location">
+            <span class="date-range">March 2024 - Jan. 2025</span> |
+            <span class="location">University of Waterloo, University of Guelph, University of Toronto, McMaster (Waterloo, Guelph, Toronto, Hamilton, ON)</span>
+          </p>
+          <ul class="job-highlights">
+              <li>
+                <strong>HackTheNorth, Canada's biggest hackathon:</strong> Used Dynamsoft, Groq, ExaAI, Flowbite frontend, and Flask bridging for a web app that scanned NDC medicine codes and answered general questions about medicines.
+                <a href="https://devpost.com/software/medisense-x3f5ul" target="_blank">Learn more</a>
+              </li>
+              <li>
+                <strong>GenesisAI Hackathon UofT, largest AI hackathon:</strong> Used PyTorch, Transformers, Django, and Javascript, HTML, CSS frontend to create a software assistant for the elderly and others suffering from loneliness.
+                <a href="https://devpost.com/software/s-a-m-67ho5f" target="_blank">Learn more</a>
+              </li>
+              </li>
+              <li>
+                <strong>GDSC Guelph Hackathon UofG:</strong> Used Tensorflow, JS, Gemini API for JS, and Flask to make a Chrome extension providing AI insights into LinkedIn pages, including sector prediction, conversation tips, and overall summaries.
+                <a href="https://devpost.com/software/justin" target="_blank">Learn more</a>
+              </li>
+              <li>
+                <strong>DeltaHacks XI McMaster:</strong>Constructed a software that scans garbage using Roboflow, YOLO, Streamlit and OpenCV, and gives the proper recycling category and reusability methods using OpenAI api, using a ReactJS frontend.
+                <a href="https://devpost.com/software/bin-there-ai" target="_blank">Learn more</a>
+              </li>
+            </ul>
+            <h4>Watch me!</h4>
+            <iframe 
+              src="https://www.youtube.com/embed/0-X8YIOtzBA" 
+              title="YouTube video player" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+        </div>
+      
+        <div class="experience-item">
+          <h3 class="job-title">Crack The Code, CyberSci Regionals</h3>
+          <p class="job-date-location">
+            <span class="date-range">Nov. 2024</span> |
+            <span class="location">Canada Cyber Foundry, Guelph & KPMG Office, Toronto, ON</span>
+          </p>
+          <ul class="job-highlights">
+            <li>
+              <strong>Crack The Code Ontario:</strong> Performed queries on Splunk using its search process language (SPL) to traverse logs and locate information about attacks and malicious code in version control systems like GitHub.
+            </li>
+            <li>
+              <strong>CyberSci Regionals:</strong> Using a Kali VM and OpenVPN, navigated localhost files, manipulated file types for proper upload, and used tools like Burp Suite and htop to locate malicious files and processes in an SSH server.
+            </li>
+          </ul>
+        </div>
+      </section>
+      
+      
+      
+  
+      <section id="projects"  class="experience-section">
+        <h2 class="section-title">Projects</h2><br><br>
+        <div class="experience-item">
+          <h3>GAN to Generate Soccer Jerseys</h3>
+          <p class="par">
+Developed a Generative Adversarial Network (GAN) to create soccer jersey designs. Constructed generator and discriminator networks with PyTorch, using a custom dataset obtained by web scraping images of soccer jerseys. Implemented key model layers including Conv2D, Conv2DTranspose, along with tanh and sigmoid activations.</p>
+          <a href="https://www.kaggle.com/code/julienserbanescu/pytorch-test" target="_blank">View Project</a>
+        </div><br>
+        <div class="experience-item">
+          <h3>Jarvis AI For the Toronto Tech Expo</h3>
+          <p class="par">Lead a team to create an AI assistant similar to Jarvis from Iron Man. Using technology such as a 3rd party openAI api to answer general questions. Implementation of SpeechRecognition libraries in Python(likely Google’s speech recognition library). Automation of processes such as application opening, online search. etc. Showcased and presented to the IBM Toronto Tech Expo (TTE)</p>
+          <a href="https://github.com/Julien-ser/Jarvis-ai-TTE" target="_blank">View Project</a>
+        </div><br><br>
+        <div class="experience-item">
+          <h3>Orange Juice Dispenser</h3>
+          <p class="par">Created a device that would activate a pump via the ESP8266, dispensing water into a glass with OJ powder, activating whenever orange was typed in. Selenium to communicate and interact with ESP8266 web server to send the command to activate the pump. Usage of a relay and motorized pump in my ESP8266 circuit, usage of C++ for programming the ESP webpage and pump activation.</p>
+          <a href="https://drive.google.com/file/d/1uF_2dDhc9ZC9fWEBjcScDP96S59U_V4C/view?usp=sharing" target="_blank">View Project</a>
+        </div>
+        <!-- Add more projects as needed -->
+      </section>
+  
+      <section id="contact">
+        <h2 class="section-title">Contact</h2>
+        <p class="par">If you'd like to get in touch with me, feel free to reach out through any of the following methods:</p>
+        <ul>
+          <li>Email: <a href="mailto:julien.serbanescu@gmail.com" target="_blank">julien.serbanescu@gmail.com</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank">LinkedIn Profile</a></li>
+          <li>GitHub: <a href="https://github.com/Julien-ser" target="_blank">GitHub Profile</a></li>
+        </ul>
+      </section>
+    </div>
+  </body>
+
+  </html>

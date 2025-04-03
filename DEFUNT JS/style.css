@@ -1,0 +1,552 @@
+/* Global Styles */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #121212;
+  color: #f1f1f1;
+  line-height: 1.6;
+  overflow: auto; /* Allow scrolling */
+  }
+
+  #galaxy-section {
+    position: relative;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  #three-canvas-container {
+    width: 100%;
+    height: 500px; /* Adjust the height as needed */
+    border: 2px solid #ccc; /* Add a border to create the bounding box */
+    border-radius: 10px; /* Optional: rounded corners for a smoother look */
+    margin: 20px 0; /* Adds space between sections */
+    background-color: #000; /* Optional: background color for the container */
+  }
+
+.image {
+  border-radius: 50%;
+  width: 150px; /* Fixed width */
+  height: 150px; /* Fixed height */
+  border: 3px solid #4fd1c5;
+  margin-top: 20px;
+}
+.image:hover {
+  transform: scale(1.05); /* Slightly scale up on hover */
+  transition: transform 0.3s ease;
+}
+.image-container {
+  display: flex;
+  justify-content: space-around; /* Evenly space images */
+  align-items: center; /* Vertically center images */
+  gap: 20px; /* Optional: adds space between images */
+  margin-top: 20px; /* Adds space above the image container */
+}
+
+
+header {
+  background-color: #1a1a1a;
+  padding: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* General Navigation Styles */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #222;
+  padding: 15px 0;
+  position: relative;
+}
+
+/* Desktop Menu */
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 30px;
+}
+
+.nav-links li a {
+  color: #f1f1f1;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 10px 0;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #4fd1c5;
+}
+
+/* Mobile Menu */
+.menu-icon {
+  display: none;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  left: 20px;
+  top: 15px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  nav {
+    justify-content: space-between;
+    padding: 15px;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #333;
+    text-align: center;
+  }
+
+  .nav-links li {
+    margin: 15px 0;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 10px;
+  }
+
+  /* Show menu when active */
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+
+/* Hero Section */
+#home {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #232526 0%, #5c5d5e 100%);
+  color: #e2e8f0;
+  border-radius: 20px;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #38b2ac; /* Soft Cyan Color */
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #49c0db 0%, #ff48d1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Experience Section */
+.experience-section {
+  background-color: #1e1e1e;
+  padding: 4rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #4fd1c5;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.experience-item {
+  background-color: #2d2d2d;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.job-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #e2e8f0;
+  margin-bottom: 0.8rem;
+}
+
+.job-date {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.date-range {
+  font-weight: bold;
+  color: #4fd1c5;
+}
+
+.location {
+  font-style: italic;
+  color: #b8c1c8;
+}
+
+.job-description {
+  font-size: 1.1rem;
+  color: #d1d1d1;
+  margin-bottom: 1.5rem;
+}
+
+.pdf-preview a {
+  color: #00bcd4; /* Update to a more visually appealing color */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.pdf-preview a:hover {
+  color: #4fd1c5; /* Slightly lighter color on hover */
+  text-decoration: underline;
+}
+
+.job-highlights {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.job-highlights li {
+  font-size: 1.1rem;
+  color: #b8c1c8;
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.job-highlights li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #4fd1c5;
+  font-size: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+/* Content Sections */
+.content {
+  padding: 40px 20px;
+}
+
+section {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+
+.project {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Contact Section */
+#contact ul {
+  list-style: none;
+  padding: 0;
+}
+
+#contact li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+#contact a {
+  color: #4fd1c5;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+#contact a:hover {
+  color: #2c7a7b;
+}
+
+/* Profile Image */
+.profile-image {
+  border-radius: 50%;
+  border: 3px solid #4fd1c5;
+  margin-top: 20px;
+}
+
+/* Animation Styles */
+.typer {
+  animation: fadeInSlideUp 1s ease-in-out, typeEffect 2s steps(40);
+  font-size: 1.5rem;
+  color: #38b2ac;
+  margin-bottom: 20px;
+  overflow: hidden; /* Ensures text is hidden during typing */
+  display: inline-block; /* Needed for typeEffect to work */
+  white-space: nowrap; /* Keeps the text in one line during typing */
+}
+
+/* Enhanced fade-in and slide-up animation */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Slide up from 20px */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes typeEffect {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.profile-image {
+  width: 150px;
+  height: auto;
+  opacity: 0; /* Start hidden */
+  animation: fadeInImage 1s ease-in-out 0.5s forwards; /* Fade in */
+}
+
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at original position */
+  }
+}
+
+
+/* General Styles for Links */
+a {
+  text-decoration: none; /* Remove default underline */
+  color: #4fd1c5; /* Set a nice blue color for the links */
+  font-weight: 500; /* Make the text a bit bolder */
+  transition: color 0.3s, transform 0.3s; /* Smooth transition on hover */
+}
+
+a:hover {
+  color: #2980b9; /* Darken the color on hover */
+  transform: scale(1.05); /* Slightly enlarge the link on hover */
+}
+
+a:focus {
+  outline: 2px solid #4fd1c5; /* Add a blue outline when the link is focused */
+}
+
+
+ul li a {
+  color: #4fd1c5; /* Link color */
+  font-weight: 500; /* Make the text slightly bolder */
+  text-decoration: none; /* Remove default underline */
+  transition: color 0.3s, transform 0.3s; /* Smooth transition on hover */
+  padding: 8px 15px; /* Add padding */
+}
+
+ul li a:hover {
+  color: #2980b9; /* Darker blue color on hover */
+  transform: scale(1.05); /* Slightly enlarge the link */
+  text-decoration: underline; /* Underline the text on hover */
+}
+
+ul li a:focus {
+  outline: 2px solid #4fd1c5; /* Add blue outline on focus */
+}
+
+/* Style links in a navigation menu */
+.navbar a {
+  color: #fff; /* Set text color for navbar links */
+  padding: 10px 15px;
+  font-size: 18px;
+}
+
+.navbar a:hover {
+  background-color: #2980b9; /* Darken background on hover */
+  color: #fff; /* Ensure text stays white */
+}
+
+/* Simple Header Underline Animation */
+header h1::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #4fd1c5;
+  transition: width 0.3s ease;
+  margin-top: 5px;
+}
+
+header h1:hover::after {
+  width: 100%;
+}
+
+/* Slow Fade-in for Sections */
+section {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: simpleFadeIn 0.8s ease-out forwards;
+}
+
+section:nth-child(odd) {
+  animation-delay: 0.3s;
+}
+
+section:nth-child(even) {
+  animation-delay: 0.5s;
+}
+
+@keyframes simpleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Shine Effect on Hover */
+a {
+  position: relative;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: #4fd1c5; /* Cool cyan underline */
+  border-radius: 2px; /* Rounded for smoother shape */
+  transition: all 0.5s ease-out;
+}
+
+a:hover::before {
+  width: 100%; /* Expand underline to full width */
+  left: 0;
+}
+
+/* Subtle Image Float Effect */
+img {
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: translateY(-5px);
+}
+
+/* Divider Animation */
+.experience-section::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #4fd1c5;
+  margin: 20px auto;
+  transition: width 0.5s ease;
+}
+
+.experience-section:hover::after {
+  width: 80%;
+}
+
+/* Footer Links Glow Effect */
+footer a {
+  position: relative;
+  color: #4fd1c5;
+  text-decoration: none;
+  transition: text-shadow 0.3s ease;
+}
+
+footer a:hover {
+  text-shadow: 0 0 5px #4fd1c5, 0 0 10px #4fd1c5;
+}
+
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Section Glow Outline */
+section {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  /*box-shadow: 0 0 20px rgba(79, 209, 197, 0.5);*/
+  border: 1px solid rgba(79, 209, 197, 0.3);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+section:hover {
+  box-shadow: 0 0 30px rgba(79, 209, 197, 0.8);
+  transform: translateY(-10px);
+}
