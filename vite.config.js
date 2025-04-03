@@ -11,6 +11,12 @@ export default defineConfig({
     outDir: 'dist',
     // Optional: If you want to manage index.html manually, you might need library mode
     // but for a simple app integration, letting Vite manage index.html is often easier.
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
   },
   server: {
      // Optional: Define port if needed, default is 5173
