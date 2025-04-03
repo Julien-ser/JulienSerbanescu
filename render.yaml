@@ -9,6 +9,8 @@ services:
         sync: false
       - key: DEEPKEY
         sync: false
+      - key: GUNICORN_CMD_ARGS
+        value: "--timeout 120"
     healthCheckPath: /api/query
     autoDeploy: true
     plan: starter
