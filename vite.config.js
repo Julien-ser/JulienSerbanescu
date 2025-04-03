@@ -24,8 +24,8 @@ export default defineConfig({
      // port: 3000,
      // Make sure CORS is handled by your backend or configure proxy if needed
   },
-  // Remove the base URL for local development
-  // base: '/JulienSerbanescu/',
+  // Set the base URL for GitHub Pages
+  base: '/JulienSerbanescu/',
   resolve: {
     alias: {
       '@': '/src'
