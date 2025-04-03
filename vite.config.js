@@ -14,7 +14,8 @@ export default defineConfig({
     assetsDir: 'assets',
     rollupOptions: {
       output: {
-        manualChunks: undefined
+        manualChunks: undefined,
+        assetFileNames: 'assets/[name].[ext]'
       }
     }
   },
@@ -24,4 +25,9 @@ export default defineConfig({
      // Make sure CORS is handled by your backend or configure proxy if needed
   },
   base: '/JulienSerbanescu/',
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
 });
