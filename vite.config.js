@@ -24,7 +24,8 @@ export default defineConfig({
      // port: 3000,
      // Make sure CORS is handled by your backend or configure proxy if needed
   },
-  base: '/JulienSerbanescu/',
+  // Remove the base URL for local development
+  // base: '/JulienSerbanescu/',
   resolve: {
     alias: {
       '@': '/src'
