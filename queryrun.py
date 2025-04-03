@@ -169,7 +169,7 @@ class FAISSQuerySystem:
 
             # 3. Reconstruct the list of documents in FAISS index order
             self.documents = []
-            num_vectors = self.index.ntotal
+            num_vectors = self.index.ntotal 
 
             # Verify consistency
             if num_vectors != len(index_to_docstore_id):
