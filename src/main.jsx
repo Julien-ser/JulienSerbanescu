@@ -19,11 +19,15 @@ import './react-styles.css'; // Example CSS import
 }(window.location))
 
 // Get the root element
-const rootElement = document.getElementById('react-root');
+const rootElement = document.getElementById('root');
 
-// Create the root and render the app
-ReactDOM.createRoot(rootElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+if (!rootElement) {
+  console.error('Root element not found! Make sure there is a div with id="root" in your index.html');
+} else {
+  // Create the root and render the app
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
