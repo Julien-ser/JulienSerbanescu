@@ -1,3 +1,179 @@
 Document 0:
 Source: https://julien-ser.github.io/JulienSerbanescu/
 Type: Unknown
+Content Preview: Julien Serbanescu
+
+
+
+
+Julien Serbanescu...
+--------------------------------------------------------------------------------
+Document 1:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: UnAnswGen: A Systematic Approach for Generating
+Unanswerable Questions in Machine Reading Comprehens...
+--------------------------------------------------------------------------------
+Document 2:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: Unlike existing datasets like SQuAD2.0, which do not account for
+the reasons behind question unanswe...
+--------------------------------------------------------------------------------
+Document 3:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: query reformulation. The resulting UnAnswGen dataset and asso-
+ciated software workflow are made pub...
+--------------------------------------------------------------------------------
+Document 4:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: on the first page. Copyrights for components of this work owned by others than the
+author(s) must be...
+--------------------------------------------------------------------------------
+Document 5:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: Development in Information Retrieval in the Asia Pacific Region (SIGIR-AP
+’24), December 9–12, 2024,...
+--------------------------------------------------------------------------------
+Document 6:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: should avoid responding rather than making uncertain guesses,
+demonstrating their language comprehen...
+--------------------------------------------------------------------------------
+Document 7:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: systems advance to meet the complexity of real-world information
+needs, there is an increasing deman...
+--------------------------------------------------------------------------------
+Document 8:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: SIGIR-AP ’24, December 9–12, 2024, Tokyo, Japan Hadiseh Moradisani, Fattane Zarrinkalam, Julien Serb...
+--------------------------------------------------------------------------------
+Document 9:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: SQuAD2-CR
+[17] Wikip
+edia Cr
+owdsourcing (86,821
+- 43,498) 6 [19] 2020
+Dur
+eader [11] Chinese
+search...
+--------------------------------------------------------------------------------
+Document 10:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: instance, it contains only 3,350 unanswerable questions labeled
+with No Information. Moreover, as th...
+--------------------------------------------------------------------------------
+Document 11:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: ing unanswerable questions and enables the exploration of various
+causes of unanswerability. The onl...
+--------------------------------------------------------------------------------
+Document 12:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: unanswerable questions into answerable ones.
+To develop a multi-label MRC dataset with unanswerable ...
+--------------------------------------------------------------------------------
+Document 13:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: mation for each input question. Second, the generated candidate
+unanswerable questions are evaluated...
+--------------------------------------------------------------------------------
+Document 14:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: The advantages of our work are twofold: (1) Our implementation
+of the proposed software workflow all...
+--------------------------------------------------------------------------------
+Document 15:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: of SQuAD2.0 that includes multi-labeled unanswerable questions.
+Figure 1 presents the overview of ou...
+--------------------------------------------------------------------------------
+Document 16:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehens...
+--------------------------------------------------------------------------------
+Document 17:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: linguistic dimensions such as entity swap, number swap, negation,
+antonym, mutual exclusion, and no ...
+--------------------------------------------------------------------------------
+Document 18:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: passage, and its candidate unanswerable questions. We have imple-
+mented and integrated a comprehens...
+--------------------------------------------------------------------------------
+Document 19:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: placement: For each entity in the input answerable question, we
+replace it with another entity of th...
+--------------------------------------------------------------------------------
+Document 20:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: corresponding context.
+Number Swap. Number Swap involves modifying a question to
+potentially render ...
+--------------------------------------------------------------------------------
+Document 21:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: Time magazine named her one of the most 100 influential people of the
+century? could be Time magazin...
+--------------------------------------------------------------------------------
+Document 22:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: (2) Replacement: Replace each identified word with its antonym,
+ensuring the modified question remai...
+--------------------------------------------------------------------------------
+Document 23:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: SIGIR-AP ’24, December 9–12, 2024, Tokyo, Japan Hadiseh Moradisani, Fattane Zarrinkalam, Julien Serb...
+--------------------------------------------------------------------------------
+Document 24:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: of her music?, utilizing the Detection and Removal approach might
+lead to a question such as Beyoncé...
+--------------------------------------------------------------------------------
+Document 25:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: formation available in the given context, the question becomes
+inherently unanswerable. For instance...
+--------------------------------------------------------------------------------
+Document 26:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: No Information. Similar to [33], to modify the original answer-
+able questions by considering this c...
+--------------------------------------------------------------------------------
+Document 27:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: California is also home to a large homegrown surf and skateboard cul-
+ture.... This method ensures t...
+--------------------------------------------------------------------------------
+Document 28:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
