@@ -4,6 +4,7 @@ cohere==4.48
 faiss-cpu==1.7.4
 numpy==1.26.4
 python-dotenv==1.0.1
-openai==1.2.3
+openai==1.1.1
+httpx==0.24.1
 langchain-community==0.0.27
 gunicorn==21.2.0 

@@ -15,13 +15,10 @@ load_dotenv()
 cohere_api_key = os.getenv("COHERE_API_KEY")
 api_key = os.getenv("DEEPKEY")
 
-# Initialize OpenAI client with custom configuration
+# Initialize OpenAI client with minimal configuration
 client = OpenAI(
     api_key=api_key,
-    base_url="https://api.deepseek.com/v1",
-    default_headers={
-        "Content-Type": "application/json"
-    }
+    base_url="https://api.deepseek.com/v1"
 )
 
 # Initialize Cohere client
