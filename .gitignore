@@ -43,5 +43,6 @@ yarn-error.log*
 *.swo
 
 # Project specific
-docs/faiss/*.faiss
-docs/faiss/*.pkl 
+# Removing FAISS ignore to include in deployment
+# docs/faiss/*.faiss
+# docs/faiss/*.pkl 
