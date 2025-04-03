@@ -36,7 +36,7 @@ Document 5:
 Source: docs/pdfs\paper.pdf
 Type: Unknown
 Content Preview: Development in Information Retrieval in the Asia Pacific Region (SIGIR-AP
-�24), December 9�12, 2024,...
+’24), December 9–12, 2024,...
 --------------------------------------------------------------------------------
 Document 6:
 Source: docs/pdfs\paper.pdf
@@ -53,7 +53,7 @@ needs, there is an increasing deman...
 Document 8:
 Source: docs/pdfs\paper.pdf
 Type: Unknown
-Content Preview: SIGIR-AP �24, December 9�12, 2024, Tokyo, Japan Hadiseh Moradisani, Fattane Zarrinkalam, Julien Serb...
+Content Preview: SIGIR-AP ’24, December 9–12, 2024, Tokyo, Japan Hadiseh Moradisani, Fattane Zarrinkalam, Julien Serb...
 --------------------------------------------------------------------------------
 Document 9:
 Source: docs/pdfs\paper.pdf
@@ -148,13 +148,13 @@ ensuring the modified question remai...
 Document 23:
 Source: docs/pdfs\paper.pdf
 Type: Unknown
-Content Preview: SIGIR-AP �24, December 9�12, 2024, Tokyo, Japan Hadiseh Moradisani, Fattane Zarrinkalam, Julien Serb...
+Content Preview: SIGIR-AP ’24, December 9–12, 2024, Tokyo, Japan Hadiseh Moradisani, Fattane Zarrinkalam, Julien Serb...
 --------------------------------------------------------------------------------
 Document 24:
 Source: docs/pdfs\paper.pdf
 Type: Unknown
 Content Preview: of her music?, utilizing the Detection and Removal approach might
-lead to a question such as Beyonc�...
+lead to a question such as Beyoncé...
 --------------------------------------------------------------------------------
 Document 25:
 Source: docs/pdfs\paper.pdf
@@ -177,3 +177,287 @@ ture.... This method ensures t...
 Document 28:
 Source: docs/pdfs\paper.pdf
 Type: Unknown
+Content Preview: 𝑎𝑖 , and for each candidate unanswerable question (𝑐𝑗,𝑙𝑗 ) ∈𝐶𝑞𝑖 , we
+conduct the following evaluatio...
+--------------------------------------------------------------------------------
+Document 29:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: 𝑞𝑖 , denoted as 𝑞′
+𝑖 , to 𝑈𝑞𝑖 , and attribute 𝑙𝑗 as the reason for the
+unanswerability of 𝑞′
+𝑖 .
+The...
+--------------------------------------------------------------------------------
+Document 30:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: are answerable. This dataset, developed through crowdsourcing,
+consists of a training set with 130,3...
+--------------------------------------------------------------------------------
+Document 31:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: swerable candidate questions from a single modification process.
+Consequently, from the 86,821 answe...
+--------------------------------------------------------------------------------
+Document 32:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehens...
+--------------------------------------------------------------------------------
+Document 33:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: ele
+ctra-base-squad2 74.8 84.7 84.7 67.9 87.8 93.5 72.2 81.6 89.9
+r
+oberta-large-squad 78.7 90 90 69...
+--------------------------------------------------------------------------------
+Document 34:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: questions by returning a null or empty string when no appropri-
+ate answer is found within the conte...
+--------------------------------------------------------------------------------
+Document 35:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: score indicating the model’s certainty in its provided answer. For
+unanswerable questions, these mod...
+--------------------------------------------------------------------------------
+Document 36:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: Table 4: Statistics on UnAnswGen dataset.
+Unansw
+erability Classes #
+of Questions Per
+centage A
+vera...
+--------------------------------------------------------------------------------
+Document 37:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: of the final unanswerable question set. Specifically, questions from
+the Negation category account f...
+--------------------------------------------------------------------------------
+Document 38:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: under the Negation label, 31.95 unanswerable questions under the
+Antonym label, and only 2.6 unanswe...
+--------------------------------------------------------------------------------
+Document 39:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: indicates that the question is completely unrelated to the context,
+whereas a score of 1 indicates s...
+--------------------------------------------------------------------------------
+Document 40:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: SIGIR-AP ’24, December 9–12, 2024, Tokyo, Japan Hadiseh Moradisani, Fattane Zarrinkalam, Julien Serb...
+--------------------------------------------------------------------------------
+Document 41:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: SQuAD2-CR+UnAnsw
+Gen 71.93 71.93 92.48 96.09 51.43 58.27 46.83 63.78 69.17 81.77 64.86 78.69 86.8 92...
+--------------------------------------------------------------------------------
+Document 42:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: to evaluate the UnAnswerGen dataset against these criteria. Table
+6 presents the results of Krippend...
+--------------------------------------------------------------------------------
+Document 43:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: CR, which already includes multi-class labeling of unanswerable
+questions, and (2) the SQuAD2-CR tra...
+--------------------------------------------------------------------------------
+Document 44:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: underwent training on both the enhanced SQuAD2.0+ UnAnswGen
+and the original SQuAD2-CR datasets, wit...
+--------------------------------------------------------------------------------
+Document 45:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: BERTa, and 1% for Electra were observed. The balanced dataset
+successfully mitigates issues related ...
+--------------------------------------------------------------------------------
+Document 46:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: hanced MRC datasets, with a focus on including multi-label unan-
+swerable questions. We have develop...
+--------------------------------------------------------------------------------
+Document 47:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: flow to enrich other datasets, such as HotPotQA [35] and Natural
+Questions [16], with multi-label un...
+--------------------------------------------------------------------------------
+Document 48:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehens...
+--------------------------------------------------------------------------------
+Document 49:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: 3115–3119.
+[4] Christopher Clark and Matt Gardner. 2017. Simple and effective multi-paragraph
+readin...
+--------------------------------------------------------------------------------
+Document 50:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: ciation for Computational Linguistics: EMNLP 2023. 7349–7360.
+[9] Kilem L Gwet. 2011. On the Krippen...
+--------------------------------------------------------------------------------
+Document 51:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: questions. In Proceedings of the AAAI Conference on Artificial Intelligence, Vol. 33.
+6529–6537.
+[13...
+--------------------------------------------------------------------------------
+Document 52:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: [16] Tom Kwiatkowski, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur
+Parikh, Chris Alb...
+--------------------------------------------------------------------------------
+Document 53:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: 2022. Ptau: Prompt tuning for attributing unanswerable questions. In Proceedings
+of the 45th Interna...
+--------------------------------------------------------------------------------
+Document 54:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: Answer Networks for Machine Reading Comprehension. In Proceedings of the
+56th Annual Meeting of the ...
+--------------------------------------------------------------------------------
+Document 55:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: Majumder, and Li Deng. 2016. Ms marco: A human-generated machine reading
+comprehension dataset. (201...
+--------------------------------------------------------------------------------
+Document 56:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: Unanswerable questions for SQuAD. arXiv preprint arXiv:1806.03822 (2018).
+[30] Pranav Rajpurkar, Jia...
+--------------------------------------------------------------------------------
+Document 57:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: 7th CCF International Conference, NLPCC 2018, Hohhot, China, August 26–30, 2018,
+Proceedings, Part I...
+--------------------------------------------------------------------------------
+Document 58:
+Source: docs/pdfs\paper.pdf
+Type: Unknown
+Content Preview: [36] Changchang Zeng, Shaobo Li, Qin Li, Jie Hu, and Jianjun Hu. 2020. A survey
+on machine reading c...
+--------------------------------------------------------------------------------
+Document 59:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: Julien Serbanescu
+437-260-3435 | serbanej@uoguelph.ca | linkedin.com/in/julien-serbanescu-6ba52a241 ...
+--------------------------------------------------------------------------------
+Document 60:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: Innovation/Creativity, Technical Communication, Mentoring
+Education
+Computer Engineering Co-op Major...
+--------------------------------------------------------------------------------
+Document 61:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: on publications. /external-link-altUtilized various NLP methods such as NLTK and SpaCy in Python to ...
+--------------------------------------------------------------------------------
+Document 62:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: application (Windows EXE) for cybersecurity threat detection and testing
+Organizations
+Guelph AI Clu...
+--------------------------------------------------------------------------------
+Document 63:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: • /external-link-altLed a team to develop an AI assistant inspired by Jarvis from Iron Man, ensuring...
+--------------------------------------------------------------------------------
+Document 64:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: • Developing robotics software using Docker and Linux, implementing Python-based control for Webots
+...
+--------------------------------------------------------------------------------
+Document 65:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: codes and provide medicine information, working on backend, delegating frontend and bridging
+• /exte...
+--------------------------------------------------------------------------------
+Document 66:
+Source: docs/pdfs\resume.pdf
+Type: Unknown
+Content Preview: with a ReactJS frontend dashboard for configuring and managing academic research projects
+GAN to Gen...
+--------------------------------------------------------------------------------
+Document 67:
+Source: BinThere.ai.m4a
+Type: audio_transcription
+Content Preview: All right, so today we're going to be quickly demoing binthere.ai.  Now, what this does, it will det...
+--------------------------------------------------------------------------------
+Document 68:
+Source: BinThere.ai.m4a
+Type: audio_transcription
+Content Preview: list it as biodegradable piece.  So if I lower it down just because it's getting the white backgroun...
+--------------------------------------------------------------------------------
+Document 69:
+Source: BinThere.ai.m4a
+Type: audio_transcription
+Content Preview: This is our new max score.  And then as I listed there, and then it says it typically goes in a comp...
+--------------------------------------------------------------------------------
+Document 70:
+Source: Synthia by Nuvela-AI.m4a
+Type: audio_transcription
+Content Preview: This is the user interface review of Cynthia,  which is a service that makes research papers smarter...
+--------------------------------------------------------------------------------
+Document 71:
+Source: Synthia by Nuvela-AI.m4a
+Type: audio_transcription
+Content Preview: load in certain fragments of other papers  that have relevant pieces of information  to what exactly...
+--------------------------------------------------------------------------------
+Document 72:
+Source: Synthia by Nuvela-AI.m4a
+Type: audio_transcription
+Content Preview: machinery reading comprehension  in order to find user sentiment.  Something like that.  And then we...
+--------------------------------------------------------------------------------
+Document 73:
+Source: Synthia by Nuvela-AI.m4a
+Type: audio_transcription
+Content Preview: be another tool  that the model context protocol system using  and topic would actually be able to e...
+--------------------------------------------------------------------------------
+Document 74:
+Source: Synthia by Nuvela-AI.m4a
+Type: audio_transcription
+Content Preview: to use.  And it helps just make research smarter, more efficient,  and better for users overall.  No...
+--------------------------------------------------------------------------------
+Document 75:
+Source: Synthia by Nuvela-AI.m4a
+Type: audio_transcription
+Content Preview: on our existing formatted proxy late-tech code.  So that's my overview for our Cynthia front-end  or...
+--------------------------------------------------------------------------------

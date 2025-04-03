@@ -44,8 +44,17 @@ class CohereEmbeddingsForQuery:
 
     def embed_query(self, text):
         try:
+            # Ensure text is properly encoded as a string
+            if not isinstance(text, str):
+                try:
+                    text = str(text)
+                except UnicodeEncodeError:
+                    # If there's an encoding error, try to normalize the text
+                    import unicodedata
+                    text = unicodedata.normalize('NFKD', str(text))
+            
             response = self.client.embed(
-                texts=[str(text)],
+                texts=[text],
                 model="embed-english-v3.0",
                 input_type="search_query"
             )
@@ -69,6 +78,15 @@ class FAISSQuerySystem:
         self.load_index()
 
     def stream_chat_completions(self, input_text):
+        # Ensure input_text is properly encoded as a string
+        if not isinstance(input_text, str):
+            try:
+                input_text = str(input_text)
+            except UnicodeEncodeError:
+                # If there's an encoding error, try to normalize the text
+                import unicodedata
+                input_text = unicodedata.normalize('NFKD', str(input_text))
+                
         response = client.chat.completions.create(
             model="deepseek-chat",
             messages=[
@@ -107,9 +125,20 @@ class FAISSQuerySystem:
 
             # 2. Load LangChain docstore pickle file
             with open(pkl_path, 'rb') as f:
-                # *** CORRECTED: Swap variable names based on the error log ***
-                # The error indicated the first item was the Docstore, second was the dict
-                docstore, index_to_docstore_id = pickle.load(f)
+                try:
+                    docstore, index_to_docstore_id = pickle.load(f)
+                except (KeyError, AttributeError) as e:
+                    print(f"Error loading pickle file: {str(e)}")
+                    print("This might be due to a Pydantic version mismatch.")
+                    print("Attempting to recreate the index...")
+                    # You might want to add logic here to recreate the index
+                    raise Exception("Pickle file is incompatible with current Pydantic version. Please recreate the index.")
+                except UnicodeDecodeError:
+                    print("Unicode decode error when loading pickle file. Attempting to handle special characters...")
+                    # Try to handle the Unicode decode error
+                    import codecs
+                    with codecs.open(pkl_path, 'rb', encoding='utf-8', errors='replace') as f:
+                        docstore, index_to_docstore_id = pickle.load(f)
 
             # Verify the types after loading
             print(f"Docstore object loaded. Type: {type(docstore)}")
@@ -206,6 +235,15 @@ class FAISSQuerySystem:
         if actual_k == 0:
              return []
 
+        # Ensure query is properly encoded as a string
+        if not isinstance(query, str):
+            try:
+                query = str(query)
+            except UnicodeEncodeError:
+                # If there's an encoding error, try to normalize the text
+                import unicodedata
+                query = unicodedata.normalize('NFKD', str(query))
+
         query_embedding = self.embedding_function.embed_query(query)
         if np.all(query_embedding == 0):
              print("Warning: Query embedding failed, search may be ineffective.")
@@ -225,8 +263,18 @@ class FAISSQuerySystem:
                 distance = distances[0][i]
                 similarity_score = 1.0 / (1.0 + distance) # Basic L2 -> Similarity
 
+                # Ensure content is properly encoded as a string
+                content = getattr(doc, 'page_content', str(doc))
+                if not isinstance(content, str):
+                    try:
+                        content = str(content)
+                    except UnicodeEncodeError:
+                        # If there's an encoding error, try to normalize the text
+                        import unicodedata
+                        content = unicodedata.normalize('NFKD', str(content))
+
                 results.append({
-                    "content": getattr(doc, 'page_content', str(doc)),
+                    "content": content,
                     "metadata": metadata,
                     "score": float(similarity_score)
                 })
@@ -254,7 +302,17 @@ class FAISSQuerySystem:
 
         formatted_docs = []
         for i, doc in enumerate(context_docs):
-            content_preview = doc['content'][:3000]
+            # Ensure content is properly encoded as a string
+            content = doc['content']
+            if not isinstance(content, str):
+                try:
+                    content = str(content)
+                except UnicodeEncodeError:
+                    # If there's an encoding error, try to normalize the text
+                    import unicodedata
+                    content = unicodedata.normalize('NFKD', str(content))
+            
+            content_preview = content[:3000]
             doc_info = f"Source: {doc['metadata'].get('source', 'Unknown')}\n"
             doc_info += f"Type: {doc['metadata'].get('type', 'Unknown')}\n"
             doc_info += f"Content Snippet: {content_preview}"

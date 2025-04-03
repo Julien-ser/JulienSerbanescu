@@ -29,23 +29,27 @@ except Exception as e:
 def handle_query():
     # Check if the RAG system was successfully initialized
     if query_system is None:
-        print("Error: Query received but RAG system is not initialized.")
-        return jsonify({"error": "The backend RAG system failed to start. Please check server logs."}), 500
-
-    # Check if request is JSON
-    if not request.is_json:
-        return jsonify({"error": "Request must be JSON"}), 400
-
-    # Get query from request body
-    data = request.get_json()
-    query = data.get('query')
-
-    if not query:
-        return jsonify({"error": "Missing 'query' field in request body"}), 400
-
-    print(f"\nReceived query via API: {query}")
-
+        return jsonify({"error": "RAG system is not initialized. Please check server logs."}), 500
+    
     try:
+        # Get the query from the request
+        data = request.get_json()
+        if not data or 'query' not in data:
+            return jsonify({"error": "No query provided"}), 400
+        
+        query = data['query']
+        
+        # Ensure query is properly encoded as a string
+        if not isinstance(query, str):
+            try:
+                query = str(query)
+            except UnicodeEncodeError:
+                # If there's an encoding error, try to normalize the text
+                import unicodedata
+                query = unicodedata.normalize('NFKD', str(query))
+        
+        print(f"Received query: {query}")
+
         # 1. Search for relevant documents using the initialized system
         print("Searching documents...")
         # Using k=5 to provide more context to the LLM

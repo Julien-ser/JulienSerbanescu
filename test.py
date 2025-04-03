@@ -46,8 +46,23 @@ class CohereEmbeddings:
         for i in range(0, len(texts), batch_size):
             batch = texts[i:i+batch_size]
             try:
+                # Ensure all texts are properly encoded as strings
+                processed_texts = []
+                for text in batch:
+                    if isinstance(text, str):
+                        processed_texts.append(text)
+                    else:
+                        # Try to convert to string, handling potential encoding issues
+                        try:
+                            processed_texts.append(str(text))
+                        except UnicodeEncodeError:
+                            # If there's an encoding error, try to normalize the text
+                            import unicodedata
+                            normalized = unicodedata.normalize('NFKD', str(text))
+                            processed_texts.append(normalized)
+                
                 response = self.client.embed(
-                    texts=[str(text) for text in batch],
+                    texts=processed_texts,
                     model="embed-english-v3.0",
                     input_type="search_document"
                 )
@@ -219,7 +234,7 @@ if all_documents:
         
         # Let's also save a simple text lookup for reference
         lookup_path = os.path.join(persist_directory, "document_lookup.txt")
-        with open(lookup_path, 'w') as f:
+        with open(lookup_path, 'w', encoding='utf-8') as f:
             for i, doc in enumerate(all_documents):
                 f.write(f"Document {i}:\n")
                 f.write(f"Source: {doc.metadata.get('source', 'Unknown')}\n")
