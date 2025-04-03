@@ -8,6 +8,14 @@ from langchain_community.vectorstores import FAISS
 from langchain_community.docstore.document import Document
 import glob
 import pickle
+import pydantic
+
+# Ensure we're using Pydantic v2
+if pydantic.__version__.startswith('1.'):
+    print("Warning: Using Pydantic v1, upgrading to v2...")
+    import subprocess
+    subprocess.check_call(['pip', 'install', '--upgrade', 'pydantic>=2.0.0'])
+    import pydantic  # Reload after upgrade
 
 # Load environment variables
 load_dotenv()

@@ -131,8 +131,19 @@ class FAISSQuerySystem:
                     print(f"Error loading pickle file: {str(e)}")
                     print("This might be due to a Pydantic version mismatch.")
                     print("Attempting to recreate the index...")
-                    # You might want to add logic here to recreate the index
-                    raise Exception("Pickle file is incompatible with current Pydantic version. Please recreate the index.")
+                    # Delete the incompatible files
+                    if os.path.exists(faiss_index_path):
+                        os.remove(faiss_index_path)
+                    if os.path.exists(pkl_path):
+                        os.remove(pkl_path)
+                    if os.path.exists(metadata_path):
+                        os.remove(metadata_path)
+                    # Recreate the index
+                    from test import main as recreate_index
+                    recreate_index()
+                    # Try loading again
+                    with open(pkl_path, 'rb') as f:
+                        docstore, index_to_docstore_id = pickle.load(f)
                 except UnicodeDecodeError:
                     print("Unicode decode error when loading pickle file. Attempting to handle special characters...")
                     # Try to handle the Unicode decode error
