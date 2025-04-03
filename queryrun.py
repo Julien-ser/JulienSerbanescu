@@ -166,6 +166,7 @@ class FAISSQuerySystem:
                  # Add a check for the docstore type too
                  print(f"Warning: Expected docstore to be InMemoryDocstore, but got {type(docstore)}")
 
+
             # 3. Reconstruct the list of documents in FAISS index order
             self.documents = []
             num_vectors = self.index.ntotal
@@ -182,32 +183,25 @@ class FAISSQuerySystem:
             if not hasattr(docstore, 'search'):
                 raise AttributeError(f"Loaded docstore object (type: {type(docstore)}) does not have a 'search' method.")
 
-            # Process documents in batches to reduce memory usage
-            batch_size = 10
-            for i in range(0, num_vectors, batch_size):
-                batch_end = min(i + batch_size, num_vectors)
-                for j in range(i, batch_end):
-                    docstore_id = index_to_docstore_id.get(j)
-                    if docstore_id:
-                        # Use the correct method for InMemoryDocstore to retrieve by ID
-                        doc = docstore.search(docstore_id)
-                        if doc:
-                            self.documents.append(doc)
-                            reconstructed_count += 1
-                        else:
-                            print(f"Warning: Document with ID '{docstore_id}' (for FAISS index {j}) not found in the loaded docstore.")
-                            missing_in_docstore += 1
+            for i in range(num_vectors):
+                docstore_id = index_to_docstore_id.get(i)
+                if docstore_id:
+                    # Use the correct method for InMemoryDocstore to retrieve by ID
+                    doc = docstore.search(docstore_id)
+                    if doc:
+                        self.documents.append(doc)
+                        reconstructed_count += 1
                     else:
-                        print(f"Warning: No docstore ID found in mapping for FAISS index {j}.")
-                        missing_in_mapping += 1
-                
-                # Force garbage collection after each batch
-                import gc
-                gc.collect()
+                        print(f"Warning: Document with ID '{docstore_id}' (for FAISS index {i}) not found in the loaded docstore.")
+                        missing_in_docstore += 1
+                else:
+                    print(f"Warning: No docstore ID found in mapping for FAISS index {i}.")
+                    missing_in_mapping += 1
 
             print(f"Successfully reconstructed {reconstructed_count} documents.")
             if missing_in_mapping > 0: print(f"Could not find mapping for {missing_in_mapping} indices.")
             if missing_in_docstore > 0: print(f"Could not find {missing_in_docstore} documents in docstore despite having mapping.")
+
 
             # 4. Load the separate metadata list
             if os.path.exists(metadata_path):
@@ -270,42 +264,33 @@ class FAISSQuerySystem:
         results = []
         retrieved_indices = indices[0]
 
-        # Process results in batches to reduce memory usage
-        batch_size = 5
-        for i in range(0, len(retrieved_indices), batch_size):
-            batch_end = min(i + batch_size, len(retrieved_indices))
-            for j in range(i, batch_end):
-                idx = retrieved_indices[j]
-                if idx == -1:
-                    continue
+        for i, idx in enumerate(retrieved_indices):
+            if idx == -1:
+                continue
 
-                if idx < len(self.documents):
-                    doc = self.documents[idx]
-                    metadata = self.metadata_list[idx] if idx < len(self.metadata_list) else getattr(doc, 'metadata', {})
-                    distance = distances[0][j]
-                    similarity_score = 1.0 / (1.0 + distance) # Basic L2 -> Similarity
+            if idx < len(self.documents):
+                doc = self.documents[idx]
+                metadata = self.metadata_list[idx] if idx < len(self.metadata_list) else getattr(doc, 'metadata', {})
+                distance = distances[0][i]
+                similarity_score = 1.0 / (1.0 + distance) # Basic L2 -> Similarity
 
-                    # Ensure content is properly encoded as a string
-                    content = getattr(doc, 'page_content', str(doc))
-                    if not isinstance(content, str):
-                        try:
-                            content = str(content)
-                        except UnicodeEncodeError:
-                            # If there's an encoding error, try to normalize the text
-                            import unicodedata
-                            content = unicodedata.normalize('NFKD', str(content))
+                # Ensure content is properly encoded as a string
+                content = getattr(doc, 'page_content', str(doc))
+                if not isinstance(content, str):
+                    try:
+                        content = str(content)
+                    except UnicodeEncodeError:
+                        # If there's an encoding error, try to normalize the text
+                        import unicodedata
+                        content = unicodedata.normalize('NFKD', str(content))
 
-                    results.append({
-                        "content": content,
-                        "metadata": metadata,
-                        "score": float(similarity_score)
-                    })
-                else:
-                    print(f"Warning: Search returned index {idx} which is out of bounds for loaded documents ({len(self.documents)}).")
-            
-            # Force garbage collection after each batch
-            import gc
-            gc.collect()
+                results.append({
+                    "content": content,
+                    "metadata": metadata,
+                    "score": float(similarity_score)
+                })
+            else:
+                print(f"Warning: Search returned index {idx} which is out of bounds for loaded documents ({len(self.documents)}).")
 
         results.sort(key=lambda x: x['score'], reverse=True)
         return results
