@@ -14,7 +14,10 @@ from openai import OpenAI
 load_dotenv()
 cohere_api_key = os.getenv("COHERE_API_KEY")
 api_key = os.getenv("DEEPKEY")
-client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+client = OpenAI(
+    api_key=api_key,
+    base_url="https://api.deepseek.com/v1"
+)
 
 # Initialize Cohere client
 if not cohere_api_key:
