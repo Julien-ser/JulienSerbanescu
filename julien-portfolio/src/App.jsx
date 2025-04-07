@@ -178,7 +178,7 @@ function App() {
                 <p>Choose an option below:</p>
                 <div className="pdf-options">
                   <a 
-                    href="/src/assets/paper.pdf" 
+                    href="/JulienSerbanescu/paper.pdf" 
                     target="_blank" 
                     rel="noreferrer" 
                     className="pdf-link preview-link"
@@ -186,7 +186,7 @@ function App() {
                     <span className="pdf-icon">👁️</span> Preview Paper
                   </a>
                   <a 
-                    href="/src/assets/paper.pdf" 
+                    href="/JulienSerbanescu/paper.pdf" 
                     className="pdf-link download-link"
                     download="Julien_Serbanescu_Research_Paper.pdf"
                   >
