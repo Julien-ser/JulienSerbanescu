@@ -423,7 +423,7 @@ section:hover {
 }
 
 .job-highlights {
-  list-style: none;
+  list-style-type: none;
   padding-left: 0;
   margin: 15px 0;
 }
@@ -433,6 +433,7 @@ section:hover {
   padding-left: 25px;
   margin-bottom: 10px;
   line-height: 1.6;
+  list-style-type: none;  /* Explicitly remove bullets at the li level too */
 }
 
 .job-highlights li::before {

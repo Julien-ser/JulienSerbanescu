@@ -310,10 +310,10 @@ function App() {
           <h2 className="section-title">Contact</h2>
           <p className="par">If you'd like to get in touch with me, feel free to reach out through any of the following methods:</p>
           <ul>
-            <li>Email: <a href="mailto:julien.serbanescu@gmail.com" target="_blank" rel="noreferrer">julien.serbanescu@gmail.com</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noreferrer">LinkedIn Profile</a></li>
-            <li>GitHub: <a href="https://github.com/Julien-ser" target="_blank" rel="noreferrer">GitHub Profile</a></li>
-            <li>Twitter: <a href="https://x.com/Da_Julster" target="_blank" rel="noreferrer">Twitter Profile</a></li>
+            <li>  <a href="mailto:julien.serbanescu@gmail.com" target="_blank" rel="noreferrer">julien.serbanescu@gmail.com</a></li>
+            <li> <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noreferrer">LinkedIn Profile</a></li>
+            <li> <a href="https://github.com/Julien-ser" target="_blank" rel="noreferrer">GitHub Profile</a></li>
+            <li> <a href="https://x.com/Da_Julster" target="_blank" rel="noreferrer">Twitter Profile</a></li>
           </ul>
         </section>
 
