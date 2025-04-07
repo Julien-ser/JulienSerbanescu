@@ -18,7 +18,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [menuActive, setMenuActive] = useState(false);
 
-  const apiUrl = 'https://julienserbanescu.onrender.com/api/query';
+  const apiUrl = 'https://dajulster-julienserbanescu-rag.hf.space/api/query';
   const galaxyRef = useRef(null);
 
   // Determine which avatar image to display based on loading state
