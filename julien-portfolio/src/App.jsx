@@ -314,6 +314,7 @@ function App() {
             <li>Email: <a href="mailto:julien.serbanescu@gmail.com" target="_blank" rel="noreferrer">julien.serbanescu@gmail.com</a></li>
             <li>LinkedIn: <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noreferrer">LinkedIn Profile</a></li>
             <li>GitHub: <a href="https://github.com/Julien-ser" target="_blank" rel="noreferrer">GitHub Profile</a></li>
+            <li>Twitter: <a href="https://x.com/Da_Julster" target="_blank" rel="noreferrer">Twitter Profile</a></li>
           </ul>
         </section>
 
