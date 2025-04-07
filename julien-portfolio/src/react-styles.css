@@ -423,21 +423,30 @@ section:hover {
 }
 
 .job-highlights {
-  padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
 }
 
 .job-highlights li {
-  margin-bottom: 0.8rem;
   position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  line-height: 1.6;
 }
 
 .job-highlights li::before {
-  content: '•';
-  color: #00c6ff;
-  font-weight: bold;
+  content: "•";
   position: absolute;
-  left: -1.5rem;
+  left: 8px;
+  color: #00c6ff;
+  font-size: 1.2em;
+}
+
+.job-highlights li strong {
+  color: #00c6ff;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .image {
