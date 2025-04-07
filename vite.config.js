@@ -1,6 +1,7 @@
 // vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
@@ -13,9 +14,13 @@ export default defineConfig({
     // but for a simple app integration, letting Vite manage index.html is often easier.
     assetsDir: 'assets',
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+      },
       output: {
         manualChunks: undefined,
-        assetFileNames: 'assets/[name].[ext]'
+        assetFileNames: 'assets/[name].[ext]',
+        entryFileNames: 'assets/[name].[hash].js',
       }
     }
   },
@@ -28,7 +33,8 @@ export default defineConfig({
   base: '/JulienSerbanescu/',
   resolve: {
     alias: {
-      '@': '/src'
+      '@': resolve(__dirname, 'src'),
+      'assets': resolve(__dirname, 'assets')
     }
   }
 });

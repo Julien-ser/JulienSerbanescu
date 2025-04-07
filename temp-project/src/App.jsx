@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import './react-styles.css';
 
 // Import the avatar images from the assets folder
-import avatarIdle from '/assets/avatar1.png';
-import avatarLoading from '/assets/avatar2.jpeg';
+import avatarIdle from './assets/avatar1.png';
+import avatarLoading from './assets/avatar2.jpeg';
 // Add profile image import
-import profileImage from '/assets/avatar1.png';
-import guelphLogo from '/assets/guelp.png';
-import athenaGuardLogo from '/assets/aguard.jpg';
+import profileImage from './assets/avatar1.png';
+import guelphLogo from './assets/guelp.png';
+import athenaGuardLogo from './assets/aguard.jpg';
 
 function App() {
   const [query, setQuery] = useState('');
