@@ -422,9 +422,19 @@ section:hover {
   margin-bottom: 1rem;
 }
 
+/* Reset all list styles */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+/* Specific styles for job highlights */
 .job-highlights {
-  list-style-type: none;
-  padding-left: 0;
   margin: 15px 0;
 }
 
@@ -433,21 +443,15 @@ section:hover {
   padding-left: 25px;
   margin-bottom: 10px;
   line-height: 1.6;
-  list-style-type: none;  /* Explicitly remove bullets at the li level too */
 }
 
 .job-highlights li::before {
   content: "•";
   position: absolute;
   left: 8px;
+  top: 0;
   color: #00c6ff;
   font-size: 1.2em;
-}
-
-.job-highlights li strong {
-  color: #00c6ff;
-  display: block;
-  margin-bottom: 5px;
 }
 
 .image {
