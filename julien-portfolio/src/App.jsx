@@ -151,7 +151,7 @@ function App() {
             As a two-time NSERC USRA recipient, I’ve conducted research on robust multi-hop question answering with retrieval-augmented LLMs and adversarial robustness in LLMs and CNNs. I co-developed Latent Twin Retrieval (LTR) for evaluating misinformation resilience in QA systems, and built RL-based defenses for LLM jailbreak detection and mitigation.
           </p>
           <p className="par">
-            Outside academia, I co-founded <b>AthenaGuard</b>, a cybersecurity startup where I led development of phishing detection systems using GradientBoost models and built full-stack mobile and web applications. I also lead the Guelph AI Club and the software subteam of the university's Robotics team.
+            Outside academia, I co-founded AthenaGuard, a cybersecurity startup where I led development of phishing detection systems using GradientBoost models and built full-stack mobile and web applications. I also lead the Guelph AI Club and the software subteam of the university's Robotics team.
           </p>
         </div>
         </section>
