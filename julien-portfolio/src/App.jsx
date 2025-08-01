@@ -188,7 +188,7 @@ function App() {
         </div>
           
           <div className="experience-item">
-            <h3 className="job-title">USRA Research Work Term</h3>
+            <h3 className="job-title">USRA Research Work Term – Question Unanswerability</h3>
             <img src={guelphLogo} alt="University of Guelph Logo" className="image" />
             <p className="job-date">
               <span className="date-range">May. 2024 - Aug. 2024</span>
@@ -197,7 +197,7 @@ function App() {
             <p className="job-description">As part of the Undergraduate Student Research Award (USRA) program, I researched and worked on Question Answering frameworks, focusing on large language model evaluation, dataset generation, and multi-task learning (MTL) model development.</p>
             <ul className="job-highlights">
               <li>Trained and evaluated large language models to improve the generation of unanswerable questions.</li>
-              <li>Developed AI models using NLP libraries like NLTK and SpaCy.</li>
+              <li>Developed datasets for MRC (machine reading comprehension) tasks using NLP libraries like NLTK and SpaCy.</li>
               <li>Coauthored a research paper, "UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension," submitted to the SIGIR-AP 2024 conference.</li>
             </ul>
           </div>
@@ -238,14 +238,14 @@ function App() {
                 rel="noreferrer" 
                 className="pdf-link preview-link"
               >
-                <span className="pdf-icon">👁️</span> Preview Paper
+                <span className="pdf-icon"></span> Preview Paper
               </a>
               <a 
                 href="/JulienSerbanescu/paper.pdf" 
                 className="pdf-link download-link"
                 download="Julien_Serbanescu_Research_Paper.pdf"
               >
-                <span className="pdf-icon">📥</span> Download Paper
+                <span className="pdf-icon"></span> Download Paper
               </a>
             </div>
           </div>
