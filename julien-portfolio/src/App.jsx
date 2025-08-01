@@ -6,6 +6,7 @@ import avatarIdle from './assets/avatar1.png';
 import avatarLoading from './assets/avatar2.jpeg';
 import profileImage from './assets/avatar1.png';
 import guelphLogo from './assets/guelp.png';
+import cySciLogo from './assets/cybersci.png';
 import athenaGuardLogo from './assets/aguard.jpg';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   const [error, setError] = useState('');
   const [activeSection, setActiveSection] = useState('home');
   const [menuActive, setMenuActive] = useState(false);
-
+  const googleScholarUrl = 'https://scholar.google.ca/citations?hl=en&user=mnpXcUwAAAAJ';
   const apiUrl = 'https://dajulster-julienserbanescu-rag.hf.space/api/query';
   const galaxyRef = useRef(null);
 
@@ -141,22 +142,50 @@ function App() {
         </section>
 
         <section id="about">
-          <h2 className="section-title">About Me</h2>
-          <div className="about-text">
-            <p className="par">
-              I'm a University of Guelph student, majoring in Computer Engineering with a minor in Entrepreneurship. I have a strong passion for technology and innovation, particularly in the field of Artificial Intelligence.
-            </p>
-            <p className="par">
-              I am deeply involved in AI research, eager to explore new ideas and apply my knowledge to real-world challenges. As the current CTO and a CoFounder for AthenaGuard Inc, I've applied my knowledge in machine learning and AI into phishing email and SMS detection. Through my research position, I've developed strong skills in software development, machine learning, and problem-solving, and I'm committed to expanding my expertise further.
-            </p>
-            <p className="par">
-              I am enthusiastic about leveraging my technical expertise and entrepreneurial mindset to contribute to impactful projects and make meaningful advancements in the tech industry.
-            </p>
-          </div>
+        <h2 className="section-title">About Me</h2>
+        <div className="about-text">
+          <p className="par">
+            I'm Julien Serbanescu, a Computer Engineering Co-op student at the University of Guelph, minoring in Entrepreneurship. My interests lie at the intersection of artificial intelligence, cybersecurity, and innovative problem-solving. I enjoy building systems that blend deep technical research with real-world impact.
+          </p>
+          <p className="par">
+            As a two-time NSERC USRA recipient, I’ve conducted research on robust multi-hop question answering with retrieval-augmented LLMs and adversarial robustness in LLMs and CNNs. I co-developed Latent Twin Retrieval (LTR) for evaluating misinformation resilience in QA systems, and built RL-based defenses for LLM jailbreak detection and mitigation.
+          </p>
+          <p className="par">
+            Outside academia, I co-founded <b>AthenaGuard</b>, a cybersecurity startup where I led development of phishing detection systems using GradientBoost models and built full-stack mobile and web applications. I also lead the Guelph AI Club and the software subteam of the university's Robotics team.
+          </p>
+        </div>
         </section>
-
         <section id="experience" className="experience-section">
           <h2 className="section-title">Experience</h2>
+        <div className="experience-item">
+          <h3 className="job-title">USRA Research Work Term – Multi-hop QA Robustness</h3>
+          <img src={guelphLogo} alt="University of Guelph Logo" className="image" />
+          <p className="job-date">
+            <span className="date-range">May. 2025 - Aug. 2025</span>
+            <span className="location">University of Guelph, Guelph, ON</span>
+          </p>
+          <p className="job-description">As a returning NSERC USRA recipient, I focused on enhancing robustness in multi-hop question answering systems using retrieval-augmented language models (RALMs).</p>
+          <ul className="job-highlights">
+            <li>Designed the Latent Twin Retrieval (LTR) method for simulating misinformation via adversarial entity substitution based on DBpedia embeddings.</li>
+            <li>Generated a benchmark to test RALM resilience by injecting factually coherent fabrications that reduced model accuracy by up to 30%.</li>
+            <li>Evaluated QA systems including GPT-3.5 Turbo, Mixtral-8x7B, and LLaMA 2 under fabricated multi-hop reasoning scenarios.</li>
+          </ul>
+        </div>
+
+        <div className="experience-item">
+          <h3 className="job-title">Cyber Science Lab Research Assistant</h3>
+          <img src={cySciLogo} alt="University of Guelph Logo" className="image" />
+          <p className="job-date">
+            <span className="date-range">May. 2025 - Aug. 2025</span>
+            <span className="location">University of Guelph, Guelph, ON</span>
+          </p>
+          <p className="job-description">At the Cyber Science Lab, I developed adversarial robustness strategies for language and vision models, and explored reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
+          <ul className="job-highlights">
+            <li>Implemented psychologically inspired LLM jailbreak methods, achieving 97% attack success rates across diverse model APIs.</li>
+            <li>Trained RL agents to rewire computational graphs in backdoored CNNs and image-language models.</li>
+            <li>Developed an RL-based defense system with a 90% detection rate for jailbreak prompts; deployed via ONNX for real-time performance in production environments.</li>
+          </ul>
+        </div>
           
           <div className="experience-item">
             <h3 className="job-title">USRA Research Work Term</h3>
@@ -171,36 +200,13 @@ function App() {
               <li>Developed AI models using NLP libraries like NLTK and SpaCy.</li>
               <li>Coauthored a research paper, "UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension," submitted to the SIGIR-AP 2024 conference.</li>
             </ul>
-            <div className="pdf-preview">
-              <h4>Read my Research Paper:</h4>
-              <div className="pdf-placeholder">
-                <p>Choose an option below:</p>
-                <div className="pdf-options">
-                  <a 
-                    href="/JulienSerbanescu/paper.pdf" 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="pdf-link preview-link"
-                  >
-                    <span className="pdf-icon">👁️</span> Preview Paper
-                  </a>
-                  <a 
-                    href="/JulienSerbanescu/paper.pdf" 
-                    className="pdf-link download-link"
-                    download="Julien_Serbanescu_Research_Paper.pdf"
-                  >
-                    <span className="pdf-icon">📥</span> Download Paper
-                  </a>
-                </div>
-              </div>
-            </div>
           </div>
           
           <div className="experience-item">
             <h3 className="job-title">AthenaGuard CTO and Cofounder</h3>
             <img src={athenaGuardLogo} alt="AthenaGuard Logo" className="image" />
             <p className="job-date">
-              <span className="date-range">Aug. 2024 - present</span>
+              <span className="date-range">Aug. 2024 - Mar. 2025</span>
               <span className="location">AthenaGuard, Guelph, ON</span>
             </p>
             <p className="job-description">AthenaGuard is a startup focused on leveraging AI to detect suspicious content in communications such as emails, SMS, and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
@@ -209,21 +215,49 @@ function App() {
               <li>Designed and implemented OAuth login for Flask web applications and integrated SMS detection with Flutter.</li>
             </ul>
           </div>
-        
-          <div className="experience-item">
-            <h3 className="job-title">Guelph AI Club, CSS Club, Robotics Team</h3>
-            <p className="job-date">
-              <span className="date-range">Sept. 2023 - present</span>
-              <span className="location">University of Guelph, Guelph, ON</span>
-            </p>
-            <p className="job-description">In my role as co-president and technical lead of the Guelph AI Club, I've organized AI workshops and led projects across various teams within the university, focusing on AI education, security, and robotics.</p>
-            <ul className="job-highlights">
-              <li>Organized Python workshops on AI libraries and led hands-on coding sessions for beginners.</li>
-              <li>Created an AI assistant inspired by Jarvis for Guelph Cyber Security Society, utilizing OpenAI API and SpeechRecognition.</li>
-              <li>Software team lead for the University of Guelph Robotics Team, integrating Docker for robotics simulations and image processing.</li>
-            </ul>
-          </div>
         </section>
+
+        <section id="research" className="experience-section">
+        <h2 className="section-title">Research History</h2>
+
+        <div className="experience-item">
+          <h3 className="job-title">UnAnswGen: Generating Unanswerable Questions</h3>
+          <p className="job-date-location">
+            <span className="date-range">Aug. 2024</span> |
+            <span className="location">SIGIR-AP 2024 Submission</span>
+          </p>
+          <p className="par">
+            I co-authored a research paper titled <i>"UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension"</i>, exploring dataset generation strategies for evaluating LLM robustness under incomplete or misleading contexts.
+          </p>
+          <div className="pdf-preview">
+            <h4>Read the Paper:</h4>
+            <div className="pdf-options">
+              <a 
+                href="/JulienSerbanescu/paper.pdf" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="pdf-link preview-link"
+              >
+                <span className="pdf-icon">👁️</span> Preview Paper
+              </a>
+              <a 
+                href="/JulienSerbanescu/paper.pdf" 
+                className="pdf-link download-link"
+                download="Julien_Serbanescu_Research_Paper.pdf"
+              >
+                <span className="pdf-icon">📥</span> Download Paper
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="experience-item">
+          <h3 className="job-title">Google Scholar Profile</h3>
+          <p className="par">
+            You can explore more of my publications and citations on my <a href="https://scholar.google.com/citations?user=YOUR_ID_HERE" target="_blank" rel="noreferrer">Google Scholar profile</a>.
+          </p>
+        </div>
+      </section>
 
         <section id="competitions" className="experience-section">
           <h2 className="section-title">Competitions and Events</h2>
