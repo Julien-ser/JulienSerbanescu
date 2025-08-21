@@ -108,6 +108,19 @@ function App() {
 
   return (
     <div className="App-container">
+      {/* Floating Tech Particles */}
+      <div className="particle-container">
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+      </div>
+      
       {/* Galaxy background would be a div here that gets initialized by useEffect */}
       <div id="background" ref={galaxyRef}></div>
 
@@ -117,11 +130,11 @@ function App() {
           <div className="menu-icon" onClick={toggleMenu}>&#9776;</div>
           <ul className={`nav-links ${menuActive ? 'active' : ''}`}>
             <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Me</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
+            <li><a href="#organizations">Organizations</a></li>
+            <li><a href="#certificates">Certificates</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#chat">Ask Me</a></li>
           </ul>
         </nav>
       </header>
@@ -136,13 +149,23 @@ function App() {
               <p className="typer">AI Engineer</p>
               <p className="typer">Robotics Enthusiast</p>
               <p className="typer">Aspiring Entrepreneur</p>
+              <div className="tech-badges">
+                <span className="tech-badge">AI/ML</span>
+                <span className="tech-badge">Cybersecurity</span>
+                <span className="tech-badge">Robotics</span>
+                <span className="tech-badge">Research</span>
+              </div>
             </div>
-            <img src={profileImage} alt="Julien Serbanescu" className="profile-image" />
+            <div className="profile-container">
+              <img src={profileImage} alt="Julien Serbanescu" className="profile-image" />
+              <div className="profile-glow"></div>
+            </div>
           </div>
         </section>
 
         <section id="about">
         <h2 className="section-title">About Me</h2>
+        <div className="section-divider"></div>
         <div className="about-text">
           <p className="par">
             I'm Julien Serbanescu, a Computer Engineering Co-op student at the University of Guelph, minoring in Entrepreneurship. My interests lie at the intersection of artificial intelligence, cybersecurity, and innovative problem-solving. I enjoy building systems that blend deep technical research with real-world impact.
@@ -155,67 +178,126 @@ function App() {
           </p>
         </div>
         </section>
-        <section id="experience" className="experience-section">
-          <h2 className="section-title">Experience</h2>
-        <div className="experience-item">
-          <h3 className="job-title">USRA Research Work Term – Multi-hop QA Robustness</h3>
-          <img src={guelphLogo} alt="University of Guelph Logo" className="image" />
-          <p className="job-date">
-            <span className="date-range">May. 2025 - Aug. 2025</span>
-            <span className="location">University of Guelph, Guelph, ON</span>
-          </p>
-          <p className="job-description">As a returning NSERC USRA recipient, I focused on enhancing robustness in multi-hop question answering systems using retrieval-augmented language models (RALMs).</p>
-          <ul className="job-highlights">
-            <li>Designed the Latent Twin Retrieval (LTR) method for simulating misinformation via adversarial entity substitution based on DBpedia embeddings.</li>
-            <li>Generated a benchmark to test RALM resilience by injecting factually coherent fabrications that reduced model accuracy by up to 30%.</li>
-            <li>Evaluated QA systems including GPT-3.5 Turbo, Mixtral-8x7B, and LLaMA 2 under fabricated multi-hop reasoning scenarios.</li>
-          </ul>
-        </div>
+                 <section id="experience" className="experience-section">
+           <h2 className="section-title">Experience</h2>
+           <div className="section-divider"></div>
+           <div className="experience-item">
+             <h3 className="job-title">USRA AI Research Intern – Robust Multi-hop QA with Retrieval-Augmented LLMs</h3>
+             <img src={guelphLogo} alt="University of Guelph Logo" className="image" />
+             <p className="job-date">
+               <span className="date-range">May 2025 - Aug 2025</span>
+               <span className="location">University of Guelph, Guelph, ON</span>
+             </p>
+             <p className="job-description">Awarded a second NSERC Undergraduate Student Research Award (USRA) and conducted research on robust multi-hop QA using retrieval-augmented language models (RALMs).</p>
+             <ul className="job-highlights">
+               <li>Developed a <strong>Latent Twin Retrieval (LTR)</strong> method for adversarial entity substitution with knowledge graph DBpedia embeddings.</li>
+               <li>Used LTR to create a robustness benchmark for multi-hop QA, injecting factually plausible fabrications that reduced model accuracy by <strong>30%</strong>, exposing reasoning failures in <strong>GPT-3.5 Turbo</strong>, <strong>Mixtral-8x7B</strong>, and <strong>LLaMA 2</strong>.</li>
+             </ul>
+           </div>
 
-        <div className="experience-item">
-          <h3 className="job-title">Cyber Science Lab Research Assistant</h3>
-          <img src={cySciLogo} alt="University of Guelph Logo" className="image" />
-          <p className="job-date">
-            <span className="date-range">May. 2025 - Aug. 2025</span>
-            <span className="location">University of Guelph, Guelph, ON</span>
-          </p>
-          <p className="job-description">At the Cyber Science Lab, I developed adversarial robustness strategies for language and vision models, and explored reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
-          <ul className="job-highlights">
-            <li>Implemented psychologically inspired LLM jailbreak methods, achieving 97% attack success rates across diverse model APIs.</li>
-            <li>Trained RL agents to rewire computational graphs in backdoored CNNs and image-language models.</li>
-            <li>Developed an RL-based defense system with a 90% detection rate for jailbreak prompts; deployed via ONNX for real-time performance in production environments.</li>
-          </ul>
-        </div>
-          
-          <div className="experience-item">
-            <h3 className="job-title">USRA Research Work Term – Question Unanswerability</h3>
-            <img src={guelphLogo} alt="University of Guelph Logo" className="image" />
-            <p className="job-date">
-              <span className="date-range">May. 2024 - Aug. 2024</span>
-              <span className="location">University of Guelph, Guelph, ON</span>
-            </p>
-            <p className="job-description">As part of the Undergraduate Student Research Award (USRA) program, I researched and worked on Question Answering frameworks, focusing on large language model evaluation, dataset generation, and multi-task learning (MTL) model development.</p>
-            <ul className="job-highlights">
-              <li>Trained and evaluated large language models to improve the generation of unanswerable questions.</li>
-              <li>Developed datasets for MRC (machine reading comprehension) tasks using NLP libraries like NLTK and SpaCy.</li>
-              <li>Coauthored a research paper, "UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension," submitted to the SIGIR-AP 2024 conference.</li>
-            </ul>
-          </div>
-          
-          <div className="experience-item">
-            <h3 className="job-title">AthenaGuard CTO and Cofounder</h3>
-            <img src={athenaGuardLogo} alt="AthenaGuard Logo" className="image" />
-            <p className="job-date">
-              <span className="date-range">Aug. 2024 - Mar. 2025</span>
-              <span className="location">AthenaGuard, Guelph, ON</span>
-            </p>
-            <p className="job-description">AthenaGuard is a startup focused on leveraging AI to detect suspicious content in communications such as emails, SMS, and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
-            <ul className="job-highlights">
-              <li>Developed AI-based classification models to detect suspicious information in text and embedded links.</li>
-              <li>Designed and implemented OAuth login for Flask web applications and integrated SMS detection with Flutter.</li>
-            </ul>
+           <div className="experience-item">
+             <h3 className="job-title">Cyber Science Lab Research Assistant</h3>
+             <img src={cySciLogo} alt="University of Guelph Logo" className="image" />
+             <p className="job-date">
+               <span className="date-range">May 2025 - Aug 2025</span>
+               <span className="location">University of Guelph, Guelph, ON</span>
+             </p>
+             <p className="job-description">At the Cyber Science Lab, I developed adversarial robustness strategies for language and vision models, and explored reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
+             <ul className="job-highlights">
+               <li>Implemented baseline and inference pipelines for psychologically inspired LLM jailbreak methods, achieving up to <strong>97% attack success rate</strong> and reducing model <strong>perplexity to 23.62</strong> across multiple LLMs.</li>
+               <li><a href="https://github.com/CyberScienceLab/Julien-Reinforcement-Learning-for-Real-Time-Jailbreak-Recovery-" target="_blank" rel="noopener noreferrer" className="subtle-link">Developed a real-time, adaptive RL-based defense system</a> against LLM jailbreaks using <strong>Gymnasium</strong> and <strong>Stable Baselines3</strong>, achieving a <strong>84% true positive rate</strong> on malicious prompt detection, with only a <strong>39%</strong> false positive rate. Deployed the trained policy via <strong>ONNX</strong> on <strong>FastAPI</strong> for lightweight, low-latency inference.</li>
+             </ul>
+           </div>
+             
+           <div className="experience-item">
+             <h3 className="job-title">USRA AI Research Intern – Machine Reading Comprehension Data and Model Training</h3>
+             <img src={guelphLogo} alt="University of Guelph Logo" className="image" />
+             <p className="job-date">
+               <span className="date-range">May 2024 - Aug 2024</span>
+               <span className="location">University of Guelph, Guelph, ON</span>
+             </p>
+             <p className="job-description">Awarded a NSERC USRA research position, collaborating remotely with master's students on publications.</p>
+             <ul className="job-highlights">
+               <li><a href="https://github.com/Julien-ser/UnAnswGen" target="_blank" rel="noopener noreferrer" className="subtle-link">Utilized various NLP methods</a> such as <strong>NLTK</strong> and <strong>SpaCy</strong> in Python to generate unanswerable questions, producing <strong>944,326 candidate</strong> questions and refining them into a final dataset of <strong>130,319 instances</strong>.</li>
+               <li><a href="https://github.com/Hadis-mrd/Answerable_Suggestion_Model/" target="_blank" rel="noopener noreferrer" className="subtle-link">Designed and implemented a <strong>multi-task learning (MTL)</strong> AI model</a> for classification and generation, <strong>outperforming baseline generative models by 6%</strong> for unanswerability detection and answerable generation.</li>
+             </ul>
+           </div>
+             
+           <div className="experience-item">
+             <h3 className="job-title">AthenaGuard CTO and Cofounder</h3>
+             <img src={athenaGuardLogo} alt="AthenaGuard Logo" className="image" />
+             <p className="job-date">
+               <span className="date-range">Aug 2024 - Mar 2025</span>
+               <span className="location">AthenaGuard, Guelph, ON</span>
+             </p>
+             <p className="job-description">AthenaGuard is a startup focused on leveraging AI to detect suspicious content in communications such as emails, SMS, and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
+             <ul className="job-highlights">
+               <li>Built a Flask web app with OAuth and Flutter SMS detection; trained <strong>GradientBoost</strong> models achieving <strong>87% accuracy</strong> for email/text phishing detection.</li>
+             </ul>
+           </div>
+         </section>
+
+        <section id="organizations">
+          <h2 className="section-title">Organizations</h2>
+          <div className="section-divider"></div>
+          <div className="experience-section">
+            <div className="experience-item">
+              <h3 className="job-title">Guelph AI Club – Technical Lead and President</h3>
+              <div className="job-date-location">
+                <span className="date-range">Jan 2024 -- Present</span>
+                <span className="location">University of Guelph, Guelph, ON</span>
+              </div>
+              <div className="job-description">
+                <p>Led workshops on <strong>scikit-learn, Hugging Face, PyTorch</strong>, and <strong>Google Colab/Kaggle</strong>; mentored beginners and promoted ethical AI practices to <strong>20+ members</strong></p>
+              </div>
+            </div>
+
+            <div className="experience-item">
+              <h3 className="job-title">CyberSecurity Club – Jarvis AI Project Lead</h3>
+              <div className="job-date-location">
+                <span className="date-range">Jan 2024 -- Mar 2024</span>
+                <span className="location">University of Guelph, Guelph, ON</span>
+              </div>
+              <div className="job-description">
+                <p><a href="https://github.com/Julien-ser/Jarvis-ai-TTE" target="_blank" rel="noopener noreferrer">Built a gesture-controlled AI assistant</a> using <strong>OpenAI API, SpeechRecognition, Mediapipe, and OpenCV</strong>; showcased at <strong>IBM Toronto Tech Expo</strong></p>
+              </div>
+            </div>
+
+            <div className="experience-item">
+              <h3 className="job-title">UoG Robotics Team – Software Subteam Leader</h3>
+              <div className="job-date-location">
+                <span className="date-range">Sep 2023 -- Present</span>
+                <span className="location">University of Guelph, Guelph, ON</span>
+              </div>
+              <div className="job-description">
+                <p>Leading a <strong>10 member</strong> software team for CIRC (Canadian International Rover Challenge) using <strong>Docker, Python, YOLO, Webots</strong>, and coordinating across sub-teams with <strong>GitHub</strong> workflows</p>
+              </div>
+            </div>
           </div>
         </section>
+
+                 <section id="certificates">
+           <h2 className="section-title">Certificates</h2>
+           <div className="section-divider"></div>
+           <div className="experience-section">
+             <div className="experience-item">
+               <h3 className="job-title">Professional Certifications</h3>
+               <div className="job-date-location">
+                 <span className="date-range">May 2021 -- Present</span>
+               </div>
+               <div className="job-description">
+                 <p>I've earned multiple professional certifications across AI/ML, cloud computing, and specialized technologies. These include:</p>
+                 <ul className="cert-list">
+                   <li><strong>Kaggle Certificates:</strong> Machine Learning, Deep Learning, Pandas, Time Series, Feature Engineering, Computer Vision, Intro to SQL, Advanced SQL</li>
+                   <li><strong>Google Cloud Badges:</strong> Big Data and Machine Learning Fundamentals, Build and Deploy Machine Learning Solutions on Vertex AI</li>
+                   <li><strong>Care AI Certificate:</strong> Introducing Artificial Intelligence: The Road Ahead</li>
+                   <li><strong>DeepLearning.AI Courses:</strong> LangChain Chat with Your Data, Reinforcement Fine-Tuning LLMs With GRPO, Attention in Transformers: Concepts and Code in PyTorch, DSPy: Build and Optimize Agentic Apps, ACP: Agent Communication Protocol</li>
+                 </ul>
+                                   <p>View all my detailed certifications and badges on my <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/details/certifications/" target="_blank" rel="noopener noreferrer" className="subtle-link">LinkedIn</a>.</p>
+               </div>
+             </div>
+           </div>
+         </section>
 
         <section id="research" className="experience-section">
         <h2 className="section-title">Research History</h2>
@@ -252,10 +334,34 @@ function App() {
         </div>
 
         <div className="experience-item">
-          <h3 className="job-title">Google Scholar Profile</h3>
-          <p className="par">
-            You can explore more of my publications and citations on my <a href="https://scholar.google.com/citations?user=YOUR_ID_HERE" target="_blank" rel="noreferrer">Google Scholar profile</a>.
+          <h3 className="job-title">Uncovering the Persuasive Fingerprint of LLMs in Jailbreaking Attacks</h3>
+          <p className="job-date-location">
+            <span className="date-range">Aug. 2025</span> |
+            <span className="location">CIKM 2025</span>
           </p>
+          <p className="par">
+            I co-authored a research paper titled <i>"Uncovering the Persuasive Fingerprint of LLMs in Jailbreaking Attacks"</i>, investigating the persuasive patterns and techniques used by large language models in jailbreaking scenarios.
+          </p>
+          <div className="pdf-preview">
+            <h4>Read the Paper:</h4>
+            <div className="pdf-options">
+              <a 
+                href="https://tinyurl.com/paperCIKM" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="pdf-link preview-link"
+              >
+                <span className="pdf-icon"></span> View Paper
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="experience-item">
+          <h3 className="job-title">Google Scholar Profile</h3>
+                     <p className="par">
+             You can explore more of my publications and citations on my <a href="https://scholar.google.com/citations?user=mnpXcUwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="subtle-link">Google Scholar profile</a>.
+           </p>
         </div>
       </section>
 
@@ -263,7 +369,7 @@ function App() {
           <h2 className="section-title">Competitions and Events</h2>
         
           <div className="experience-item">
-            <h3 className="job-title">HackTheNorth, GDSC Guelph, GenesisAI Hackathons, DeltaHacks XI</h3>
+            <h3 className="job-title">Hackathons</h3>
             <p className="job-date-location">
               <span className="date-range">March 2024 - Jan. 2025</span> |
               <span className="location">University of Waterloo, University of Guelph, University of Toronto, McMaster (Waterloo, Guelph, Toronto, Hamilton, ON)</span>
@@ -271,29 +377,59 @@ function App() {
             <ul className="job-highlights">
               <li>
                 <strong>HackTheNorth, Canada's biggest hackathon:</strong> Used Dynamsoft, Groq, ExaAI, Flowbite frontend, and Flask bridging for a web app that scanned NDC medicine codes and answered general questions about medicines.
-                <a href="https://devpost.com/software/medisense-x3f5ul" target="_blank" rel="noreferrer">Learn more</a>
+                <a href="https://devpost.com/software/medisense-x3f5ul" target="_blank" rel="noopener noreferrer" className="subtle-link">Learn more</a>
               </li>
               <li>
                 <strong>GenesisAI Hackathon UofT, largest AI hackathon:</strong> Used PyTorch, Transformers, Django, and Javascript, HTML, CSS frontend to create a software assistant for the elderly and others suffering from loneliness.
-                <a href="https://devpost.com/software/s-a-m-67ho5f" target="_blank" rel="noreferrer">Learn more</a>
+                <a href="https://devpost.com/software/s-a-m-67ho5f" target="_blank" rel="noopener noreferrer" className="subtle-link">Learn more</a>
               </li>
               <li>
                 <strong>GDSC Guelph Hackathon UofG:</strong> Used Tensorflow, JS, Gemini API for JS, and Flask to make a Chrome extension providing AI insights into LinkedIn pages, including sector prediction, conversation tips, and overall summaries.
-                <a href="https://devpost.com/software/justin" target="_blank" rel="noreferrer">Learn more</a>
+                <a href="https://devpost.com/software/justin" target="_blank" rel="noopener noreferrer" className="subtle-link">Learn more</a>
               </li>
               <li>
                 <strong>DeltaHacks XI McMaster:</strong> Constructed a software that scans garbage using Roboflow, YOLO, Streamlit and OpenCV, and gives the proper recycling category and reusability methods using OpenAI api, using a ReactJS frontend.
-                <a href="https://devpost.com/software/bin-there-ai" target="_blank" rel="noreferrer">Learn more</a>
+                <a href="https://devpost.com/software/bin-there-ai" target="_blank" rel="noopener noreferrer" className="subtle-link">Learn more</a>
+                <div className="demo-video">
+                  <h4>Watch Demo</h4>
+                  <iframe 
+                    src="https://www.youtube.com/embed/0-X8YIOtzBA" 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen>
+                  </iframe>
+                </div>
+              </li>
+              <li>
+                <strong>GenesisAI 2025:</strong> MCP Research dashboard (Cohere, Pinecone) Synthia.
+                <a href="https://devpost.com/software/synthia-by-nuvelaai" target="_blank" rel="noopener noreferrer" className="subtle-link">Learn more</a>
+                <div className="demo-video">
+                  <h4>Watch Demo</h4>
+                  <iframe 
+                    src="https://www.youtube.com/embed/qqNyOJyrqvU" 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen>
+                  </iframe>
+                </div>
+              </li>
+              <li>
+                <strong>GDSC Hacks 2025:</strong> A2A emotional/task framework Neuralbloom.
+                <a href="https://devpost.com/software/neuralbloom" target="_blank" rel="noopener noreferrer" className="subtle-link">Learn more</a>
+                <div className="demo-video">
+                  <h4>Watch Demo</h4>
+                  <iframe 
+                    src="https://www.youtube.com/embed/BAi9m_QdGBs" 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen>
+                  </iframe>
+                </div>
               </li>
             </ul>
-            <h4>Watch me!</h4>
-            <iframe 
-              src="https://www.youtube.com/embed/0-X8YIOtzBA" 
-              title="YouTube video player" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen>
-            </iframe>
           </div>
         
           <div className="experience-item">
@@ -340,16 +476,88 @@ function App() {
           </div>
         </section>
 
-        <section id="contact">
-          <h2 className="section-title">Contact</h2>
-          <p className="par">If you'd like to get in touch with me, feel free to reach out through any of the following methods:</p>
-          <ul>
-            <li>  <a href="mailto:julien.serbanescu@gmail.com" target="_blank" rel="noreferrer">julien.serbanescu@gmail.com</a></li>
-            <li> <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noreferrer">LinkedIn Profile</a></li>
-            <li> <a href="https://github.com/Julien-ser" target="_blank" rel="noreferrer">GitHub Profile</a></li>
-            <li> <a href="https://x.com/Da_Julster" target="_blank" rel="noreferrer">Twitter Profile</a></li>
-          </ul>
-        </section>
+                 <section id="contact">
+           <h2 className="section-title">Get In Touch</h2>
+           <div className="section-divider"></div>
+           <div className="contact-container">
+             <div className="contact-intro">
+               <p className="par">Ready to collaborate on the next big thing? Let's connect and build something amazing together! 🚀</p>
+             </div>
+             
+                           <div className="contact-grid">
+                <div className="contact-card">
+                  <div className="contact-icon">📧</div>
+                  <h3>Personal Email</h3>
+                  <p>Let's start a conversation</p>
+                  <a href="mailto:julien.serbanescu@gmail.com" className="contact-link">
+                    <span>julien.serbanescu@gmail.com</span>
+                    <div className="link-arrow">→</div>
+                  </a>
+                </div>
+                
+                <div className="contact-card">
+                  <div className="contact-icon">🎓</div>
+                  <h3>School Email</h3>
+                  <p>Academic & research inquiries</p>
+                  <a href="mailto:serbanej@uoguelph.ca" className="contact-link">
+                    <span>serbanej@uoguelph.ca</span>
+                    <div className="link-arrow">→</div>
+                  </a>
+                </div>
+                
+                <div className="contact-card">
+                  <div className="contact-icon">💼</div>
+                  <h3>LinkedIn</h3>
+                  <p>Professional network & updates</p>
+                  <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noreferrer" className="contact-link">
+                    <span>Connect on LinkedIn</span>
+                    <div className="link-arrow">→</div>
+                  </a>
+                </div>
+                
+                <div className="contact-card">
+                  <div className="contact-icon">🐙</div>
+                  <h3>GitHub</h3>
+                  <p>Check out my code & projects</p>
+                  <a href="https://github.com/Julien-ser" target="_blank" rel="noreferrer" className="contact-link">
+                    <span>View GitHub Profile</span>
+                    <div className="link-arrow">→</div>
+                  </a>
+                </div>
+                
+                <div className="contact-card">
+                  <div className="contact-icon">🏆</div>
+                  <h3>Kaggle</h3>
+                  <p>Data science & ML competitions</p>
+                  <a href="https://www.kaggle.com/julienserbanescu" target="_blank" rel="noreferrer" className="contact-link">
+                    <span>View Kaggle Profile</span>
+                    <div className="link-arrow">→</div>
+                  </a>
+                </div>
+                
+                <div className="contact-card">
+                  <div className="contact-icon">🐦</div>
+                  <h3>Twitter</h3>
+                  <p>Thoughts & tech updates</p>
+                  <a href="https://x.com/Da_Julster" target="_blank" rel="noreferrer" className="contact-link">
+                    <span>Follow on Twitter</span>
+                    <div className="link-arrow">→</div>
+                  </a>
+                </div>
+              </div>
+             
+             <div className="contact-cta">
+               <h3>Let's Build Something Together!</h3>
+               <p>Whether it's AI research, cybersecurity projects, robotics development, or just a great conversation about tech - I'm always excited to connect with fellow innovators and problem-solvers.</p>
+               <div className="cta-badges">
+                 <span className="cta-badge">AI/ML Collaboration</span>
+                 <span className="cta-badge">Research Projects</span>
+                 <span className="cta-badge">Startup Ideas</span>
+                 <span className="cta-badge">Tech Discussion</span>
+               </div>
+             </div>
+           </div>
+         </section>
 
         {/* Julien AI Chat Interface */}
         <section id="chat" className="chat-interface">
