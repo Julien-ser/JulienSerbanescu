@@ -168,7 +168,7 @@ function App() {
         <div className="section-divider"></div>
         <div className="about-text">
           <p className="par">
-            I'm Julien Serbanescu, a Computer Engineering Co-op student at the University of Guelph, minoring in Entrepreneurship. My interests lie at the intersection of artificial intelligence, cybersecurity, and innovative problem-solving. I enjoy building systems that blend deep technical research with real-world impact.
+            I'm Julien Serbanescu, pursuing a bachelor of Computer Engineering at the University of Guelph with co-op, while also minoring in Entrepreneurship. My interests lie at the intersection of artificial intelligence, cybersecurity, and innovative problem-solving. I enjoy building systems that blend deep technical research with real-world impact.
           </p>
           <p className="par">
             As a two-time NSERC USRA recipient, I’ve conducted research on robust multi-hop question answering with retrieval-augmented LLMs and adversarial robustness in LLMs and CNNs. I co-developed Latent Twin Retrieval (LTR) for evaluating misinformation resilience in QA systems, and built RL-based defenses for LLM jailbreak detection and mitigation.
