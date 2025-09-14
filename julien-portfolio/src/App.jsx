@@ -161,6 +161,70 @@ function App() {
               <div className="profile-glow"></div>
             </div>
           </div>
+          
+          {/* Ask Me Anything Section - Integrated into Hero */}
+          <div className="hero-chat-section">
+            <h2 className="hero-chat-title">Ask Me Anything</h2>
+            <p className="hero-chat-subtitle">Curious about my work? Ask me anything about my research, projects, or experience!</p>
+            
+            <div className="hero-chat-container">
+              <div className="hero-avatar-container">
+                <img
+                  src={currentAvatar}
+                  alt={isLoading ? "Processing request..." : "Assistant Avatar"}
+                  className="hero-avatar-image"
+                />
+              </div>
+              
+              <div className="hero-chat-form">
+                <form onSubmit={handleSubmit} className="query-form">
+                  <textarea
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Ask a question about my research, projects, or experience..."
+                    rows="3"
+                    disabled={isLoading}
+                  />
+                  <button type="submit" disabled={isLoading}>
+                    {isLoading ? 'Asking...' : 'Ask Question'}
+                  </button>
+                </form>
+
+                {isLoading && <div className="loading-indicator">Processing...</div>}
+                {error && <div className="error-message">Error: {error}</div>}
+
+                {response && !isLoading && (
+                  <div className="results-section">
+                    <h3>Response:</h3>
+                    <div className="response-text">
+                      {response.split('\n').map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                    </div>
+
+                    {sources.length > 0 && (
+                      <div className="sources-section">
+                        <h4>Sources Used (Top {sources.length}):</h4>
+                        <ul>
+                          {sources.map((source) => (
+                            <li key={source.id}>
+                              <strong>Source {source.id}</strong> (Score: {source.score})<br />
+                              File: {source.metadata?.source || 'N/A'}<br />
+                              Type: {source.metadata?.type || 'N/A'}
+                              {source.metadata?.page !== undefined && ` | Page: ${source.metadata.page + 1}`}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="about">
@@ -594,65 +658,6 @@ function App() {
            </div>
          </section>
 
-        {/* Julien AI Chat Interface */}
-        <section id="chat" className="chat-interface">
-          <h2 className="section-title">Ask Me Anything</h2>
-          <div className="avatar-container">
-            <img
-              src={currentAvatar}
-              alt={isLoading ? "Processing request..." : "Assistant Avatar"}
-              className="avatar-image"
-            />
-          </div>
-          
-          <main className="App-main">
-            <form onSubmit={handleSubmit} className="query-form">
-              <textarea
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask a question about Julien Serbanescu's documents..."
-                rows="3"
-                disabled={isLoading}
-              />
-              <button type="submit" disabled={isLoading}>
-                {isLoading ? 'Asking...' : 'Ask Question'}
-              </button>
-            </form>
-
-            {isLoading && <div className="loading-indicator">Processing...</div>}
-            {error && <div className="error-message">Error: {error}</div>}
-
-            {response && !isLoading && (
-              <div className="results-section">
-                <h2>Response:</h2>
-                <div className="response-text">
-                  {response.split('\n').map((line, index) => (
-                    <React.Fragment key={index}>
-                      {line}
-                      <br />
-                    </React.Fragment>
-                  ))}
-                </div>
-
-                {sources.length > 0 && (
-                  <div className="sources-section">
-                    <h3>Sources Used (Top {sources.length}):</h3>
-                    <ul>
-                      {sources.map((source) => (
-                        <li key={source.id}>
-                          <strong>Source {source.id}</strong> (Score: {source.score})<br />
-                          File: {source.metadata?.source || 'N/A'}<br />
-                          Type: {source.metadata?.type || 'N/A'}
-                          {source.metadata?.page !== undefined && ` | Page: ${source.metadata.page + 1}`}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-          </main>
-        </section>
       </div>
     </div>
   );
