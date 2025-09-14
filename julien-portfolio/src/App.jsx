@@ -237,68 +237,6 @@ function App() {
            </div>
          </section>
 
-        <section id="organizations">
-          <h2 className="section-title">Organizations</h2>
-          <div className="section-divider"></div>
-          <div className="experience-section">
-            <div className="experience-item">
-              <h3 className="job-title">Guelph AI Club – Technical Lead and President</h3>
-              <div className="job-date-location">
-                <span className="date-range">Jan 2024 -- Present</span>
-                <span className="location">University of Guelph, Guelph, ON</span>
-              </div>
-              <div className="job-description">
-                <p>Led workshops on <strong>scikit-learn, Hugging Face, PyTorch</strong>, and <strong>Google Colab/Kaggle</strong>; mentored beginners and promoted ethical AI practices to <strong>20+ members</strong></p>
-              </div>
-            </div>
-
-            <div className="experience-item">
-              <h3 className="job-title">CyberSecurity Club – Jarvis AI Project Lead</h3>
-              <div className="job-date-location">
-                <span className="date-range">Jan 2024 -- Mar 2024</span>
-                <span className="location">University of Guelph, Guelph, ON</span>
-              </div>
-              <div className="job-description">
-                <p><a href="https://github.com/Julien-ser/Jarvis-ai-TTE" target="_blank" rel="noopener noreferrer">Built a gesture-controlled AI assistant</a> using <strong>OpenAI API, SpeechRecognition, Mediapipe, and OpenCV</strong>; showcased at <strong>IBM Toronto Tech Expo</strong></p>
-              </div>
-            </div>
-
-            <div className="experience-item">
-              <h3 className="job-title">UoG Robotics Team – Software Subteam Leader</h3>
-              <div className="job-date-location">
-                <span className="date-range">Sep 2023 -- Present</span>
-                <span className="location">University of Guelph, Guelph, ON</span>
-              </div>
-              <div className="job-description">
-                <p>Leading a <strong>10 member</strong> software team for CIRC (Canadian International Rover Challenge) using <strong>Docker, Python, YOLO, Webots</strong>, and coordinating across sub-teams with <strong>GitHub</strong> workflows</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-                 <section id="certificates">
-           <h2 className="section-title">Certificates</h2>
-           <div className="section-divider"></div>
-           <div className="experience-section">
-             <div className="experience-item">
-               <h3 className="job-title">Professional Certifications</h3>
-               <div className="job-date-location">
-                 <span className="date-range">May 2021 -- Present</span>
-               </div>
-               <div className="job-description">
-                 <p>I've earned multiple professional certifications across AI/ML, cloud computing, and specialized technologies. These include:</p>
-                 <ul className="cert-list">
-                   <li><strong>Kaggle Certificates:</strong> Machine Learning, Deep Learning, Pandas, Time Series, Feature Engineering, Computer Vision, Intro to SQL, Advanced SQL</li>
-                   <li><strong>Google Cloud Badges:</strong> Big Data and Machine Learning Fundamentals, Build and Deploy Machine Learning Solutions on Vertex AI</li>
-                   <li><strong>Care AI Certificate:</strong> Introducing Artificial Intelligence: The Road Ahead</li>
-                   <li><strong>DeepLearning.AI Courses:</strong> LangChain Chat with Your Data, Reinforcement Fine-Tuning LLMs With GRPO, Attention in Transformers: Concepts and Code in PyTorch, DSPy: Build and Optimize Agentic Apps, ACP: Agent Communication Protocol</li>
-                 </ul>
-                                   <p>View all my detailed certifications and badges on my <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/details/certifications/" target="_blank" rel="noopener noreferrer" className="subtle-link">LinkedIn</a>.</p>
-               </div>
-             </div>
-           </div>
-         </section>
-
         <section id="research" className="experience-section">
         <h2 className="section-title">Research History</h2>
 
@@ -485,7 +423,67 @@ function App() {
             </ul>
           </div>
         </section>
+      <section id="organizations">
+          <h2 className="section-title">Organizations</h2>
+          <div className="section-divider"></div>
+          <div className="experience-section">
+            <div className="experience-item">
+              <h3 className="job-title">Guelph AI Club – Technical Lead and President</h3>
+              <div className="job-date-location">
+                <span className="date-range">Jan 2024 -- Present</span>
+                <span className="location">University of Guelph, Guelph, ON</span>
+              </div>
+              <div className="job-description">
+                <p>Led workshops on <strong>scikit-learn, Hugging Face, PyTorch</strong>, and <strong>Google Colab/Kaggle</strong>; mentored beginners and promoted ethical AI practices to <strong>20+ members</strong></p>
+              </div>
+            </div>
 
+            <div className="experience-item">
+              <h3 className="job-title">CyberSecurity Club – Jarvis AI Project Lead</h3>
+              <div className="job-date-location">
+                <span className="date-range">Jan 2024 -- Mar 2024</span>
+                <span className="location">University of Guelph, Guelph, ON</span>
+              </div>
+              <div className="job-description">
+                <p><a href="https://github.com/Julien-ser/Jarvis-ai-TTE" target="_blank" rel="noopener noreferrer">Built a gesture-controlled AI assistant</a> using <strong>OpenAI API, SpeechRecognition, Mediapipe, and OpenCV</strong>; showcased at <strong>IBM Toronto Tech Expo</strong></p>
+              </div>
+            </div>
+
+            <div className="experience-item">
+              <h3 className="job-title">UoG Robotics Team – Software Subteam Leader</h3>
+              <div className="job-date-location">
+                <span className="date-range">Sep 2023 -- Present</span>
+                <span className="location">University of Guelph, Guelph, ON</span>
+              </div>
+              <div className="job-description">
+                <p>Leading a <strong>10 member</strong> software team for CIRC (Canadian International Rover Challenge) using <strong>Docker, Python, YOLO, Webots</strong>, and coordinating across sub-teams with <strong>GitHub</strong> workflows</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+                 <section id="certificates">
+           <h2 className="section-title">Certificates</h2>
+           <div className="section-divider"></div>
+           <div className="experience-section">
+             <div className="experience-item">
+               <h3 className="job-title">Professional Certifications</h3>
+               <div className="job-date-location">
+                 <span className="date-range">May 2021 -- Present</span>
+               </div>
+               <div className="job-description">
+                 <p>I've earned multiple professional certifications across AI/ML, cloud computing, and specialized technologies. These include:</p>
+                 <ul className="cert-list">
+                   <li><strong>Kaggle Certificates:</strong> Machine Learning, Deep Learning, Pandas, Time Series, Feature Engineering, Computer Vision, Intro to SQL, Advanced SQL</li>
+                   <li><strong>Google Cloud Badges:</strong> Big Data and Machine Learning Fundamentals, Build and Deploy Machine Learning Solutions on Vertex AI</li>
+                   <li><strong>Care AI Certificate:</strong> Introducing Artificial Intelligence: The Road Ahead</li>
+                   <li><strong>DeepLearning.AI Courses:</strong> LangChain Chat with Your Data, Reinforcement Fine-Tuning LLMs With GRPO, Attention in Transformers: Concepts and Code in PyTorch, DSPy: Build and Optimize Agentic Apps, ACP: Agent Communication Protocol</li>
+                 </ul>
+                                   <p>View all my detailed certifications and badges on my <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/details/certifications/" target="_blank" rel="noopener noreferrer" className="subtle-link">LinkedIn</a>.</p>
+               </div>
+             </div>
+           </div>
+         </section>
         <section id="projects" className="experience-section">
           <h2 className="section-title">Projects</h2>
           <div className="experience-item">
