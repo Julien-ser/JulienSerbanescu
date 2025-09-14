@@ -303,6 +303,36 @@ function App() {
         <h2 className="section-title">Research History</h2>
 
         <div className="experience-item">
+          <h3 className="job-title">FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought</h3>
+          <p className="job-date-location">
+            <span className="date-range">Sep. 2025</span> |
+            <span className="location">SIGIR-AP 2025</span>
+          </p>
+          <p className="par">
+            I co-authored a research paper titled <i>"FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought"</i>.
+          </p>
+          <div className="pdf-preview">
+            <h4>Read the Paper:</h4>
+            <div className="pdf-options">
+              <a 
+                href="/JulienSerbanescu/paper2.pdf" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="pdf-link preview-link"
+              >
+                <span className="pdf-icon"></span> Preview Paper
+              </a>
+              <a 
+                href="/JulienSerbanescu/paper2.pdf" 
+                className="pdf-link download-link"
+                download="Julien_Serbanescu_SIGIRAP2025_Paper.pdf"
+              >
+                <span className="pdf-icon"></span> Download Paper
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="experience-item">
           <h3 className="job-title">UnAnswGen: Generating Unanswerable Questions</h3>
           <p className="job-date-location">
             <span className="date-range">Aug. 2024</span> |
@@ -346,12 +376,19 @@ function App() {
             <h4>Read the Paper:</h4>
             <div className="pdf-options">
               <a 
-                href="https://tinyurl.com/paperCIKM" 
+                href="/JulienSerbanescu/paper3.pdf" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="pdf-link preview-link"
               >
-                <span className="pdf-icon"></span> View Paper
+                <span className="pdf-icon"></span> Preview Paper
+              </a>
+              <a 
+                href="/JulienSerbanescu/paper3.pdf" 
+                className="pdf-link download-link"
+                download="Julien_Serbanescu_CIKM2025_Paper.pdf"
+              >
+                <span className="pdf-icon"></span> Download Paper
               </a>
             </div>
           </div>
