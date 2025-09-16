@@ -589,7 +589,7 @@ function App() {
                   <h3>Personal Email</h3>
                   <p>Let's start a conversation</p>
                   <a href="mailto:julien.serbanescu@gmail.com" className="contact-link">
-                    <span>julien.serbanescu@gmail.com</span>
+                    <span style={{wordBreak: 'break-all', whiteSpace: 'normal', display: 'inline-block', maxWidth: '100%'}}>julien.serbanescu@gmail.com</span>
                     <div className="link-arrow">→</div>
                   </a>
                 </div>
