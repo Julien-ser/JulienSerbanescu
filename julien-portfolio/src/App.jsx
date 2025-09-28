@@ -573,6 +573,13 @@ function App() {
             </p>
             <a href="https://drive.google.com/file/d/1uF_2dDhc9ZC9fWEBjcScDP96S59U_V4C/view?usp=sharing" target="_blank" rel="noreferrer">View Project</a>
           </div>
+          <div className="experience-item">
+            <h3>Clinical Reasoning Model Benchmarking and Fine-Tuning</h3>
+            <p className="par">
+              Developed and benchmarked clinical reasoning models for medical QA tasks, including dataset curation, evaluation, and fine-tuning of transformer-based architectures. Explored robustness, factuality, and reasoning capabilities in clinical NLP.
+            </p>
+            <a href="https://github.com/Julien-ser/Clinical-Reasoning-Model-Benchmarking-and-Fine-Tuning" target="_blank" rel="noreferrer">View Project</a>
+          </div>
         </section>
 
                  <section id="contact">
