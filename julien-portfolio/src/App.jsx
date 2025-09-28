@@ -8,6 +8,10 @@ import profileImage from './assets/avatar1.png';
 import guelphLogo from './assets/guelp.png';
 import cySciLogo from './assets/cybersci.png';
 import athenaGuardLogo from './assets/aguard.jpg';
+import radarImage from './assets/radar.png';
+import ganImage from './assets/gan.png';
+import jarvImage from './assets/jarv.jpg';
+import jusImage from './assets/jus.png';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -132,6 +136,9 @@ function App() {
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#competitions">Competitions</a></li>
+            <li><a href="#projects">Projects</a></li>
             <li><a href="#organizations">Organizations</a></li>
             <li><a href="#certificates">Certificates</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -242,9 +249,24 @@ function App() {
           </p>
         </div>
         </section>
+
                  <section id="experience" className="experience-section">
            <h2 className="section-title">Experience</h2>
            <div className="section-divider"></div>
+           
+           <div className="experience-item">
+             <h3 className="job-title">Cyber Science Lab Research Assistant</h3>
+             <img src={cySciLogo} alt="University of Guelph Logo" className="image" />
+             <p className="job-date">
+               <span className="date-range">May 2025 - Present</span>
+               <span className="location">University of Guelph, Guelph, ON</span>
+             </p>
+             <p className="job-description">At the Cyber Science Lab, I developed adversarial robustness strategies for language and vision models, and explored reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
+             <ul className="job-highlights">
+               <li>Implemented baseline and inference pipelines for psychologically inspired LLM jailbreak methods, achieving up to <strong>97% attack success rate</strong> and reducing model <strong>perplexity to 23.62</strong> across multiple LLMs.</li>
+               <li><a href="https://github.com/CyberScienceLab/Julien-Reinforcement-Learning-for-Real-Time-Jailbreak-Recovery-" target="_blank" rel="noopener noreferrer" className="subtle-link">Developed a real-time, adaptive RL-based defense system</a> against LLM jailbreaks using <strong>Gymnasium</strong> and <strong>Stable Baselines3</strong>, achieving a <strong>84% true positive rate</strong> on malicious prompt detection, with only a <strong>39%</strong> false positive rate. Deployed the trained policy via <strong>ONNX</strong> on <strong>FastAPI</strong> for lightweight, low-latency inference.</li>
+             </ul>
+           </div>
            <div className="experience-item">
              <h3 className="job-title">USRA AI Research Intern – Robust Multi-hop QA with Retrieval-Augmented LLMs</h3>
              <img src={guelphLogo} alt="University of Guelph Logo" className="image" />
@@ -260,16 +282,15 @@ function App() {
            </div>
 
            <div className="experience-item">
-             <h3 className="job-title">Cyber Science Lab Research Assistant</h3>
-             <img src={cySciLogo} alt="University of Guelph Logo" className="image" />
+             <h3 className="job-title">AthenaGuard CTO and Cofounder</h3>
+             <img src={athenaGuardLogo} alt="AthenaGuard Logo" className="image" />
              <p className="job-date">
-               <span className="date-range">May 2025 - Aug 2025</span>
-               <span className="location">University of Guelph, Guelph, ON</span>
+               <span className="date-range">Aug 2024 - Mar 2025</span>
+               <span className="location">AthenaGuard, Guelph, ON</span>
              </p>
-             <p className="job-description">At the Cyber Science Lab, I developed adversarial robustness strategies for language and vision models, and explored reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
+             <p className="job-description">AthenaGuard is a startup focused on leveraging AI to detect suspicious content in communications such as emails, SMS, and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
              <ul className="job-highlights">
-               <li>Implemented baseline and inference pipelines for psychologically inspired LLM jailbreak methods, achieving up to <strong>97% attack success rate</strong> and reducing model <strong>perplexity to 23.62</strong> across multiple LLMs.</li>
-               <li><a href="https://github.com/CyberScienceLab/Julien-Reinforcement-Learning-for-Real-Time-Jailbreak-Recovery-" target="_blank" rel="noopener noreferrer" className="subtle-link">Developed a real-time, adaptive RL-based defense system</a> against LLM jailbreaks using <strong>Gymnasium</strong> and <strong>Stable Baselines3</strong>, achieving a <strong>84% true positive rate</strong> on malicious prompt detection, with only a <strong>39%</strong> false positive rate. Deployed the trained policy via <strong>ONNX</strong> on <strong>FastAPI</strong> for lightweight, low-latency inference.</li>
+               <li>Built a Flask web app with OAuth and Flutter SMS detection; trained <strong>GradientBoost</strong> models achieving <strong>87% accuracy</strong> for email/text phishing detection.</li>
              </ul>
            </div>
              
@@ -287,18 +308,7 @@ function App() {
              </ul>
            </div>
              
-           <div className="experience-item">
-             <h3 className="job-title">AthenaGuard CTO and Cofounder</h3>
-             <img src={athenaGuardLogo} alt="AthenaGuard Logo" className="image" />
-             <p className="job-date">
-               <span className="date-range">Aug 2024 - Mar 2025</span>
-               <span className="location">AthenaGuard, Guelph, ON</span>
-             </p>
-             <p className="job-description">AthenaGuard is a startup focused on leveraging AI to detect suspicious content in communications such as emails, SMS, and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
-             <ul className="job-highlights">
-               <li>Built a Flask web app with OAuth and Flutter SMS detection; trained <strong>GradientBoost</strong> models achieving <strong>87% accuracy</strong> for email/text phishing detection.</li>
-             </ul>
-           </div>
+
          </section>
 
         <section id="research" className="experience-section">
@@ -406,6 +416,7 @@ function App() {
 
         <section id="competitions" className="experience-section">
           <h2 className="section-title">Competitions and Events</h2>
+          <div className="section-divider"></div>
         
           <div className="experience-item">
             <h3 className="job-title">Hackathons</h3>
@@ -487,6 +498,46 @@ function App() {
             </ul>
           </div>
         </section>
+
+        <section id="projects" className="experience-section">
+          <h2 className="section-title">Projects</h2>
+          <div className="section-divider"></div>
+            <div className="experience-item">
+            <h3>Clinical Reasoning Model Benchmarking and Fine-Tuning</h3>
+            <img src={radarImage} alt="Clinical Reasoning Model" className="image project-image" />
+            <p className="par">
+              Developed and benchmarked clinical reasoning models for medical QA tasks, including dataset curation, evaluation, and fine-tuning of transformer-based architectures. Explored robustness, factuality, and reasoning capabilities in clinical NLP.
+            </p>
+            <a href="https://github.com/Julien-ser/Clinical-Reasoning-Model-Benchmarking-and-Fine-Tuning" target="_blank" rel="noreferrer">View Project</a>
+          </div>
+          <div className="experience-item">
+            <h3>GAN to Generate Soccer Jerseys</h3>
+            <img src={ganImage} alt="GAN Soccer Jerseys" className="image project-image" />
+            <p className="par">
+              Developed a Generative Adversarial Network (GAN) to create soccer jersey designs. Constructed generator and discriminator networks with PyTorch, using a custom dataset obtained by web scraping images of soccer jerseys. Implemented key model layers including Conv2D, Conv2DTranspose, along with tanh and sigmoid activations.
+            </p>
+            <a href="https://www.kaggle.com/code/julienserbanescu/pytorch-test" target="_blank" rel="noreferrer">View Project</a>
+          </div>
+          
+          <div className="experience-item">
+            <h3>Jarvis AI For the Toronto Tech Expo</h3>
+            <img src={jarvImage} alt="Jarvis AI Tech Expo" className="image project-image" />
+            <p className="par">
+              Lead a team to create an AI assistant similar to Jarvis from Iron Man. Using technology such as a 3rd party openAI api to answer general questions. Implementation of SpeechRecognition libraries in Python(likely Google's speech recognition library). Automation of processes such as application opening, online search. etc. Showcased and presented to the IBM Toronto Tech Expo (TTE)
+            </p>
+            <a href="https://github.com/Julien-ser/Jarvis-ai-TTE" target="_blank" rel="noreferrer">View Project</a>
+          </div>
+          
+          <div className="experience-item">
+            <h3>Orange Juice Dispenser</h3>
+            <img src={jusImage} alt="Orange Juice Dispenser" className="image project-image" />
+            <p className="par">
+              Created a device that would activate a pump via the ESP8266, dispensing water into a glass with OJ powder, activating whenever orange was typed in. Selenium to communicate and interact with ESP8266 web server to send the command to activate the pump. Usage of a relay and motorized pump in my ESP8266 circuit, usage of C++ for programming the ESP webpage and pump activation.
+            </p>
+            <a href="https://drive.google.com/file/d/1uF_2dDhc9ZC9fWEBjcScDP96S59U_V4C/view?usp=sharing" target="_blank" rel="noreferrer">View Project</a>
+          </div>
+        </section>
+
       <section id="organizations">
           <h2 className="section-title">Organizations</h2>
           <div className="section-divider"></div>
@@ -494,7 +545,7 @@ function App() {
             <div className="experience-item">
               <h3 className="job-title">Guelph AI Club – Technical Lead and President</h3>
               <div className="job-date-location">
-                <span className="date-range">Jan 2024 -- Present</span>
+                <span className="date-range">Jan 2024 - Present</span>
                 <span className="location">University of Guelph, Guelph, ON</span>
               </div>
               <div className="job-description">
@@ -505,7 +556,7 @@ function App() {
             <div className="experience-item">
               <h3 className="job-title">CyberSecurity Club – Jarvis AI Project Lead</h3>
               <div className="job-date-location">
-                <span className="date-range">Jan 2024 -- Mar 2024</span>
+                <span className="date-range">Jan 2024 - Mar 2024</span>
                 <span className="location">University of Guelph, Guelph, ON</span>
               </div>
               <div className="job-description">
@@ -516,7 +567,7 @@ function App() {
             <div className="experience-item">
               <h3 className="job-title">UoG Robotics Team – Software Subteam Leader</h3>
               <div className="job-date-location">
-                <span className="date-range">Sep 2023 -- Present</span>
+                <span className="date-range">Sep 2023 - Present</span>
                 <span className="location">University of Guelph, Guelph, ON</span>
               </div>
               <div className="job-description">
@@ -533,7 +584,7 @@ function App() {
              <div className="experience-item">
                <h3 className="job-title">Professional Certifications</h3>
                <div className="job-date-location">
-                 <span className="date-range">May 2021 -- Present</span>
+                 <span className="date-range">May 2021 - Present</span>
                </div>
                <div className="job-description">
                  <p>I've earned multiple professional certifications across AI/ML, cloud computing, and specialized technologies. These include:</p>
@@ -548,39 +599,6 @@ function App() {
              </div>
            </div>
          </section>
-        <section id="projects" className="experience-section">
-          <h2 className="section-title">Projects</h2>
-          <div className="experience-item">
-            <h3>GAN to Generate Soccer Jerseys</h3>
-            <p className="par">
-              Developed a Generative Adversarial Network (GAN) to create soccer jersey designs. Constructed generator and discriminator networks with PyTorch, using a custom dataset obtained by web scraping images of soccer jerseys. Implemented key model layers including Conv2D, Conv2DTranspose, along with tanh and sigmoid activations.
-            </p>
-            <a href="https://www.kaggle.com/code/julienserbanescu/pytorch-test" target="_blank" rel="noreferrer">View Project</a>
-          </div>
-          
-          <div className="experience-item">
-            <h3>Jarvis AI For the Toronto Tech Expo</h3>
-            <p className="par">
-              Lead a team to create an AI assistant similar to Jarvis from Iron Man. Using technology such as a 3rd party openAI api to answer general questions. Implementation of SpeechRecognition libraries in Python(likely Google's speech recognition library). Automation of processes such as application opening, online search. etc. Showcased and presented to the IBM Toronto Tech Expo (TTE)
-            </p>
-            <a href="https://github.com/Julien-ser/Jarvis-ai-TTE" target="_blank" rel="noreferrer">View Project</a>
-          </div>
-          
-          <div className="experience-item">
-            <h3>Orange Juice Dispenser</h3>
-            <p className="par">
-              Created a device that would activate a pump via the ESP8266, dispensing water into a glass with OJ powder, activating whenever orange was typed in. Selenium to communicate and interact with ESP8266 web server to send the command to activate the pump. Usage of a relay and motorized pump in my ESP8266 circuit, usage of C++ for programming the ESP webpage and pump activation.
-            </p>
-            <a href="https://drive.google.com/file/d/1uF_2dDhc9ZC9fWEBjcScDP96S59U_V4C/view?usp=sharing" target="_blank" rel="noreferrer">View Project</a>
-          </div>
-          <div className="experience-item">
-            <h3>Clinical Reasoning Model Benchmarking and Fine-Tuning</h3>
-            <p className="par">
-              Developed and benchmarked clinical reasoning models for medical QA tasks, including dataset curation, evaluation, and fine-tuning of transformer-based architectures. Explored robustness, factuality, and reasoning capabilities in clinical NLP.
-            </p>
-            <a href="https://github.com/Julien-ser/Clinical-Reasoning-Model-Benchmarking-and-Fine-Tuning" target="_blank" rel="noreferrer">View Project</a>
-          </div>
-        </section>
 
                  <section id="contact">
            <h2 className="section-title">Get In Touch</h2>

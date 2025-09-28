@@ -906,6 +906,99 @@ li {
   border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
+/* Override for project images */
+.image.project-image {
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  background: transparent;
+}
+
+/* Project Layout - Image Focused */
+#projects .experience-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+  padding: 2rem;
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+/* Project Title - Above Image */
+#projects .experience-item h3 {
+  margin: 0 0 2rem 0;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  color: var(--warm-yellow);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Project Images - Main Focus */
+.project-image {
+  width: 900px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  border: 3px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+/* Project Content - Below Image */
+#projects .experience-item p {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+  max-width: 800px;
+  text-align: center;
+}
+
+#projects .experience-item a {
+  display: inline-block;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Mobile Responsive for Project Layout */
+@media (max-width: 768px) {
+  #projects .experience-item {
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .project-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
+  
+  #projects .experience-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  #projects .experience-item p {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  #projects .experience-item a {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
 .pdf-preview {
   margin-top: 1.5rem;
   padding: 1rem;
