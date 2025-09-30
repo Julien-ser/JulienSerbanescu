@@ -129,21 +129,26 @@ function App() {
       <div id="background" ref={galaxyRef}></div>
 
       <header>
-        <nav>
-          <h1 className="site-title">Julien Serbanescu</h1>
-          <div className="menu-icon" onClick={toggleMenu}>&#9776;</div>
-          <ul className={`nav-links ${menuActive ? 'active' : ''}`}>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#research">Research</a></li>
-            <li><a href="#competitions">Competitions</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#organizations">Organizations</a></li>
-            <li><a href="#certificates">Certificates</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
+        <div className="header-flex">
+          <h1 className="site-title" style={{ textAlign: "center" }}>
+  Julien Serbanescu
+</h1>
+
+          <nav>
+            <div className="menu-icon" onClick={toggleMenu}>&#9776;</div>
+            <ul className={`nav-links ${menuActive ? 'active' : ''}`}>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#experience">Experience</a></li>
+              <li><a href="#research">Research</a></li>
+              <li><a href="#competitions">Competitions</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#organizations">Organizations</a></li>
+              <li><a href="#certificates">Certificates</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
       </header>
 
       <div className="content">
