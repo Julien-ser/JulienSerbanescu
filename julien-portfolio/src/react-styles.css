@@ -51,7 +51,7 @@ body {
   50% { transform: scale(1.1) rotate(1deg); }
 }
 
-/* Subtle Floating Elements */
+/* Subtle Floating Elements - Reduced for performance */
 .particle {
   position: fixed;
   width: 1px;
@@ -59,20 +59,18 @@ body {
   background: var(--warm-yellow);
   border-radius: 50%;
   pointer-events: none;
-  animation: float 8s ease-in-out infinite;
+  animation: float 12s ease-in-out infinite;
   z-index: -1;
-  opacity: 0.3;
+  opacity: 0.15;
+  will-change: transform, opacity;
 }
 
-.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 20%; animation-delay: 2s; }
-.particle:nth-child(3) { left: 30%; animation-delay: 4s; }
-.particle:nth-child(4) { left: 40%; animation-delay: 6s; }
-.particle:nth-child(5) { left: 50%; animation-delay: 8s; }
-.particle:nth-child(6) { left: 60%; animation-delay: 10s; }
-.particle:nth-child(7) { left: 70%; animation-delay: 12s; }
-.particle:nth-child(8) { left: 80%; animation-delay: 14s; }
-.particle:nth-child(9) { left: 90%; animation-delay: 16s; }
+/* Reduced particle count for better performance */
+.particle:nth-child(1) { left: 20%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 40%; animation-delay: 4s; }
+.particle:nth-child(3) { left: 60%; animation-delay: 8s; }
+.particle:nth-child(4) { left: 80%; animation-delay: 12s; }
+.particle:nth-child(n+5) { display: none; }
 
 @keyframes float {
   0%, 100% { 
@@ -266,11 +264,9 @@ section {
     0 8px 32px rgba(0, 0, 0, 0.4),
     0 0 0 1px var(--border-subtle),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 
@@ -551,9 +547,13 @@ section:hover {
   background: linear-gradient(180deg, var(--warm-orange), var(--warm-red));
 }
 
-/* Clean hover effects for all interactive elements */
-a, button, .experience-item, section {
-  transition: all 0.3s ease;
+/* Clean hover effects for all interactive elements - Optimized */
+a, button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.experience-item, section {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Clean focus states */
@@ -1078,7 +1078,7 @@ li {
 }
 
 
-/* Clean Floating Particles */
+/* Clean Floating Particles - Optimized */
 .particle {
   position: fixed;
   width: 2px;
@@ -1086,20 +1086,18 @@ li {
   background: var(--warm-yellow);
   border-radius: 50%;
   pointer-events: none;
-  animation: cleanFloat 10s ease-in-out infinite;
+  animation: cleanFloat 15s ease-in-out infinite;
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.2;
+  will-change: transform, opacity;
 }
 
-.particle:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--warm-yellow); }
-.particle:nth-child(2) { left: 20%; animation-delay: 2s; background: var(--warm-orange); }
-.particle:nth-child(3) { left: 30%; animation-delay: 4s; background: var(--warm-red); }
-.particle:nth-child(4) { left: 40%; animation-delay: 6s; background: var(--warm-coral); }
-.particle:nth-child(5) { left: 50%; animation-delay: 8s; background: var(--warm-yellow); }
-.particle:nth-child(6) { left: 60%; animation-delay: 10s; background: var(--warm-orange); }
-.particle:nth-child(7) { left: 70%; animation-delay: 12s; background: var(--warm-red); }
-.particle:nth-child(8) { left: 80%; animation-delay: 14s; background: var(--warm-coral); }
-.particle:nth-child(9) { left: 90%; animation-delay: 16s; background: var(--warm-yellow); }
+/* Reduced to 4 particles for better performance */
+.particle:nth-child(1) { left: 20%; animation-delay: 0s; background: var(--warm-yellow); }
+.particle:nth-child(2) { left: 40%; animation-delay: 5s; background: var(--warm-orange); }
+.particle:nth-child(3) { left: 60%; animation-delay: 10s; background: var(--warm-yellow); }
+.particle:nth-child(4) { left: 80%; animation-delay: 15s; background: var(--warm-orange); }
+.particle:nth-child(n+5) { display: none; }
 
 @keyframes cleanFloat {
   0%, 100% { 
@@ -1120,8 +1118,9 @@ li {
   }
 }
 
-/* Clean Tech Badges */
+/* Clean Tech Badges - Now clickable links */
 .tech-badge {
+  display: inline-block;
   background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
   color: var(--warm-yellow);
   padding: 0.4rem 0.8rem;
@@ -1131,10 +1130,12 @@ li {
   text-transform: none;
   letter-spacing: -0.01em;
   border: 1px solid rgba(255, 215, 0, 0.3);
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   position: relative;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .tech-badge:hover {
@@ -1142,18 +1143,22 @@ li {
   transform: translateY(-2px);
   box-shadow: 0 3px 10px rgba(255, 215, 0, 0.2);
   border-color: var(--warm-yellow);
+  text-decoration: none;
+  color: var(--warm-yellow);
 }
 
-/* Clean Profile Glow */
+/* Clean Profile Glow - Simplified for performance */
 .profile-glow {
   position: absolute;
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: 
-    radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%),
-    radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%);
   z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 /* Clean Section Titles */
@@ -1236,12 +1241,19 @@ li {
   }
 }
 
-/* Clean Profile Image */
+/* Clean Profile Image - Now clickable */
 .profile-container {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.profile-link {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .profile-image {
@@ -1252,19 +1264,19 @@ li {
   border: 5px solid var(--warm-yellow);
   box-shadow: 
     0 0 30px rgba(255, 215, 0, 0.5),
-    0 0 60px rgba(255, 215, 0, 0.3),
-    0 0 90px rgba(255, 215, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    0 0 60px rgba(255, 215, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   z-index: 1;
+  display: block;
+  will-change: transform;
 }
 
-.profile-image:hover {
-  transform: scale(1.08);
+.profile-link:hover .profile-image {
+  transform: scale(1.05);
   box-shadow: 
     0 0 40px rgba(255, 215, 0, 0.7),
-    0 0 80px rgba(255, 215, 0, 0.4),
-    0 0 120px rgba(255, 215, 0, 0.2);
+    0 0 80px rgba(255, 215, 0, 0.4);
   border-color: var(--warm-orange);
 }
 
@@ -1286,8 +1298,6 @@ li {
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 215, 0, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .hero-chat-title {
@@ -1594,11 +1604,9 @@ li {
   border-radius: 12px;
   padding: 2rem;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .contact-card:hover {

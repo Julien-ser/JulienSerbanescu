@@ -113,13 +113,8 @@ function App() {
 
   return (
     <div className="App-container">
-      {/* Floating Tech Particles */}
+      {/* Floating Tech Particles - Reduced for performance */}
       <div className="particle-container">
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
         <div className="particle"></div>
         <div className="particle"></div>
         <div className="particle"></div>
@@ -163,15 +158,17 @@ function App() {
               <p className="typer">Cloud Infrastructure Specialist</p>
               <p className="typer">Published Author & Top Talent</p>
               <div className="tech-badges">
-                <span className="tech-badge">AI/ML</span>
-                <span className="tech-badge">Cybersecurity</span>
-                <span className="tech-badge">Robotics</span>
-                <span className="tech-badge">Research</span>
+                <a href="#research" className="tech-badge">AI/ML</a>
+                <a href="#experience" className="tech-badge">Cloud Engineering</a>
+                <a href="#organizations" className="tech-badge">Robotics</a>
+                <a href="#research" className="tech-badge">Research</a>
               </div>
             </div>
             <div className="profile-container">
-              <img src={profileImage} alt="Julien Serbanescu" className="profile-image" />
-              <div className="profile-glow"></div>
+              <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="profile-link">
+                <img src={profileImage} alt="Julien Serbanescu" className="profile-image" />
+                <div className="profile-glow"></div>
+              </a>
             </div>
           </div>
           
@@ -573,7 +570,7 @@ function App() {
                 <span className="location">University of Guelph, Guelph, ON</span>
               </div>
               <div className="job-description">
-                <p>Leading a <strong>10 member</strong> software team for CIRC (Canadian International Rover Challenge) using <strong>Docker, Python, YOLO, Webots</strong>, and coordinating across sub-teams with <strong>GitHub</strong> workflows</p>
+                <p>Leading a <strong>10 member</strong> software team for CIRC (Canadian International Rover Challenge) using <strong>Docker, Python, YOLO, Webots, ROS (Robot Operating System)</strong>, and coordinating across sub-teams with <strong>GitHub</strong> workflows</p>
               </div>
             </div>
           </div>
