@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import './react-styles.css';
 
 // Import images from assets
-import avatarIdle from './assets/avatar1.png';
-import avatarLoading from './assets/avatar2.jpeg';
-import profileImage from './assets/avatar1.png';
+import avatarIdle from './assets/Untitled.png';
+import avatarLoading from './assets/Untitled2.png';
+import profileImage from './assets/Untitled.png';
 import guelphLogo from './assets/guelp.png';
 import cySciLogo from './assets/cybersci.png';
+import coOperatorsLogo from './assets/cooperators.png';
 import athenaGuardLogo from './assets/aguard.jpg';
 import radarImage from './assets/radar.png';
 import ganImage from './assets/gan.png';
@@ -158,9 +159,9 @@ function App() {
             <div className="hero-text">
               <h1 className="hero-title">Hi there 👋</h1>
               <h1>I'm <span className='gradient-text'>Julien Serbanescu</span></h1>
-              <p className="typer">AI Engineer</p>
-              <p className="typer">Robotics Enthusiast</p>
-              <p className="typer">Aspiring Entrepreneur</p>
+              <p className="typer">AI Engineer & Researcher</p>
+              <p className="typer">Cloud Infrastructure Specialist</p>
+              <p className="typer">Published Author & Top Talent</p>
               <div className="tech-badges">
                 <span className="tech-badge">AI/ML</span>
                 <span className="tech-badge">Cybersecurity</span>
@@ -244,13 +245,13 @@ function App() {
         <div className="section-divider"></div>
         <div className="about-text">
           <p className="par">
-            I'm Julien Serbanescu, pursuing a bachelor of Computer Engineering at the University of Guelph with co-op, while also minoring in Entrepreneurship. My interests lie at the intersection of artificial intelligence, cybersecurity, and innovative problem-solving. I enjoy building systems that blend deep technical research with real-world impact.
+            I'm Julien Serbanescu, a Computer Engineering student at the University of Guelph with co-op, minoring in Entrepreneurship. My expertise spans artificial intelligence, cloud infrastructure, cybersecurity, and cutting-edge research. I build systems that combine deep technical innovation with measurable real-world impact.
           </p>
           <p className="par">
             As a two-time NSERC USRA recipient, I’ve conducted research on robust multi-hop question answering with retrieval-augmented LLMs and adversarial robustness in LLMs and CNNs. I co-developed Latent Twin Retrieval (LTR) for evaluating misinformation resilience in QA systems, and built RL-based defenses for LLM jailbreak detection and mitigation.
           </p>
           <p className="par">
-            Outside academia, I co-founded AthenaGuard, a cybersecurity startup where I led development of phishing detection systems using GradientBoost models and built full-stack mobile and web applications. I also lead the Guelph AI Club and the software subteam of the university's Robotics team.
+            Professionally, I serve as Cloud Engineer and Administrator at Co-Operators, where I optimize Azure infrastructure, automate workflows, and drive compliance initiatives. Previously, I co-founded AthenaGuard, a cybersecurity startup where I architected phishing detection systems using GradientBoost models and built full-stack applications. I also lead the Guelph AI Club and the software subteam of the university's Robotics team, mentoring the next generation of engineers.
           </p>
         </div>
         </section>
@@ -260,16 +261,33 @@ function App() {
            <div className="section-divider"></div>
            
            <div className="experience-item">
+             <h3 className="job-title">Cloud Engineer and Administrator</h3>
+             <img src={coOperatorsLogo} alt="Co-operators Logo" className="image" />
+             <p className="job-date">
+               <span className="date-range">Jan 2026 - Present</span>
+               <span className="location">Co-Operators, Guelph, ON</span>
+             </p>
+             <p className="job-description">Leading cloud infrastructure optimization and automation initiatives at one of Canada's largest insurance and financial services cooperatives, driving operational excellence and compliance improvements.</p>
+             <ul className="job-highlights">
+               <li>Optimized alerting infrastructure for internal monitoring of Azure pay-as-you-go disk storage across <strong>209 file share instances</strong> using Azure PowerShell modules, improving system observability and reducing operational overhead.</li>
+               <li>Recognized for <strong>"Execute with accountability"</strong> by leading the identification and removal of <strong>233 unused service accounts (16.1% reduction)</strong> from Azure Active Directory, advancing IGA/PAM compliance initiatives using PowerShell with custom Azure portal packages.</li>
+               <li>Developed a Python automation system for Jira and Confluence using <strong>FastAPI</strong>, <strong>Jinja2</strong>, and Jira API, applying bulk changes to <strong>10+ projects</strong> and adding custom fields to <strong>30+ screens</strong>, significantly reducing manual configuration time.</li>
+               <li>Upgraded production <strong>PostgreSQL databases from v13 to v16</strong> using <strong>Terraform (IaC)</strong> across Azure infrastructure, validating deployments against JFrog Artifactory instances hosted on both Azure and AWS.</li>
+             </ul>
+           </div>
+           
+           <div className="experience-item">
              <h3 className="job-title">Cyber Science Lab Research Assistant</h3>
              <img src={cySciLogo} alt="University of Guelph Logo" className="image" />
              <p className="job-date">
                <span className="date-range">May 2025 - Present</span>
                <span className="location">University of Guelph, Guelph, ON</span>
              </p>
-             <p className="job-description">At the Cyber Science Lab, I developed adversarial robustness strategies for language and vision models, and explored reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
+             <p className="job-description">At the Cyber Science Lab, I develop cutting-edge adversarial robustness strategies for language and vision models, and pioneer reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
              <ul className="job-highlights">
-               <li>Implemented baseline and inference pipelines for psychologically inspired LLM jailbreak methods, achieving up to <strong>97% attack success rate</strong> and reducing model <strong>perplexity to 23.62</strong> across multiple LLMs.</li>
-               <li><a href="https://github.com/CyberScienceLab/Julien-Reinforcement-Learning-for-Real-Time-Jailbreak-Recovery-" target="_blank" rel="noopener noreferrer" className="subtle-link">Developed a real-time, adaptive RL-based defense system</a> against LLM jailbreaks using <strong>Gymnasium</strong> and <strong>Stable Baselines3</strong>, achieving a <strong>84% true positive rate</strong> on malicious prompt detection, with only a <strong>39%</strong> false positive rate. Deployed the trained policy via <strong>ONNX</strong> on <strong>FastAPI</strong> for lightweight, low-latency inference.</li>
+               <li>Implemented baseline and inference pipelines for psychologically inspired LLM jailbreak methods, achieving up to <strong>97% attack success rate</strong> and reducing model <strong>perplexity to 23.6</strong> across multiple LLMs.</li>
+               <li><a href="https://github.com/CyberScienceLab/Julien-Reinforcement-Learning-for-Real-Time-Jailbreak-Recovery-" target="_blank" rel="noopener noreferrer" className="subtle-link">Developed a real-time, adaptive RL-based defense system</a> against LLM jailbreaks using <strong>Gymnasium</strong> and <strong>Stable Baselines3</strong>, achieving a <strong>96% true positive rate</strong> on malicious prompt detection, with only a <strong>39%</strong> false positive rate. Deployed the trained policy via <strong>ONNX</strong> on <strong>FastAPI</strong> for lightweight, low-latency inference. Developed auto-patching layer using <strong>SentenceTransformers embeddings</strong> for detecting and defending against malicious/harmful prompts.</li>
+               <li>Pioneered auto-vaccination techniques for Vision-Language Models (VLMs), dramatically reducing Attack Success Rate (ASR): <strong>BLIP-2 (100%→25%)</strong> and <strong>LLaVA (99.2%→6.3%)</strong>, while maintaining task quality and model performance.</li>
              </ul>
            </div>
            <div className="experience-item">
@@ -326,25 +344,18 @@ function App() {
             <span className="location">SIGIR-AP 2025</span>
           </p>
           <p className="par">
-            I co-authored a research paper titled <i>"FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought"</i>.
+            I co-authored a research paper titled <i>"FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought"</i>, which was <strong>nominated for best paper</strong> at SIGIR-AP 2025.
           </p>
           <div className="pdf-preview">
             <h4>Read the Paper:</h4>
             <div className="pdf-options">
               <a 
-                href="/JulienSerbanescu/paper2.pdf" 
+                href="https://dl.acm.org/doi/pdf/10.1145/3767695.3769494" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="pdf-link preview-link"
               >
-                <span className="pdf-icon"></span> Preview Paper
-              </a>
-              <a 
-                href="/JulienSerbanescu/paper2.pdf" 
-                className="pdf-link download-link"
-                download="Julien_Serbanescu_SIGIRAP2025_Paper.pdf"
-              >
-                <span className="pdf-icon"></span> Download Paper
+                <span className="pdf-icon"></span> View on ACM
               </a>
             </div>
           </div>
@@ -362,19 +373,12 @@ function App() {
             <h4>Read the Paper:</h4>
             <div className="pdf-options">
               <a 
-                href="/JulienSerbanescu/paper.pdf" 
+                href="https://dl.acm.org/doi/pdf/10.1145/3673791.3698413" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="pdf-link preview-link"
               >
-                <span className="pdf-icon"></span> Preview Paper
-              </a>
-              <a 
-                href="/JulienSerbanescu/paper.pdf" 
-                className="pdf-link download-link"
-                download="Julien_Serbanescu_Research_Paper.pdf"
-              >
-                <span className="pdf-icon"></span> Download Paper
+                <span className="pdf-icon"></span> View on ACM
               </a>
             </div>
           </div>
@@ -393,19 +397,12 @@ function App() {
             <h4>Read the Paper:</h4>
             <div className="pdf-options">
               <a 
-                href="/JulienSerbanescu/paper3.pdf" 
+                href="https://dl.acm.org/doi/pdf/10.1145/3746252.3760929" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="pdf-link preview-link"
               >
-                <span className="pdf-icon"></span> Preview Paper
-              </a>
-              <a 
-                href="/JulienSerbanescu/paper3.pdf" 
-                className="pdf-link download-link"
-                download="Julien_Serbanescu_CIKM2025_Paper.pdf"
-              >
-                <span className="pdf-icon"></span> Download Paper
+                <span className="pdf-icon"></span> View on ACM
               </a>
             </div>
           </div>
