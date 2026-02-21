@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { heroTimeline, fadeUpBlur, parallaxTilt, breathingGlow } from './motion.js';
 import './react-styles.css';
 
 // Import images from assets
 import avatarIdle from './assets/Untitled.png';
 import avatarLoading from './assets/Untitled2.png';
 import profileImage from './assets/Untitled.png';
+import heroImage from './assets/cb.png';
 import guelphLogo from './assets/guelp.png';
 import cySciLogo from './assets/cybersci.png';
 import coOperatorsLogo from './assets/cooperators.png';
@@ -28,34 +30,83 @@ function App() {
 
   // Determine which avatar image to display based on loading state
   const currentAvatar = isLoading ? avatarLoading : avatarIdle;
+  const profileImageRef = useRef(null);
 
   useEffect(() => {
-    initGalaxyBackground();
-    
-    // Add event listener for navigation
-    const navLinks = document.querySelectorAll('.nav-links a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        setActiveSection(targetId);
-        if (menuActive) setMenuActive(false);
-        
-        // Scroll to the section
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    return () => {
-      // Cleanup
-      if (window.animationFrameId) {
-        cancelAnimationFrame(window.animationFrameId);
+    try {
+      initGalaxyBackground();
+      heroTimeline();
+      
+      // Add parallax tilt effect to profile image
+      const profileImage = document.querySelector('.profile-image');
+      let cleanupParallax = null;
+      if (profileImage) {
+        cleanupParallax = parallaxTilt(profileImage, { maxTilt: 8, speed: 300 });
       }
-    };
+      
+      // Add event listener for navigation
+      const navLinks = document.querySelectorAll('.nav-links a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').substring(1);
+          setActiveSection(targetId);
+          if (menuActive) setMenuActive(false);
+          
+          // Scroll to the section
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Setup intersection observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+            fadeUpBlur(entry.target, { duration: 800 });
+            entry.target.classList.add('animated');
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections and cards
+      document.querySelectorAll('section, .experience-item').forEach(el => {
+        observer.observe(el);
+      });
+
+      return () => {
+        observer.disconnect();
+        if (cleanupParallax) cleanupParallax();
+        if (window.animationFrameId) {
+          cancelAnimationFrame(window.animationFrameId);
+        }
+      };
+    } catch (error) {
+      console.error('Error in main useEffect:', error);
+      // Return cleanup function even on error
+      return () => {};
+    }
   }, [menuActive]);
+
+  // Animate avatar loading state
+  useEffect(() => {
+    const avatar = document.querySelector('.hero-avatar-image');
+    if (avatar) {
+      if (isLoading) {
+        avatar.classList.add('loading');
+        breathingGlow(avatar, { loop: true });
+      } else {
+        avatar.classList.remove('loading');
+      }
+    }
+  }, [isLoading]);
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
@@ -152,10 +203,11 @@ function App() {
         <section id="home">
           <div className="hero-container">
             <div className="hero-text">
-              <h1 className="hero-title">Hi there 👋</h1>
+              <h1 className="hero-title">Howdy 🤠</h1>
               <h1>I'm <span className='gradient-text'>Julien Serbanescu</span></h1>
+              <p className="typer">Computer Engineering and Entrepreneurship Student</p>
               <p className="typer">AI Engineer & Researcher</p>
-              <p className="typer">Cloud Infrastructure Specialist</p>
+              <p className="typer">Cloud, Cybersecurity and Robotics Practitioner</p>
               <p className="typer">Published Author & Top Talent</p>
               <div className="tech-badges">
                 <a href="#research" className="tech-badge">AI/ML</a>
@@ -166,7 +218,7 @@ function App() {
             </div>
             <div className="profile-container">
               <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="profile-link">
-                <img src={profileImage} alt="Julien Serbanescu" className="profile-image" />
+                <img src={heroImage} alt="Julien Serbanescu" className="profile-image" />
                 <div className="profile-glow"></div>
               </a>
             </div>
