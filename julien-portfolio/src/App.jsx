@@ -15,6 +15,10 @@ import radarImage from './assets/radar.png';
 import ganImage from './assets/gan.png';
 import jarvImage from './assets/jarv.jpg';
 import jusImage from './assets/jus.png';
+import roboticsImage from './assets/robotics.png';
+import AKOImage from './assets/ako.png';
+import resqImage from './assets/resq.png';
+import suaveImage from './assets/squave.png';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -27,6 +31,165 @@ function App() {
   const googleScholarUrl = 'https://scholar.google.ca/citations?hl=en&user=mnpXcUwAAAAJ';
   const apiUrl = 'https://dajulster-julienserbanescu-rag.hf.space/api/query';
   const galaxyRef = useRef(null);
+
+  const projects = [
+    {
+      id: 'abb-irb-120',
+      title: 'ABB IRB-120 Robotics Motion Analysis',
+      image: roboticsImage,
+      alt: 'ABB IRB-120 Robotics Motion Analysis',
+      summary: 'Analyzed and modeled robot-arm motion patterns for ABB IRB-120 systems.',
+      description:
+        'A robotics motion analysis project focused on ABB IRB-120 behavior, movement trajectories, and performance characteristics to better understand and optimize robot control workflows.',
+      href: 'https://github.com/Julien-ser/ABB-IRB-120-Robotics-motion-analysis'
+    },
+    {
+      id: 'ako-agentic-kernel-optimization',
+      title: 'AKO: Agentic Kernel Optimization',
+      image: AKOImage,
+      alt: 'AKO Agentic Kernel Optimization',
+      summary: 'Built an agentic system for kernel-level optimization workflows.',
+      description:
+        'AKO explores agent-driven optimization pipelines targeting kernel-level decisions, combining automation and iterative reasoning to improve execution performance.',
+      href: 'https://github.com/Julien-ser/AKO-Agentic-Kernel-Optimization'
+    },
+    {
+      id: 'resq-ai-agentic-dispatcher',
+      title: 'ResQ-AI Agentic Dispatcher',
+      image: resqImage,
+      alt: 'ResQ-AI Agentic Dispatcher',
+      summary: 'Designed an agentic dispatcher for intelligent coordination and routing.',
+      description:
+        'ResQ-AI is an agentic dispatching project focused on coordinating tasks and responses through AI-driven decision logic for faster and more reliable operational flow.',
+      href: 'https://github.com/Julien-ser/ResQ-AI_AgenticDispatcher'
+    },
+    {
+      id: 'suaveai-detection-model',
+      title: 'SuaveAI Detection Multitask Model V1',
+      image: suaveImage,
+      alt: 'SuaveAI Detection Multitask Model V1',
+      summary: 'Published a multitask detection model on Hugging Face Hub.',
+      description:
+        'SuaveAI Detection Multitask Model V1 is a published Hugging Face model focused on multitask detection workflows, with a deployable checkpoint and model documentation.',
+      href: 'https://huggingface.co/DaJulster/SuaveAI-Dectection-Multitask-Model-V1'
+    },
+    {
+      id: 'clinical-reasoning',
+      title: 'Clinical Reasoning Model Benchmarking and Fine-Tuning',
+      image: radarImage,
+      alt: 'Clinical Reasoning Model',
+      summary: 'Benchmarked and fine-tuned clinical NLP models for medical QA tasks.',
+      description:
+        'Developed and benchmarked clinical reasoning models for medical QA tasks, including dataset curation, evaluation, and fine-tuning of transformer-based architectures. Explored robustness, factuality, and reasoning capabilities in clinical NLP.',
+      href: 'https://github.com/Julien-ser/Clinical-Reasoning-Model-Benchmarking-and-Fine-Tuning'
+    },
+    {
+      id: 'gan-jerseys',
+      title: 'GAN to Generate Soccer Jerseys',
+      image: ganImage,
+      alt: 'GAN Soccer Jerseys',
+      summary: 'Built a PyTorch GAN to generate synthetic soccer jersey designs.',
+      description:
+        'Developed a Generative Adversarial Network (GAN) to create soccer jersey designs. Constructed generator and discriminator networks with PyTorch, using a custom dataset obtained by web scraping images of soccer jerseys. Implemented key model layers including Conv2D, Conv2DTranspose, along with tanh and sigmoid activations.',
+      href: 'https://www.kaggle.com/code/julienserbanescu/pytorch-test'
+    },
+    {
+      id: 'jarvis-ai',
+      title: 'Jarvis AI For the Toronto Tech Expo',
+      image: jarvImage,
+      alt: 'Jarvis AI Tech Expo',
+      summary: 'Led development of a voice-enabled assistant showcased at IBM TTE.',
+      description:
+        'Lead a team to create an AI assistant similar to Jarvis from Iron Man. Using technology such as a 3rd party openAI api to answer general questions. Implementation of SpeechRecognition libraries in Python(likely Google\'s speech recognition library). Automation of processes such as application opening, online search. etc. Showcased and presented to the IBM Toronto Tech Expo (TTE)',
+      href: 'https://github.com/Julien-ser/Jarvis-ai-TTE'
+    },
+    {
+      id: 'orange-juice-dispenser',
+      title: 'Orange Juice Dispenser',
+      image: jusImage,
+      alt: 'Orange Juice Dispenser',
+      summary: 'Built an ESP8266-controlled smart dispenser triggered by text input.',
+      description:
+        'Created a device that would activate a pump via the ESP8266, dispensing water into a glass with OJ powder, activating whenever orange was typed in. Selenium to communicate and interact with ESP8266 web server to send the command to activate the pump. Usage of a relay and motorized pump in my ESP8266 circuit, usage of C++ for programming the ESP webpage and pump activation.',
+      href: 'https://drive.google.com/file/d/1uF_2dDhc9ZC9fWEBjcScDP96S59U_V4C/view?usp=sharing'
+    }
+  ];
+  const [selectedProjectId, setSelectedProjectId] = useState(projects[0].id);
+  const selectedProject = projects.find((project) => project.id === selectedProjectId) || projects[0];
+
+  const robotVideos = [
+    {
+      id: 'x-status-2026306411378962805',
+      title: 'Robotics Demo (X Post 1)',
+      description: 'Embedded robotics clip from X.',
+      provider: 'x',
+      embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026306411378962805',
+      sourceUrl: 'https://x.com/i/status/2026306411378962805'
+    },
+    {
+      id: 'x-status-2026306727935676634',
+      title: 'Robotics Demo (X Post 2)',
+      description: 'Embedded robotics clip from X.',
+      provider: 'x',
+      embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026306727935676634',
+      sourceUrl: 'https://x.com/i/status/2026306727935676634'
+    },
+    {
+      id: 'x-status-2026307503022109164',
+      title: 'Robotics Demo (X Post 3)',
+      description: 'Embedded robotics clip from X.',
+      provider: 'x',
+      embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026307503022109164',
+      sourceUrl: 'https://x.com/i/status/2026307503022109164'
+    },
+    {
+      id: 'x-status-2026308272546849015',
+      title: 'Robotics Demo (X Post 4)',
+      description: 'Embedded robotics clip from X.',
+      provider: 'x',
+      embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026308272546849015',
+      sourceUrl: 'https://x.com/i/status/2026308272546849015'
+    },
+    {
+      id: 'robotics-drive-demo',
+      title: 'Robotics and Gadget Demo Reel',
+      description: 'Featured robotics/gadget demo video hosted on Google Drive.',
+      embedUrl: 'https://drive.google.com/file/d/14VT9dYURoKVtWJtiwtv4SivmbhJS0I4Y/preview',
+      sourceUrl: 'https://drive.google.com/file/d/14VT9dYURoKVtWJtiwtv4SivmbhJS0I4Y/view?usp=sharing'
+    },
+    {
+      id: 'x-status-demo',
+      title: 'Robotics Demo (X Post)',
+      description: 'Embedded demo from your X post.',
+      provider: 'x',
+      embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=1908004346043715673',
+      sourceUrl: 'https://x.com/i/status/1908004346043715673'
+    },
+    {
+      id: 'drive-demo-2',
+      title: 'Robotics and Gadgets Demo 2',
+      description: 'Embedded Google Drive demo video.',
+      embedUrl: 'https://drive.google.com/file/d/1aOHEPNl7Mv8j02Qbf2r2c0NeIjK7jQhv/preview',
+      sourceUrl: 'https://drive.google.com/file/d/1aOHEPNl7Mv8j02Qbf2r2c0NeIjK7jQhv/view?usp=sharing'
+    },
+    {
+      id: 'drive-demo-3',
+      title: 'Robotics and Gadgets Demo 3',
+      description: 'Additional embedded Google Drive demo video.',
+      embedUrl: 'https://drive.google.com/file/d/1w_u6A3DBWKDnzZgh6Zbgkb0nAsM1sGKQ/preview',
+      sourceUrl: 'https://drive.google.com/file/d/1w_u6A3DBWKDnzZgh6Zbgkb0nAsM1sGKQ/view?usp=sharing'
+    }
+  ];
+  const [activeRobotVideoIndex, setActiveRobotVideoIndex] = useState(0);
+  const activeRobotVideo = robotVideos[activeRobotVideoIndex];
+
+  const showPrevRobotVideo = () => {
+    setActiveRobotVideoIndex((currentIndex) => (currentIndex === 0 ? robotVideos.length - 1 : currentIndex - 1));
+  };
+
+  const showNextRobotVideo = () => {
+    setActiveRobotVideoIndex((currentIndex) => (currentIndex === robotVideos.length - 1 ? 0 : currentIndex + 1));
+  };
 
   // Determine which avatar image to display based on loading state
   const currentAvatar = isLoading ? avatarLoading : avatarIdle;
@@ -190,6 +353,7 @@ function App() {
               <li><a href="#research">Research</a></li>
               <li><a href="#competitions">Competitions</a></li>
               <li><a href="#projects">Projects</a></li>
+              <li><a href="#robots-gadgets">Robots & Gadgets</a></li>
               <li><a href="#organizations">Organizations</a></li>
               <li><a href="#certificates">Certificates</a></li>
               <li><a href="#contact">Contact</a></li>
@@ -553,39 +717,75 @@ function App() {
         <section id="projects" className="experience-section">
           <h2 className="section-title">Projects</h2>
           <div className="section-divider"></div>
-            <div className="experience-item">
-            <h3>Clinical Reasoning Model Benchmarking and Fine-Tuning</h3>
-            <img src={radarImage} alt="Clinical Reasoning Model" className="image project-image" />
-            <p className="par">
-              Developed and benchmarked clinical reasoning models for medical QA tasks, including dataset curation, evaluation, and fine-tuning of transformer-based architectures. Explored robustness, factuality, and reasoning capabilities in clinical NLP.
-            </p>
-            <a href="https://github.com/Julien-ser/Clinical-Reasoning-Model-Benchmarking-and-Fine-Tuning" target="_blank" rel="noreferrer">View Project</a>
+          <p className="projects-instruction">Click any project card to view more details.</p>
+          <div className="projects-grid">
+            {projects.map((project) => (
+              <button
+                key={project.id}
+                type="button"
+                className={`project-card ${selectedProjectId === project.id ? 'active' : ''}`}
+                onClick={() => setSelectedProjectId(project.id)}
+                aria-pressed={selectedProjectId === project.id}
+              >
+                <img src={project.image} alt={project.alt} className="project-card-image" />
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+              </button>
+            ))}
           </div>
-          <div className="experience-item">
-            <h3>GAN to Generate Soccer Jerseys</h3>
-            <img src={ganImage} alt="GAN Soccer Jerseys" className="image project-image" />
-            <p className="par">
-              Developed a Generative Adversarial Network (GAN) to create soccer jersey designs. Constructed generator and discriminator networks with PyTorch, using a custom dataset obtained by web scraping images of soccer jerseys. Implemented key model layers including Conv2D, Conv2DTranspose, along with tanh and sigmoid activations.
-            </p>
-            <a href="https://www.kaggle.com/code/julienserbanescu/pytorch-test" target="_blank" rel="noreferrer">View Project</a>
+
+          <div className="project-details-panel" aria-live="polite">
+            <h3>{selectedProject.title}</h3>
+            <img src={selectedProject.image} alt={selectedProject.alt} className="project-details-image" />
+            <p>{selectedProject.description}</p>
+            <a href={selectedProject.href} target="_blank" rel="noreferrer">View Project</a>
           </div>
-          
-          <div className="experience-item">
-            <h3>Jarvis AI For the Toronto Tech Expo</h3>
-            <img src={jarvImage} alt="Jarvis AI Tech Expo" className="image project-image" />
-            <p className="par">
-              Lead a team to create an AI assistant similar to Jarvis from Iron Man. Using technology such as a 3rd party openAI api to answer general questions. Implementation of SpeechRecognition libraries in Python(likely Google's speech recognition library). Automation of processes such as application opening, online search. etc. Showcased and presented to the IBM Toronto Tech Expo (TTE)
-            </p>
-            <a href="https://github.com/Julien-ser/Jarvis-ai-TTE" target="_blank" rel="noreferrer">View Project</a>
+        </section>
+
+        <section id="robots-gadgets" className="experience-section">
+          <h2 className="section-title">Robots and Gadgets</h2>
+          <div className="section-divider"></div>
+          <p className="projects-instruction">A carousel of embedded robotics and gadget demos.</p>
+
+          <div className="robot-carousel">
+            <button type="button" className="robot-carousel-nav" onClick={showPrevRobotVideo} aria-label="Previous video">
+              ‹
+            </button>
+
+            <div className={`robot-video-frame ${activeRobotVideo.provider === 'x' ? 'is-x' : ''}`}>
+              <iframe
+                src={activeRobotVideo.embedUrl}
+                title={activeRobotVideo.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+
+            <button type="button" className="robot-carousel-nav" onClick={showNextRobotVideo} aria-label="Next video">
+              ›
+            </button>
           </div>
-          
-          <div className="experience-item">
-            <h3>Orange Juice Dispenser</h3>
-            <img src={jusImage} alt="Orange Juice Dispenser" className="image project-image" />
-            <p className="par">
-              Created a device that would activate a pump via the ESP8266, dispensing water into a glass with OJ powder, activating whenever orange was typed in. Selenium to communicate and interact with ESP8266 web server to send the command to activate the pump. Usage of a relay and motorized pump in my ESP8266 circuit, usage of C++ for programming the ESP webpage and pump activation.
-            </p>
-            <a href="https://drive.google.com/file/d/1uF_2dDhc9ZC9fWEBjcScDP96S59U_V4C/view?usp=sharing" target="_blank" rel="noreferrer">View Project</a>
+
+          <div className="robot-video-meta">
+            <h3>{activeRobotVideo.title}</h3>
+            <p>{activeRobotVideo.description}</p>
+            <a href={activeRobotVideo.sourceUrl} target="_blank" rel="noreferrer">Open Source Video</a>
+          </div>
+
+          <div className="robot-video-track" role="tablist" aria-label="Robot and gadget videos">
+            {robotVideos.map((video, index) => (
+              <button
+                key={video.id}
+                type="button"
+                role="tab"
+                aria-selected={index === activeRobotVideoIndex}
+                className={`robot-video-chip ${index === activeRobotVideoIndex ? 'active' : ''}`}
+                onClick={() => setActiveRobotVideoIndex(index)}
+              >
+                {video.title}
+              </button>
+            ))}
           </div>
         </section>
 
