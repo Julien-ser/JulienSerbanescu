@@ -664,6 +664,7 @@ button:active {
 
 .response-text {
   background-color: rgba(255, 215, 0, 0.1);
+  color: #000;
   padding: 15px;
   border-radius: 6px;
   margin-bottom: 25px;
@@ -1802,6 +1803,7 @@ a.project-card {
 
 .hero-chat-form .response-text {
   background-color: rgba(255, 215, 0, 0.1);
+  color: #000;
   padding: 1rem;
   border-radius: 6px;
   margin-bottom: 1.5rem;
