@@ -1247,6 +1247,12 @@ a.project-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
+.project-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .project-details-panel a:hover,
 .project-details-panel a:focus-visible {
   background: #ffe171;

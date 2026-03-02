@@ -19,6 +19,7 @@ import roboticsImage from './assets/robotics.png';
 import AKOImage from './assets/ako.png';
 import resqImage from './assets/resq.png';
 import suaveImage from './assets/squave.png';
+import resumeworthyImage from './assets/resumeworthy.png';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -33,15 +34,16 @@ function App() {
   const galaxyRef = useRef(null);
 
   const projects = [
-    {
-      id: 'abb-irb-120',
-      title: 'ABB IRB-120 Robotics Motion Analysis',
-      image: roboticsImage,
-      alt: 'ABB IRB-120 Robotics Motion Analysis',
-      summary: 'Analyzed and modeled robot-arm motion patterns for ABB IRB-120 systems.',
+        {
+      id: 'resume-worthy',
+      title: 'ResumeWorthy',
+      image: resumeworthyImage,
+      alt: 'ResumeWorthy',
+      summary: 'AI-powered platform to find jobs, tailor resumes/cover letters, and discover recruiters using Agents and LangChain.',
       description:
-        'A robotics motion analysis project focused on ABB IRB-120 behavior, movement trajectories, and performance characteristics to better understand and optimize robot control workflows.',
-      href: 'https://github.com/Julien-ser/ABB-IRB-120-Robotics-motion-analysis'
+        'ResumeWorthy is a comprehensive job search and career advancement platform powered by AI Agents and LangChain. It enables users to discover job opportunities, generate customized resumes and cover letters, and connect with recruiters. The platform leverages intelligent agents to streamline the entire job application process.',
+      href: 'https://github.com/Julien-ser/ResumeWorthy',
+      demoUrl: 'https://resume-worthy.vercel.app/'
     },
     {
       id: 'ako-agentic-kernel-optimization',
@@ -54,16 +56,6 @@ function App() {
       href: 'https://github.com/Julien-ser/AKO-Agentic-Kernel-Optimization'
     },
     {
-      id: 'resq-ai-agentic-dispatcher',
-      title: 'ResQ-AI Agentic Dispatcher',
-      image: resqImage,
-      alt: 'ResQ-AI Agentic Dispatcher',
-      summary: 'Designed an agentic dispatcher for intelligent coordination and routing.',
-      description:
-        'ResQ-AI is an agentic dispatching project focused on coordinating tasks and responses through AI-driven decision logic for faster and more reliable operational flow.',
-      href: 'https://github.com/Julien-ser/ResQ-AI_AgenticDispatcher'
-    },
-    {
       id: 'suaveai-detection-model',
       title: 'SuaveAI Detection Multitask Model V1',
       image: suaveImage,
@@ -72,6 +64,26 @@ function App() {
       description:
         'SuaveAI Detection Multitask Model V1 is a published Hugging Face model focused on multitask detection workflows, with a deployable checkpoint and model documentation.',
       href: 'https://huggingface.co/DaJulster/SuaveAI-Dectection-Multitask-Model-V1'
+    },
+    {
+      id: 'abb-irb-120',
+      title: 'ABB IRB-120 Robotics Motion Analysis',
+      image: roboticsImage,
+      alt: 'ABB IRB-120 Robotics Motion Analysis',
+      summary: 'Analyzed and modeled robot-arm motion patterns for ABB IRB-120 systems.',
+      description:
+        'A robotics motion analysis project focused on ABB IRB-120 behavior, movement trajectories, and performance characteristics to better understand and optimize robot control workflows.',
+      href: 'https://github.com/Julien-ser/ABB-IRB-120-Robotics-motion-analysis'
+    },
+    {
+      id: 'resq-ai-agentic-dispatcher',
+      title: 'ResQ-AI Agentic Dispatcher',
+      image: resqImage,
+      alt: 'ResQ-AI Agentic Dispatcher',
+      summary: 'Designed an agentic dispatcher for intelligent coordination and routing.',
+      description:
+        'ResQ-AI is an agentic dispatching project focused on coordinating tasks and responses through AI-driven decision logic for faster and more reliable operational flow.',
+      href: 'https://github.com/Julien-ser/ResQ-AI_AgenticDispatcher'
     },
     {
       id: 'clinical-reasoning',
@@ -120,62 +132,62 @@ function App() {
   const robotVideos = [
     {
       id: 'x-status-2026306411378962805',
-      title: 'Robotics Demo (X Post 1)',
-      description: 'Embedded robotics clip from X.',
+      title: 'RFID Scanner Encryption',
+      description: 'Clip from X.',
       provider: 'x',
       embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026306411378962805',
       sourceUrl: 'https://x.com/i/status/2026306411378962805'
     },
     {
       id: 'x-status-2026306727935676634',
-      title: 'Robotics Demo (X Post 2)',
-      description: 'Embedded robotics clip from X.',
+      title: 'ESP Wearable live bus monitoring',
+      description: 'Clip from X.',
       provider: 'x',
       embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026306727935676634',
       sourceUrl: 'https://x.com/i/status/2026306727935676634'
     },
     {
       id: 'x-status-2026307503022109164',
-      title: 'Robotics Demo (X Post 3)',
-      description: 'Embedded robotics clip from X.',
+      title: 'Robotic Phone Blocker',
+      description: 'Clip from X.',
       provider: 'x',
       embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026307503022109164',
       sourceUrl: 'https://x.com/i/status/2026307503022109164'
     },
     {
-      id: 'x-status-2026308272546849015',
-      title: 'Robotics Demo (X Post 4)',
-      description: 'Embedded robotics clip from X.',
+      id: 'x-status-2027018004160991270',
+      title: '4WD Mecanum Robot With Personality',
+      description: 'Clip from X.',
       provider: 'x',
-      embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2026308272546849015',
-      sourceUrl: 'https://x.com/i/status/2026308272546849015'
+      embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=2027018004160991270',
+      sourceUrl: 'https://x.com/i/status/2027018004160991270'
     },
     {
       id: 'robotics-drive-demo',
-      title: 'Robotics and Gadget Demo Reel',
-      description: 'Featured robotics/gadget demo video hosted on Google Drive.',
+      title: 'Transforming Remote Controlled ESP32 Robot',
+      description: 'Clip from Google Drive.',
       embedUrl: 'https://drive.google.com/file/d/14VT9dYURoKVtWJtiwtv4SivmbhJS0I4Y/preview',
       sourceUrl: 'https://drive.google.com/file/d/14VT9dYURoKVtWJtiwtv4SivmbhJS0I4Y/view?usp=sharing'
     },
     {
       id: 'x-status-demo',
-      title: 'Robotics Demo (X Post)',
-      description: 'Embedded demo from your X post.',
+      title: 'Robotic Weapon',
+      description: 'Clip from X.',
       provider: 'x',
       embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=1908004346043715673',
       sourceUrl: 'https://x.com/i/status/1908004346043715673'
     },
     {
       id: 'drive-demo-2',
-      title: 'Robotics and Gadgets Demo 2',
-      description: 'Embedded Google Drive demo video.',
+      title: 'Transforming Web-Controlled ESP32 Robot',
+      description: 'Clip from Google Drive.',
       embedUrl: 'https://drive.google.com/file/d/1aOHEPNl7Mv8j02Qbf2r2c0NeIjK7jQhv/preview',
       sourceUrl: 'https://drive.google.com/file/d/1aOHEPNl7Mv8j02Qbf2r2c0NeIjK7jQhv/view?usp=sharing'
     },
     {
       id: 'drive-demo-3',
-      title: 'Robotics and Gadgets Demo 3',
-      description: 'Additional embedded Google Drive demo video.',
+      title: 'Arduino Robot with Movement and Personality',
+      description: 'Clip from Google Drive.',
       embedUrl: 'https://drive.google.com/file/d/1w_u6A3DBWKDnzZgh6Zbgkb0nAsM1sGKQ/preview',
       sourceUrl: 'https://drive.google.com/file/d/1w_u6A3DBWKDnzZgh6Zbgkb0nAsM1sGKQ/view?usp=sharing'
     }
@@ -351,9 +363,9 @@ function App() {
               <li><a href="#about">About</a></li>
               <li><a href="#experience">Experience</a></li>
               <li><a href="#research">Research</a></li>
-              <li><a href="#competitions">Competitions</a></li>
               <li><a href="#projects">Projects</a></li>
               <li><a href="#robots-gadgets">Robots & Gadgets</a></li>
+              <li><a href="#competitions">Competitions</a></li>
               <li><a href="#organizations">Organizations</a></li>
               <li><a href="#certificates">Certificates</a></li>
               <li><a href="#contact">Contact</a></li>
@@ -629,7 +641,84 @@ function App() {
         </div>
       </section>
 
-        <section id="competitions" className="experience-section">
+        <section id="projects" className="experience-section">
+          <h2 className="section-title">Projects</h2>
+          <div className="section-divider"></div>
+          <p className="projects-instruction">Click any project card to view more details.</p>
+          <div className="projects-grid">
+            {projects.map((project) => (
+              <button
+                key={project.id}
+                type="button"
+                className={`project-card ${selectedProjectId === project.id ? 'active' : ''}`}
+                onClick={() => setSelectedProjectId(project.id)}
+                aria-pressed={selectedProjectId === project.id}
+              >
+                <img src={project.image} alt={project.alt} className="project-card-image" />
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+              </button>
+            ))}
+          </div>
+
+          <div className="project-details-panel" aria-live="polite">
+            <h3>{selectedProject.title}</h3>
+            <img src={selectedProject.image} alt={selectedProject.alt} className="project-details-image" />
+            <p>{selectedProject.description}</p>
+            <div className="project-links">
+              <a href={selectedProject.href} target="_blank" rel="noreferrer">View Project</a>
+              {selectedProject.demoUrl && <a href={selectedProject.demoUrl} target="_blank" rel="noreferrer">Live Demo</a>}
+            </div>
+          </div>
+        </section>
+
+        <section id="robots-gadgets" className="experience-section">
+          <h2 className="section-title">Robots and Gadgets</h2>
+          <div className="section-divider"></div>
+          <p className="projects-instruction">A carousel of embedded robotics and gadget demos.</p>
+
+          <div className="robot-carousel">
+            <button type="button" className="robot-carousel-nav" onClick={showPrevRobotVideo} aria-label="Previous video">
+              ‹
+            </button>
+
+            <div className={`robot-video-frame ${activeRobotVideo.provider === 'x' ? 'is-x' : ''}`}>
+              <iframe
+                src={activeRobotVideo.embedUrl}
+                title={activeRobotVideo.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+
+            <button type="button" className="robot-carousel-nav" onClick={showNextRobotVideo} aria-label="Next video">
+              ›
+            </button>
+          </div>
+
+          <div className="robot-video-meta">
+            <h3>{activeRobotVideo.title}</h3>
+            <p>{activeRobotVideo.description}</p>
+            <a href={activeRobotVideo.sourceUrl} target="_blank" rel="noreferrer">Open Source Video</a>
+          </div>
+
+          <div className="robot-video-track" role="tablist" aria-label="Robot and gadget videos">
+            {robotVideos.map((video, index) => (
+              <button
+                key={video.id}
+                type="button"
+                role="tab"
+                aria-selected={index === activeRobotVideoIndex}
+                className={`robot-video-chip ${index === activeRobotVideoIndex ? 'active' : ''}`}
+                onClick={() => setActiveRobotVideoIndex(index)}
+              >
+                {video.title}
+              </button>
+            ))}
+          </div>
+        </section>
+      <section id="competitions" className="experience-section">
           <h2 className="section-title">Competitions and Events</h2>
           <div className="section-divider"></div>
         
@@ -713,82 +802,6 @@ function App() {
             </ul>
           </div>
         </section>
-
-        <section id="projects" className="experience-section">
-          <h2 className="section-title">Projects</h2>
-          <div className="section-divider"></div>
-          <p className="projects-instruction">Click any project card to view more details.</p>
-          <div className="projects-grid">
-            {projects.map((project) => (
-              <button
-                key={project.id}
-                type="button"
-                className={`project-card ${selectedProjectId === project.id ? 'active' : ''}`}
-                onClick={() => setSelectedProjectId(project.id)}
-                aria-pressed={selectedProjectId === project.id}
-              >
-                <img src={project.image} alt={project.alt} className="project-card-image" />
-                <h3>{project.title}</h3>
-                <p>{project.summary}</p>
-              </button>
-            ))}
-          </div>
-
-          <div className="project-details-panel" aria-live="polite">
-            <h3>{selectedProject.title}</h3>
-            <img src={selectedProject.image} alt={selectedProject.alt} className="project-details-image" />
-            <p>{selectedProject.description}</p>
-            <a href={selectedProject.href} target="_blank" rel="noreferrer">View Project</a>
-          </div>
-        </section>
-
-        <section id="robots-gadgets" className="experience-section">
-          <h2 className="section-title">Robots and Gadgets</h2>
-          <div className="section-divider"></div>
-          <p className="projects-instruction">A carousel of embedded robotics and gadget demos.</p>
-
-          <div className="robot-carousel">
-            <button type="button" className="robot-carousel-nav" onClick={showPrevRobotVideo} aria-label="Previous video">
-              ‹
-            </button>
-
-            <div className={`robot-video-frame ${activeRobotVideo.provider === 'x' ? 'is-x' : ''}`}>
-              <iframe
-                src={activeRobotVideo.embedUrl}
-                title={activeRobotVideo.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-
-            <button type="button" className="robot-carousel-nav" onClick={showNextRobotVideo} aria-label="Next video">
-              ›
-            </button>
-          </div>
-
-          <div className="robot-video-meta">
-            <h3>{activeRobotVideo.title}</h3>
-            <p>{activeRobotVideo.description}</p>
-            <a href={activeRobotVideo.sourceUrl} target="_blank" rel="noreferrer">Open Source Video</a>
-          </div>
-
-          <div className="robot-video-track" role="tablist" aria-label="Robot and gadget videos">
-            {robotVideos.map((video, index) => (
-              <button
-                key={video.id}
-                type="button"
-                role="tab"
-                aria-selected={index === activeRobotVideoIndex}
-                className={`robot-video-chip ${index === activeRobotVideoIndex ? 'active' : ''}`}
-                onClick={() => setActiveRobotVideoIndex(index)}
-              >
-                {video.title}
-              </button>
-            ))}
-          </div>
-        </section>
-
       <section id="organizations">
           <h2 className="section-title">Organizations</h2>
           <div className="section-divider"></div>
