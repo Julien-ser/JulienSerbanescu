@@ -1,30 +1,17 @@
-/* Clean Modern Portfolio Styles */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@500;600;700&display=swap');
+/* Tech/Sci-Fi Typography + Colors */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@500;600;700&display=swap');
 
 :root {
-  /* Futuristic AI Engineer Palette */
-  --bg-primary: #0a0f1c;
-  --bg-secondary: #10172a;
-  --accent-primary: #ffd84d;   /* signal yellow */
-  --accent-secondary: #d4b03f; /* darker yellow */
-  --accent-glow: rgba(255, 216, 77, 0.42);
-  --text-primary: #e6edf3;
-  --text-muted: #94a3b8;
-  
-  /* Legacy support */
-  --warm-yellow: #ffd84d;
-  --warm-orange: #facc15;
-  --warm-red: #d4b03f;
-  --warm-coral: #ffd84d;
-  --dark-bg: #0a0f1c;
-  --darker-bg: #050810;
-  --accent-yellow: #ffd84d;
-  --accent-red: #d4b03f;
-  --professional-blue: #ffd84d;
-  --professional-teal: #facc15;
-  --elegant-purple: #d4b03f;
-  --card-bg: rgba(16, 23, 42, 0.8);
-  --border-subtle: rgba(255, 216, 77, 0.16);
+  /* Dark Gold Theme */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --accent-primary: #c6a54a;   /* gold */
+  --accent-secondary: #aeb4bd;
+  --accent-glow: rgba(198, 165, 74, 0.3);
+  --text-primary: #eaeaea;
+  --text-muted: #a0a0a0;
+  --card-bg: rgba(20, 20, 20, 0.9);
+  --border-subtle: rgba(198, 165, 74, 0.25);
 }
 
 body {
@@ -32,22 +19,23 @@ body {
   margin: 0;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.8;
+  line-height: 1.65;
   overflow-x: hidden;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    line-height: 1.65;
-  }
+h1, h2, h3, h4, .site-title, .section-title, .hero-title, .job-title, .hero-chat-title {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  letter-spacing: 0;
+  color: var(--accent-primary);
+}
 
-  h1, h2, h3, h4, .site-title, .section-title, .hero-title, .job-title, .hero-chat-title {
-    font-family: 'Sora', 'Inter', sans-serif;
-    letter-spacing: -0.01em;
-  }
+/* Tech grid background */
+#background {
+  background: linear-gradient(120deg, #0b0d12 0%, #111620 50%, #0b0d12 100%);
+}
 
 /* Clean Background with Sophisticated Depth */
 .App-container::before {
@@ -59,7 +47,7 @@ body {
   height: 100%;
   background: 
     radial-gradient(ellipse at 50% 0%, rgba(0, 224, 255, 0.1) 0%, transparent 60%),
-    radial-gradient(ellipse at 0% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 50%, rgba(174, 180, 189, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 100% 50%, rgba(0, 224, 255, 0.06) 0%, transparent 50%);
   z-index: -2;
 }
@@ -283,7 +271,7 @@ h1.site-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
-  background: linear-gradient(90deg, #e6edf3, #00e0ff, #00d4aa, #7c3aed);
+  background: linear-gradient(90deg, #e6edf3, #00e0ff, #00d4aa, #aeb4bd);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -2657,3 +2645,535 @@ section:hover,
 }
 
 
+
+/* ===== Desktop UI Overlay ===== */
+.desktop-ui {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.desktop-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(160deg, #f7f5ef 0%, #ebe7de 100%);
+}
+
+/* Dock */
+.dock {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(198, 165, 74, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  z-index: 1000;
+}
+
+.dock-item {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(198, 165, 74, 0.1);
+  border: 1px solid rgba(198, 165, 74, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dock-item:hover {
+  background: rgba(198, 165, 74, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(198, 165, 74, 0.2);
+}
+
+.dock-icon {
+  font-size: 24px;
+}
+
+/* Windows */
+.window {
+  position: absolute;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(198, 165, 74, 0.35);
+  box-shadow: 0 12px 32px rgba(43, 37, 29, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 360px;
+  min-height: 280px;
+}
+
+.window.minimized {
+  display: none;
+}
+
+.window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(198, 165, 74, 0.08);
+  border-bottom: 1px solid rgba(198, 165, 74, 0.2);
+  cursor: default;
+  user-select: none;
+}
+
+.window-title {
+  font-family: 'Arbutus', serif;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.win-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(198, 165, 74, 0.4);
+  background: transparent;
+  color: #8b7e64;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.win-btn.close:hover {
+  background: #e57373;
+  border-color: #e57373;
+  color: white;
+}
+
+.window-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(20, 20, 20, 0.95);
+}
+
+/* Terminal */
+.terminal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 260px;
+  background: rgba(30, 30, 30, 0.92);
+  border-top: 1px solid rgba(198, 165, 74, 0.4);
+  display: flex;
+  flex-direction: column;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 14px;
+  color: #e6e6e6;
+  z-index: 900;
+}
+
+.terminal-header {
+  background: rgba(198, 165, 74, 0.15);
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #c6a54a;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(198, 165, 74, 0.25);
+}
+
+.terminal-body {
+  flex: 1;
+  padding: 10px 12px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.term-input, .term-output {
+  margin: 4px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.term-input {
+  color: #a8e6cf;
+}
+
+.term-output {
+  color: #d9deea;
+}
+
+.prompt {
+  color: #c6a54a;
+  margin-right: 6px;
+}
+
+.terminal-input-line {
+  display: flex;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.terminal-input-line input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #e6e6e6;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  outline: none;
+}
+
+/* Adjust content inside windows to match old section spacing */
+.window-content section,
+.window-content .experience-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.7);
+  border-radius: 10px;
+}
+
+.window-content .section-title {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* Responsive window sizing */
+@media (max-width: 768px) {
+  .window {
+    width: 95% !important;
+    height: auto !important;
+    min-height: 320px;
+    left: 2.5% !important;
+    top: 60px !important;
+    max-height: calc(100vh - 320px);
+  }
+  .dock {
+    bottom: 8px;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .dock-item {
+    width: 44px;
+    height: 44px;
+  }
+  .terminal {
+    height: 220px;
+  }
+}
+
+/* Adjust root text colors for dark terminal against light desktop */
+.terminal-body::-webkit-scrollbar,
+.window-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(198, 165, 74, 0.6);
+  border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: rgba(198, 165, 74, 0.4);
+  border-radius: 4px;
+}
+
+/* ===== Desktop UI Enhancements ===== */
+
+/* Dock */
+.dock {
+  bottom: 0;
+  z-index: 1001;
+  padding: 12px 16px;
+  border-radius: 20px 20px 0 0;
+}
+
+.dock-item {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(198, 165, 74, 0.4);
+  box-shadow: 0 4px 12px rgba(198, 165, 74, 0.15);
+  cursor: pointer;
+  position: relative;
+}
+
+.dock-item:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(198, 165, 74, 0.25);
+}
+
+.dock-item::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: #1a1a1a;
+  color: #eaeaea;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  border: 1px solid rgba(198, 165, 74, 0.3);
+}
+
+.dock-item:hover::after {
+  opacity: 1;
+}
+
+.dock-icon {
+  font-size: 28px;
+}
+
+/* Terminal above dock */
+.terminal {
+  bottom: 90px;
+  z-index: 900;
+  border-radius: 12px 12px 0 0;
+  border: 1px solid rgba(198, 165, 74, 0.4);
+  border-bottom: none;
+  background: rgba(30, 30, 30, 0.95);
+}
+
+.terminal-header {
+  background: rgba(198, 165, 74, 0.2);
+  border-bottom: 1px solid rgba(198, 165, 74, 0.3);
+  color: #ffcf71;
+  text-shadow: 0 0 4px rgba(198, 165, 74, 0.4);
+}
+
+/* Windows - modern gold theme */
+.window {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(198, 165, 74, 0.45);
+  border-radius: 14px;
+  box-shadow: 
+    0 12px 32px rgba(198, 165, 74, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  min-width: 380px;
+  min-height: 300px;
+}
+
+.window-titlebar {
+  background: linear-gradient(180deg, rgba(30, 30, 30, 0.95), rgba(25, 25, 25, 0.85));
+  border-bottom: 1px solid rgba(198, 165, 74, 0.25);
+  padding: 10px 14px;
+  cursor: grab;
+}
+
+.window-titlebar:active {
+  cursor: grabbing;
+}
+
+.window-title {
+  font-family: 'Arbutus', serif;
+  color: #8b7355;
+  font-weight: 600;
+}
+
+/* Traffic lights */
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.win-btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(198, 165, 74, 0.5);
+  background: rgba(255, 215, 0, 0.2);
+  color: transparent;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.win-btn.close:hover {
+  background: #ff5f56;
+  border-color: #ff5f56;
+  color: white;
+}
+
+/* Tech accent color replacements */
+.desktop-ui,
+.window,
+.dock,
+.terminal-header,
+.nav-links a,
+.query-form button,
+.hero-chat-form .query-form button,
+.tech-badge,
+.hero-avatar-image,
+.profile-image,
+.section-divider,
+.contact-card,
+.contact-cta,
+.contact-link,
+.cert-link,
+.subtle-link,
+.pdf-link,
+.cta-badge,
+.robot-video-meta a {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: var(--accent-glow);
+}
+
+/* Window content */
+.window-content {
+  padding: 18px;
+  overflow-y: auto;
+  background: rgba(20, 20, 20, 0.95);
+}
+
+/* Scrollbars */
+.window-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: rgba(198, 165, 74, 0.08);
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: rgba(198, 165, 74, 0.5);
+  border-radius: 5px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(198, 165, 74, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .window {
+    width: 96% !important;
+    left: 2% !important;
+    top: 60px !important;
+    height: auto !important;
+    max-height: calc(100vh - 320px);
+  }
+  .terminal {
+    height: 200px;
+  }
+}
+
+/* Carousel styles for Projects & Robots */
+.carousel-view {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* Dot navigation */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.carousel-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(198, 165, 74, 0.85);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.carousel-dot.active {
+  background: rgba(198, 165, 74, 0.85);
+  transform: scale(1.1);
+}
+
+.carousel-dot:hover {
+  border-color: rgba(198, 165, 74, 1);
+  background: rgba(198, 165, 74, 0.5);
+}
+
+/* Window resize handle */
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, rgba(198, 165, 74, 0.3) 50%);
+}
+
+/* Maximize button styling */
+.window-controls .win-btn.maximize {
+  background: rgba(198, 165, 74, 0.2);
+  color: #8b7355;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.window-controls .win-btn.maximize:hover {
+  background: rgba(198, 165, 74, 0.4);
+  color: #5d4a32;
+}
+
+/* Projects carousel specifics */
+.projects-app .carousel-view .project-details-image {
+  max-height: 320px;
+  margin: 1rem auto;
+  display: block;
+}
+
+/* For Robots: ensure video frame sized okay */
+.robots-app .carousel-view .robot-video-frame {
+  width: 100%;
+  max-height: 480px;
+}
+
+.robots-app .carousel-view .robot-video-frame iframe {
+  min-height: 360px;
+}
+
+/* Ensure carousel view in window respects container */
+.window-content .carousel-view {
+  width: 100%;
+}
