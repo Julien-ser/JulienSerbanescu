@@ -4,7 +4,7 @@ import './react-styles.css';
 
 // Import images from assets
 import profileImage from './assets/Untitled.png';
-import heroImage from './assets/cb.png';
+import heroImage from './assets/Untitled.png';
 import guelphLogo from './assets/guelp.png';
 import cySciLogo from './assets/cybersci.png';
 import coOperatorsLogo from './assets/cooperators.png';
@@ -74,6 +74,12 @@ const APPS = {
     title: 'Contact',
     icon: '📬',
     component: 'ContactApp',
+  },
+  terminal: {
+    id: 'terminal',
+    title: 'Terminal',
+    icon: '⌨️',
+    component: 'TerminalApp',
   },
 };
 
@@ -470,6 +476,35 @@ function App() {
         return <CertsApp />;
       case 'contact':
         return <ContactApp />;
+      case 'terminal':
+        return (
+          <div className="terminal-window">
+            <div className="terminal-header">Terminal — JulienOS</div>
+            <div className="terminal-body" ref={terminalRef}>
+              {terminalHistory.map((line, i) => (
+                <div key={i} className={line.type === 'input' ? 'term-input' : 'term-output'}>
+                  {line.type === 'input' ? (
+                    <span>
+                      <span className="prompt">julien@portfolio:~$</span> {line.text}
+                    </span>
+                  ) : (
+                    <pre>{line.text}</pre>
+                  )}
+                </div>
+              ))}
+            </div>
+            <form className="terminal-input-line" onSubmit={handleTerminalSubmit}>
+              <span className="prompt">julien@portfolio:~$</span>
+              <input
+                type="text"
+                value={terminalInput}
+                onChange={(e) => setTerminalInput(e.target.value)}
+                autoFocus
+                spellCheck={false}
+              />
+            </form>
+          </div>
+        );
       default:
         return <div>App not found</div>;
     }
@@ -526,33 +561,6 @@ function App() {
           </div>
         ))}
 
-      {/* Terminal */}
-      <div className="terminal" onClick={() => {}}>
-        <div className="terminal-header">Terminal — JulienOS</div>
-        <div className="terminal-body" ref={terminalRef}>
-          {terminalHistory.map((line, i) => (
-            <div key={i} className={line.type === 'input' ? 'term-input' : 'term-output'}>
-              {line.type === 'input' ? (
-                <span>
-                  <span className="prompt">julien@portfolio:~$</span> {line.text}
-                </span>
-              ) : (
-                <pre>{line.text}</pre>
-              )}
-            </div>
-          ))}
-        </div>
-        <form className="terminal-input-line" onSubmit={handleTerminalSubmit}>
-          <span className="prompt">julien@portfolio:~$</span>
-          <input
-            type="text"
-            value={terminalInput}
-            onChange={(e) => setTerminalInput(e.target.value)}
-            autoFocus
-            spellCheck={false}
-          />
-        </form>
-      </div>
     </div>
   );
 }
@@ -565,13 +573,41 @@ function HomeApp({ heroImage }) {
       <div className="hero-container">
         <div className="hero-text">
           <h1 className="hero-title">Julien Serbanescu</h1>
+          <p className="hero-subtitle">Building production AI systems, resilient cloud infrastructure, and intelligent robotics.</p>
           <p className="typer">Computer Engineering & Entrepreneurship</p>
           <p className="typer">AI Engineer | Cloud & Cybersecurity | Robotics</p>
+
+          <p className="hero-description">
+            Two-time NSERC USRA recipient, published researcher (SIGIR-AP, CIKM), and Cloud Engineer at Co-Operators.
+            I focus on reliable systems that move from research prototypes to real-world deployment.
+          </p>
+
           <div className="tech-badges">
-            <span className="tech-badge">AI/ML</span>
-            <span className="tech-badge">Cloud Engineering</span>
-            <span className="tech-badge">Robotics</span>
-            <span className="tech-badge">Research</span>
+            <a href="#research" className="tech-badge">AI/ML</a>
+            <a href="#experience" className="tech-badge">Cloud Engineering</a>
+            <a href="#organizations" className="tech-badge">Robotics</a>
+            <a href="#research" className="tech-badge">Research</a>
+          </div>
+
+          <div className="hero-metrics">
+            <div className="hero-metric">
+              <span className="hero-metric-value">3</span>
+              <span className="hero-metric-label">Conference Papers</span>
+            </div>
+            <div className="hero-metric">
+              <span className="hero-metric-value">2x</span>
+              <span className="hero-metric-label">NSERC USRA</span>
+            </div>
+            <div className="hero-metric">
+              <span className="hero-metric-value">3.94</span>
+              <span className="hero-metric-label">University GPA</span>
+            </div>
+          </div>
+
+          <div className="hero-links">
+            <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="hero-link-btn">LinkedIn</a>
+            <a href="https://github.com/Julien-ser" target="_blank" rel="noopener noreferrer" className="hero-link-btn">GitHub</a>
+            <a href="https://scholar.google.com/citations?user=mnpXcUwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="hero-link-btn">Scholar</a>
           </div>
         </div>
         <div className="profile-container">
