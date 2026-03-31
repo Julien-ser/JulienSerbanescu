@@ -308,6 +308,7 @@ function App() {
 
   // Dragging handlers
   const startDrag = (winId, e) => {
+    if (window.innerWidth <= 768) return;
     const win = openWindows.find((w) => w.id === winId);
     if (!win) return;
     bringToFront(winId);
@@ -339,6 +340,7 @@ function App() {
   }, [dragging]);
 
   const startResize = (winId, e) => {
+    if (window.innerWidth <= 768) return;
     const win = openWindows.find((w) => w.id === winId);
     if (!win || win.maximized) return;
     e.stopPropagation();
@@ -359,8 +361,13 @@ function App() {
       setOpenWindows((prev) =>
         prev.map((w) => {
           if (w.id !== resizing.winId) return w;
-          const newW = Math.max(380, resizing.startW + dx);
-          const newH = Math.max(300, resizing.startH + dy);
+          const isMobileView = window.innerWidth <= 768;
+          const minW = isMobileView ? 280 : 380;
+          const minH = isMobileView ? 320 : 300;
+          const maxW = window.innerWidth - 16;
+          const maxH = window.innerHeight - 96;
+          const newW = Math.min(maxW, Math.max(minW, resizing.startW + dx));
+          const newH = Math.min(maxH, Math.max(minH, resizing.startH + dy));
           return { ...w, width: newW, height: newH };
         })
       );
@@ -373,6 +380,38 @@ function App() {
       document.removeEventListener('mouseup', onMouseUp);
     };
   }, [resizing]);
+
+  // Keep windows within viewport on mobile/orientation changes.
+  useEffect(() => {
+    const onResize = () => {
+      const isMobileView = window.innerWidth <= 768;
+      setOpenWindows((prev) =>
+        prev.map((w) => {
+          if (!isMobileView) {
+            const maxX = Math.max(0, window.innerWidth - w.width - 8);
+            const maxY = Math.max(0, window.innerHeight - w.height - 8);
+            return {
+              ...w,
+              x: Math.max(0, Math.min(w.x, maxX)),
+              y: Math.max(0, Math.min(w.y, maxY)),
+            };
+          }
+
+          const mobilePadding = 8;
+          return {
+            ...w,
+            x: mobilePadding,
+            y: mobilePadding,
+            width: Math.max(280, window.innerWidth - mobilePadding * 2),
+            height: Math.max(320, window.innerHeight - 96),
+          };
+        })
+      );
+    };
+
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   // Terminal commands
   const handleTerminalSubmit = async (e) => {

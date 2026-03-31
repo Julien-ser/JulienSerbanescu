@@ -75,8 +75,9 @@ a {
   z-index: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  pointer-events: none;
+  pointer-events: auto;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 .desktop-bg {
@@ -775,6 +776,13 @@ section {
   }
 
   .window {
+    left: 8px !important;
+    right: 8px;
+    top: 8px !important;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    height: calc(100dvh - 96px) !important;
+    max-height: calc(100dvh - 96px) !important;
     border-radius: 12px;
   }
 
@@ -793,6 +801,7 @@ section {
   }
 
   .window-content {
+    height: calc(100% - 52px);
     padding: 12px;
   }
 
@@ -827,5 +836,9 @@ section {
 
   .demo-video iframe {
     min-height: 220px;
+  }
+
+  .resize-handle {
+    display: none;
   }
 }
