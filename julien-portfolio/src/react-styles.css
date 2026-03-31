@@ -69,6 +69,16 @@ a {
   color: var(--text);
 }
 
+.home-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  pointer-events: none;
+  -webkit-overflow-scrolling: touch;
+}
+
 .desktop-bg {
   position: fixed;
   inset: 0;
@@ -356,7 +366,7 @@ section {
 /* Home */
 .home-app {
   pointer-events: none;
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: 48px 28px 120px;
 }
 
@@ -740,7 +750,12 @@ section {
 
 @media (max-width: 760px) {
   .home-app {
-    padding: 20px 14px 120px;
+    min-height: calc(100dvh + 120px);
+    padding: 20px 14px 170px;
+  }
+
+  .home-layer {
+    padding-bottom: 92px;
   }
 
   .dock {

@@ -526,7 +526,7 @@ function App() {
       {/* Desktop background */}
       <div className="desktop-bg"></div>
       {/* Home layer (behind windows, above background) */}
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'auto', pointerEvents: 'none' }}>
+      <div className="home-layer">
         <HomeApp avatarIdle={profileImage} avatarLoading={profileImage} heroImage={heroImage} />
       </div>
 
