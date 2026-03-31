@@ -266,13 +266,24 @@ function App() {
       if (exists) {
         return prev.map((w) => (w.id === appId ? { ...w, zIndex: zIndexCounter + 1 } : w));
       } else {
+        const isMobileView = window.innerWidth <= 768;
+        const mobilePadding = 8;
+        const safeBottomOffset = 86; // leaves room for dock
+        const desktopWidth = 740;
+        const desktopHeight = 580;
+        const windowWidth = isMobileView
+          ? window.innerWidth - mobilePadding * 2
+          : Math.min(desktopWidth, window.innerWidth - 48);
+        const windowHeight = isMobileView
+          ? window.innerHeight - safeBottomOffset - mobilePadding
+          : Math.min(desktopHeight, window.innerHeight - 72);
         const newWin = {
           id: appId,
           title: APPS[appId].title,
-          x: leeway(prev.length),
-          y: leeway(prev.length),
-          width: 740,
-          height: 580,
+          x: isMobileView ? mobilePadding : leeway(prev.length),
+          y: isMobileView ? mobilePadding : leeway(prev.length),
+          width: Math.max(320, windowWidth),
+          height: Math.max(360, windowHeight),
           zIndex: zIndexCounter + 1,
           minimized: false,
         };
@@ -378,7 +389,7 @@ function App() {
           type: 'output',
           text:
             'Commands:\n' +
-            '  open <app>   - open an app window (home, about, experience, research, projects, robots, competitions, organizations, certificates, contact)\n' +
+            '  open <app>   - open an app window (about, experience, research, projects, robots, competitions, organizations, certificates, contact, terminal)\n' +
             '  close <app>  - close a window\n' +
             '  list         - list open windows\n' +
             '  clear        - clear terminal\n' +
@@ -580,6 +591,12 @@ function HomeApp({ heroImage }) {
           <p className="hero-description">
             Two-time NSERC USRA recipient, published researcher (SIGIR-AP, CIKM), and Cloud Engineer at Co-Operators.
             I focus on reliable systems that move from research prototypes to real-world deployment.
+          </p>
+          <p className="hero-description">
+            Explore the apps in the bar below to dive into my experience, projects, research, and more.
+          </p>
+          <p className="hero-description">
+            Want to ask me something? Use <strong>ask &lt;your question&gt;</strong> in the Terminal app.
           </p>
 
           <div className="tech-badges">

@@ -743,15 +743,74 @@ section {
     padding: 20px 14px 120px;
   }
 
+  .dock {
+    left: 8px;
+    right: 8px;
+    transform: none;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .dock-item {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 auto;
+  }
+
+  .window {
+    border-radius: 12px;
+  }
+
+  .window-titlebar {
+    padding: 12px 12px;
+  }
+
+  .window-title {
+    font-size: 0.95rem;
+  }
+
+  .win-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
   .window-content {
-    padding: 14px;
+    padding: 12px;
   }
 
   .section-title {
     font-size: 1.45rem;
   }
 
-  .terminal {
-    height: 220px;
+  .job-highlights {
+    padding-left: 16px;
+  }
+
+  .job-highlights li {
+    margin: 10px 0;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-links {
+    width: 100%;
+  }
+
+  .hero-link-btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .robot-video-frame iframe {
+    min-height: 260px;
+  }
+
+  .demo-video iframe {
+    min-height: 220px;
   }
 }
