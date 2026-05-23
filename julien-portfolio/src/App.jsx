@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { heroTimeline, fadeUpBlur, parallaxTilt, breathingGlow } from './motion.js';
 import './react-styles.css';
 
 // Import images from assets
@@ -264,6 +263,10 @@ function App() {
     setOpenWindows((prev) => {
       const exists = prev.find((w) => w.id === appId);
       if (exists) {
+        // Restore minimized window
+        if (exists.minimized) {
+          return prev.map((w) => w.id === appId ? { ...w, minimized: false, zIndex: zIndexCounter + 1 } : w);
+        }
         return prev.map((w) => (w.id === appId ? { ...w, zIndex: zIndexCounter + 1 } : w));
       } else {
         const isMobileView = window.innerWidth <= 768;
@@ -297,6 +300,10 @@ function App() {
 
   const closeWindow = (appId) => {
     setOpenWindows((prev) => prev.filter((w) => w.id !== appId));
+  };
+
+  const minimizeWindow = (appId) => {
+    setOpenWindows((prev) => prev.map((w) => w.id === appId ? { ...w, minimized: true } : w));
   };
 
   const bringToFront = (appId) => {
@@ -529,7 +536,7 @@ function App() {
       case 'terminal':
         return (
           <div className="terminal-window">
-            <div className="terminal-header">Terminal — JulienOS</div>
+            <div className="terminal-header">Terminal JulienOS</div>
             <div className="terminal-body" ref={terminalRef}>
               {terminalHistory.map((line, i) => (
                 <div key={i} className={line.type === 'input' ? 'term-input' : 'term-output'}>
@@ -563,7 +570,11 @@ function App() {
   return (
     <div className="desktop-ui">
       {/* Desktop background */}
-      <div className="desktop-bg"></div>
+      <div className="desktop-bg" />
+      {/* Film grain overlay */}
+      <div className="noise-layer" />
+      {/* macOS-style menu bar */}
+      <MenuBar />
       {/* Home layer (behind windows, above background) */}
       <div className="home-layer">
         <HomeApp avatarIdle={profileImage} avatarLoading={profileImage} heroImage={heroImage} />
@@ -571,16 +582,23 @@ function App() {
 
       {/* Dock */}
       <div className="dock">
-        {Object.values(APPS).map((app) => (
-          <div
-            key={app.id}
-            className="dock-item"
-            onClick={() => openWindow(app.id)}
-            title={app.title}
-          >
-            <span className="dock-icon">{app.icon}</span>
-          </div>
-        ))}
+        {Object.values(APPS).map((app) => {
+          const isOpen = openWindows.some((w) => w.id === app.id);
+          return (
+            <div
+              key={app.id}
+              className={`dock-item ${isOpen ? 'is-open' : ''}`}
+              style={{ background: APP_COLORS[app.id] }}
+              onClick={() => openWindow(app.id)}
+              data-label={app.title}
+            >
+              <span className="dock-icon">
+                <AppIcon id={app.id} />
+              </span>
+              {isOpen && <span className="dock-dot" />}
+            </div>
+          );
+        })}
       </div>
 
       {/* Windows */}
@@ -601,13 +619,16 @@ function App() {
             onClick={() => bringToFront(win.id)}
           >
             <div className="window-titlebar" onMouseDown={(e) => startDrag(win.id, e)}>
-              <span className="window-title">{win.title}</span>
               <div className="window-controls">
-                <button className="win-btn close" onClick={() => closeWindow(win.id)} onMouseDown={(e) => e.stopPropagation()}>×</button>
+                <button className="win-btn close"    onClick={() => closeWindow(win.id)}    onMouseDown={(e) => e.stopPropagation()} title="Close" />
+                <button className="win-btn minimize" onClick={() => minimizeWindow(win.id)} onMouseDown={(e) => e.stopPropagation()} title="Minimize" />
+                <button className="win-btn maximize"                                         onMouseDown={(e) => e.stopPropagation()} title="Expand" />
               </div>
+              <span className="window-title">{win.title}</span>
+              <div />
             </div>
             <div className="window-content">{renderAppContent(win.id)}</div>
-            <div className="resize-handle" onMouseDown={(e) => startResize(win.id, e)}></div>
+            <div className="resize-handle" onMouseDown={(e) => startResize(win.id, e)} />
           </div>
         ))}
 
@@ -615,34 +636,94 @@ function App() {
   );
 }
 
+// ===================== Dock icon system ====================
+
+const APP_COLORS = {
+  about:         'linear-gradient(145deg, #5b82f0 0%, #3455cc 100%)',
+  experience:    'linear-gradient(145deg, #a56de0 0%, #7238c0 100%)',
+  research:      'linear-gradient(145deg, #38c47a 0%, #1a9250 100%)',
+  projects:      'linear-gradient(145deg, #f09050 0%, #d06020 100%)',
+  robots:        'linear-gradient(145deg, #40c8f0 0%, #1890c0 100%)',
+  competitions:  'linear-gradient(145deg, #e8c040 0%, #b89010 100%)',
+  organizations: 'linear-gradient(145deg, #f07878 0%, #c03838 100%)',
+  certificates:  'linear-gradient(145deg, #50d080 0%, #28a050 100%)',
+  contact:       'linear-gradient(145deg, #48b0e8 0%, #2078c0 100%)',
+  terminal:      'linear-gradient(145deg, #384838 0%, #1e2c1e 100%)',
+};
+
+function AppIcon({ id }) {
+  const s = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.75, strokeLinecap: 'round', strokeLinejoin: 'round' };
+  switch (id) {
+    case 'about':
+      return <svg viewBox="0 0 24 24" {...s}><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>;
+    case 'experience':
+      return <svg viewBox="0 0 24 24" {...s}><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="2" y1="12" x2="22" y2="12"/></svg>;
+    case 'research':
+      return <svg viewBox="0 0 24 24" {...s}><circle cx="10" cy="11" r="7"/><line x1="21" y1="21" x2="15.5" y2="15.5"/><line x1="10" y1="8" x2="10" y2="14"/><line x1="7" y1="11" x2="13" y2="11"/></svg>;
+    case 'projects':
+      return <svg viewBox="0 0 24 24" {...s}><path d="M3 9a2 2 0 0 1 2-2h4l2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/></svg>;
+    case 'robots':
+      return <svg viewBox="0 0 24 24" {...s}><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M7 9H5m2 3H5m2 3H5m12-6h2m-2 3h2m-2 3h2M9 7V5m3 2V5m3 2V5M9 17v2m3-2v2m3-2v2"/></svg>;
+    case 'competitions':
+      return <svg viewBox="0 0 24 24" {...s}><path d="M7 2h10v9a5 5 0 0 1-10 0V2z"/><path d="M17 5h2a2 2 0 0 1 0 4h-2M7 5H5a2 2 0 0 0 0 4h2"/><line x1="12" y1="16" x2="12" y2="20"/><line x1="8" y1="21" x2="16" y2="21"/></svg>;
+    case 'organizations':
+      return <svg viewBox="0 0 24 24" {...s}><circle cx="8" cy="7" r="3"/><path d="M2 21v-1a6 6 0 0 1 6-6h1"/><circle cx="16" cy="7" r="3"/><path d="M14 21v-1a6 6 0 0 1 6-6h1"/></svg>;
+    case 'certificates':
+      return <svg viewBox="0 0 24 24" {...s}><circle cx="12" cy="9" r="5"/><path d="M9.5 14.5 8 22l4-2.5 4 2.5-1.5-7.5"/></svg>;
+    case 'contact':
+      return <svg viewBox="0 0 24 24" {...s}><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 8 10 6 10-6"/></svg>;
+    case 'terminal':
+      return <svg viewBox="0 0 24 24" {...s}><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m7 9 4 4-4 4"/><line x1="13" y1="17" x2="18" y2="17"/></svg>;
+    default:
+      return null;
+  }
+}
+
 // ===================== Sub-app components ====================
+
+function MenuBar() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const t = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const fmt = time.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' });
+  const date = time.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' });
+  return (
+    <div className="menu-bar">
+      <span className="menu-bar-left">julien@portfolio</span>
+      <div className="menu-bar-right">
+        <span>{date}</span>
+        <span className="menu-bar-clock">{fmt}</span>
+      </div>
+    </div>
+  );
+}
 
 function HomeApp({ heroImage }) {
   return (
     <div className="home-app">
       <div className="hero-container">
         <div className="hero-text">
+          <p className="hero-eyebrow">Computer Engineering &amp; Entrepreneurship</p>
           <h1 className="hero-title">Julien Serbanescu</h1>
           <p className="hero-subtitle">Building production AI systems, resilient cloud infrastructure, and intelligent robotics.</p>
-          <p className="typer">Computer Engineering & Entrepreneurship</p>
-          <p className="typer">AI Engineer | Cloud & Cybersecurity | Robotics</p>
+          <p className="typer">AI Engineer · Cloud &amp; Cybersecurity · Robotics</p>
 
           <p className="hero-description">
             Two-time NSERC USRA recipient, published researcher (SIGIR-AP, CIKM), and Cloud Engineer at Co-Operators.
-            I focus on reliable systems that move from research prototypes to real-world deployment.
+            I build systems that move from research prototype to real-world deployment.
           </p>
           <p className="hero-description">
-            Explore the apps in the bar below to dive into my experience, projects, research, and more.
-          </p>
-          <p className="hero-description">
-            Want to ask me something? Use <strong>ask &lt;your question&gt;</strong> in the Terminal app.
+            Open any app from the dock below, or type <strong>ask &lt;question&gt;</strong> in Terminal to query my RAG.
           </p>
 
           <div className="tech-badges">
-            <a href="#research" className="tech-badge">AI/ML</a>
-            <a href="#experience" className="tech-badge">Cloud Engineering</a>
-            <a href="#organizations" className="tech-badge">Robotics</a>
-            <a href="#research" className="tech-badge">Research</a>
+            <span className="tech-badge">AI/ML</span>
+            <span className="tech-badge">Cloud Engineering</span>
+            <span className="tech-badge">Robotics</span>
+            <span className="tech-badge">Research</span>
+            <span className="tech-badge">Cybersecurity</span>
           </div>
 
           <div className="hero-metrics">
@@ -651,12 +732,12 @@ function HomeApp({ heroImage }) {
               <span className="hero-metric-label">Conference Papers</span>
             </div>
             <div className="hero-metric">
-              <span className="hero-metric-value">2x</span>
+              <span className="hero-metric-value">2×</span>
               <span className="hero-metric-label">NSERC USRA</span>
             </div>
             <div className="hero-metric">
               <span className="hero-metric-value">3.94</span>
-              <span className="hero-metric-label">University GPA</span>
+              <span className="hero-metric-label">GPA</span>
             </div>
           </div>
 
@@ -669,7 +750,6 @@ function HomeApp({ heroImage }) {
         <div className="profile-container">
           <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="profile-link">
             <img src={heroImage} alt="Julien Serbanescu" className="profile-image" />
-            <div className="profile-glow"></div>
           </a>
         </div>
       </div>
@@ -1073,28 +1153,26 @@ function CertsApp() {
 function ContactApp() {
   return (
     <div className="contact-app">
-      <h2 className="section-title">Get In Touch</h2>
+      <h2 className="section-title">Contact</h2>
       <div className="section-divider"></div>
       <div className="contact-container">
         <div className="contact-intro">
-          <p className="par">Ready to collaborate on the next big thing? Let's connect and build something amazing together! 🚀</p>
+          <p className="par">Open to research collaborations, engineering roles, and interesting conversations about AI, robotics, and systems.</p>
         </div>
 
         <div className="contact-grid">
           <div className="contact-card">
-            <div className="contact-icon">📧</div>
             <h3>Personal Email</h3>
-            <p>Let's start a conversation</p>
+            <p>General &amp; collaboration</p>
             <a href="mailto:julien.serbanescu@gmail.com" className="contact-link">
-              <span style={{ wordBreak: 'break-all', whiteSpace: 'normal', display: 'inline-block', maxWidth: '100%' }}>julien.serbanescu@gmail.com</span>
+              <span style={{ wordBreak: 'break-all' }}>julien.serbanescu@gmail.com</span>
               <div className="link-arrow">→</div>
             </a>
           </div>
 
           <div className="contact-card">
-            <div className="contact-icon">🎓</div>
             <h3>School Email</h3>
-            <p>Academic & research inquiries</p>
+            <p>Academic &amp; research</p>
             <a href="mailto:serbanej@uoguelph.ca" className="contact-link">
               <span>serbanej@uoguelph.ca</span>
               <div className="link-arrow">→</div>
@@ -1102,54 +1180,39 @@ function ContactApp() {
           </div>
 
           <div className="contact-card">
-            <div className="contact-icon">💼</div>
             <h3>LinkedIn</h3>
-            <p>Professional network & updates</p>
+            <p>Professional network</p>
             <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noreferrer" className="contact-link">
-              <span>Connect on LinkedIn</span>
+              <span>julien-serbanescu</span>
               <div className="link-arrow">→</div>
             </a>
           </div>
 
           <div className="contact-card">
-            <div className="contact-icon">🐙</div>
             <h3>GitHub</h3>
-            <p>Check out my code & projects</p>
+            <p>Code &amp; projects</p>
             <a href="https://github.com/Julien-ser" target="_blank" rel="noreferrer" className="contact-link">
-              <span>View GitHub Profile</span>
+              <span>Julien-ser</span>
               <div className="link-arrow">→</div>
             </a>
           </div>
 
           <div className="contact-card">
-            <div className="contact-icon">🏆</div>
             <h3>Kaggle</h3>
-            <p>Data science & ML competitions</p>
+            <p>ML competitions</p>
             <a href="https://www.kaggle.com/julienserbanescu" target="_blank" rel="noreferrer" className="contact-link">
-              <span>View Kaggle Profile</span>
+              <span>julienserbanescu</span>
               <div className="link-arrow">→</div>
             </a>
           </div>
 
           <div className="contact-card">
-            <div className="contact-icon">🐦</div>
-            <h3>Twitter</h3>
-            <p>Thoughts & tech updates</p>
+            <h3>Twitter / X</h3>
+            <p>Tech updates</p>
             <a href="https://x.com/Da_Julster" target="_blank" rel="noreferrer" className="contact-link">
-              <span>Follow on Twitter</span>
+              <span>@Da_Julster</span>
               <div className="link-arrow">→</div>
             </a>
-          </div>
-        </div>
-
-        <div className="contact-cta">
-          <h3>Let's Build Something Together!</h3>
-          <p>Whether it's AI research, cybersecurity projects, robotics development, or just a great conversation about tech - I'm always excited to connect with fellow innovators and problem-solvers.</p>
-          <div className="cta-badges">
-            <span className="cta-badge">AI/ML Collaboration</span>
-            <span className="cta-badge">Research Projects</span>
-            <span className="cta-badge">Startup Ideas</span>
-            <span className="cta-badge">Tech Discussion</span>
           </div>
         </div>
       </div>
