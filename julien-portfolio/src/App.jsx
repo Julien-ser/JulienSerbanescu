@@ -691,12 +691,67 @@ function MenuBar() {
   const date = time.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' });
   return (
     <div className="menu-bar">
-      <span className="menu-bar-left">julien@portfolio</span>
+      <span className="menu-bar-left">
+        <span className="menu-bar-indicator" aria-hidden="true" />
+        julien@portfolio
+      </span>
       <div className="menu-bar-right">
         <span>{date}</span>
         <span className="menu-bar-clock">{fmt}</span>
       </div>
     </div>
+  );
+}
+
+function TypewriterCycle() {
+  const roles = [
+    'AI Engineer',
+    'Cloud Architect',
+    'Robotics Builder',
+    'Published Researcher',
+    'Cybersecurity Practitioner',
+  ];
+  const [display, setDisplay] = useState('');
+  const state = useRef({ role: 0, char: 0, phase: 'typing' });
+
+  useEffect(() => {
+    let timer;
+    const tick = () => {
+      const s = state.current;
+      const current = roles[s.role];
+      if (s.phase === 'typing') {
+        s.char++;
+        setDisplay(current.slice(0, s.char));
+        if (s.char >= current.length) {
+          s.phase = 'pause';
+          timer = setTimeout(tick, 1800);
+        } else {
+          timer = setTimeout(tick, 58);
+        }
+      } else if (s.phase === 'pause') {
+        s.phase = 'deleting';
+        timer = setTimeout(tick, 30);
+      } else {
+        s.char--;
+        setDisplay(current.slice(0, s.char));
+        if (s.char <= 0) {
+          s.role = (s.role + 1) % roles.length;
+          s.char = 0;
+          s.phase = 'typing';
+          timer = setTimeout(tick, 280);
+        } else {
+          timer = setTimeout(tick, 32);
+        }
+      }
+    };
+    timer = setTimeout(tick, 900);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <p className="typer" aria-label="Current role">
+      {display}<span className="typer-cursor" aria-hidden="true" />
+    </p>
   );
 }
 
@@ -708,7 +763,7 @@ function HomeApp({ heroImage }) {
           <p className="hero-eyebrow">Computer Engineering &amp; Entrepreneurship</p>
           <h1 className="hero-title">Julien Serbanescu</h1>
           <p className="hero-subtitle">Building production AI systems, resilient cloud infrastructure, and intelligent robotics.</p>
-          <p className="typer">AI Engineer · Cloud &amp; Cybersecurity · Robotics</p>
+          <TypewriterCycle />
 
           <p className="hero-description">
             Two-time NSERC USRA recipient, published researcher (SIGIR-AP, CIKM), and Cloud Engineer at Co-Operators.
@@ -748,6 +803,7 @@ function HomeApp({ heroImage }) {
           </div>
         </div>
         <div className="profile-container">
+          <div className="profile-ring" aria-hidden="true" />
           <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="profile-link">
             <img src={heroImage} alt="Julien Serbanescu" className="profile-image" />
           </a>
