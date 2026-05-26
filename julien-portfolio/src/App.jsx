@@ -17,6 +17,7 @@ import AKOImage from './assets/ako.png';
 import resqImage from './assets/resq.png';
 import suaveImage from './assets/squave.png';
 import resumeworthyImage from './assets/resumeworthy.png';
+import cbImage from './assets/cb.png';
 
 // App definitions (each section becomes an app)
 const APPS = {
@@ -187,6 +188,26 @@ function App() {
       description:
         'Created a device that would activate a pump via the ESP8266, dispensing water into a glass with OJ powder, activating whenever orange was typed in. Selenium to communicate and interact with ESP8266 web server to send the command to activate the pump. Usage of a relay and motorized pump in my ESP8266 circuit, usage of C++ for programming the ESP webpage and pump activation.',
       href: 'https://drive.google.com/file/d/1uF_2dDhc9ZC9fWEBjcScDP96S59U_V4C/view?usp=sharing'
+    },
+    {
+      id: 'ros-docker-container',
+      title: 'ROS 2 Docker Development Environment',
+      image: cbImage,
+      alt: 'ROS 2 Docker Container',
+      summary: 'Built a containerized ROS 2 Humble dev environment with NiceGUI for the UGRT robotics team.',
+      description:
+        'Designed and built a Docker containerized ROS 2 Humble development environment for the University of Guelph Robotics Team (UGRT), enabling consistent cross-platform builds for the rover\'s software stack. The setup uses Docker Compose to mount the Basestation NiceGUI project (web-based operator UI) into the container, with a ros:humble-ros-base image. Developers can colcon build the full ROS workspace inside the container and interact via an interactive shell — eliminating environment drift across team members\' machines. Integrated with UGRT\'s GitHub workflow for the CIRC (Canadian International Rover Challenge) competition.',
+      href: 'https://github.com/ugrt/docker-container'
+    },
+    {
+      id: 'dynamixel-ik-control',
+      title: 'Dynamixel Arm: Inverse Kinematics & ROS 2 Teleoperation',
+      image: roboticsImage,
+      alt: 'Dynamixel Inverse Kinematics',
+      summary: 'Implemented full IK pipeline (DH forward kinematics + law-of-cosines IK) for a 5-motor Dynamixel arm in ROS 2.',
+      description:
+        'Built a complete 3R planar arm kinematics library and ROS 2 teleoperation node for the UGRT rover arm (5 Dynamixel XL430 motors: dual shoulder, elbow, dual wrist). Implemented Denavit-Hartenberg forward kinematics (identical formulation to ABB IRB-120 analysis) and 2D planar inverse kinematics via wrist-decoupling + law of cosines, with joint-limit enforcement and FK round-trip validation. The ROS 2 node (dynajoy) supports two live-switchable control modes: velocity mode (joystick-direct, with LB-triggered differential wrist) and IK mode (right-stick moves Cartesian end-effector target, IK solves shoulder/elbow/wrist, sends Dynamixel position commands). All arm parameters (link lengths, encoder counts, joint limits, step size) are exposed on the ROS 2 parameter server and overrideable at runtime without rebuilding.',
+      href: 'https://github.com/ugrt/dynamixel-control'
     }
   ];
   const [selectedProjectId, setSelectedProjectId] = useState(projects[0].id);
@@ -1172,6 +1193,14 @@ function OrgsApp() {
           </div>
           <div className="job-description">
             <p>Leading a <strong>10 member</strong> software team for CIRC (Canadian International Rover Challenge) using <strong>Docker, Python, YOLO, Webots, ROS (Robot Operating System)</strong>, and coordinating across sub-teams with <strong>GitHub</strong> workflows</p>
+            <ul className="job-highlights">
+              <li>
+                <a href="https://github.com/ugrt/docker-container" target="_blank" rel="noopener noreferrer" className="subtle-link">Built a <strong>Docker + Docker Compose</strong> dev environment</a> based on <strong>ROS 2 Humble</strong> (<code>ros:humble-ros-base</code>) with <strong>NiceGUI</strong> support, standardizing the team's development workflow and eliminating environment drift across contributors' machines for the CIRC competition.
+              </li>
+              <li>
+                <a href="https://github.com/ugrt/dynamixel-control" target="_blank" rel="noopener noreferrer" className="subtle-link">Implemented a full <strong>inverse kinematics pipeline</strong></a> for a 5-motor <strong>Dynamixel</strong> rover arm using <strong>Denavit-Hartenberg</strong> forward kinematics and <strong>law-of-cosines 2R IK</strong> with wrist decoupling (joints: dual shoulder, elbow, dual wrist; L1=L2=437 mm). Built a <strong>ROS 2</strong> teleoperation node (<code>dynajoy</code>) with live-switchable velocity and Cartesian IK control modes via Xbox controller.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -1185,22 +1214,51 @@ function CertsApp() {
       <h2 className="section-title">Certificates</h2>
       <div className="section-divider"></div>
       <div className="experience-section">
+
         <div className="experience-item">
-          <h3 className="job-title">Professional Certifications</h3>
+          <h3 className="job-title">Anthropic &amp; Claude Certifications</h3>
           <div className="job-date-location">
-            <span className="date-range">May 2021 - Present</span>
+            <span className="date-range">Apr 2026 – May 2026</span>
+            <span className="location">Anthropic</span>
           </div>
           <div className="job-description">
-            <p>I've earned multiple professional certifications across AI/ML, cloud computing, and specialized technologies. These include:</p>
+            <p>Completed the full Anthropic learning path covering the Claude API, Claude Code, agentic workflows, and the Model Context Protocol:</p>
+            <ul className="cert-list">
+              <li><strong>Building with the Claude API</strong> — May 2026 · Skills: Claude Agent SDK, Anthropic Claude</li>
+              <li><strong>AI Fluency Framework &amp; Foundations</strong> — May 2026 · Skills: AI Fluency</li>
+              <li><strong>Claude Code in Action</strong> — Apr 2026 · Skills: Claude Agent SDK, Claude Code Subagents</li>
+              <li><strong>Model Context Protocol: Advanced Topics</strong> — Apr 2026 · Skills: MCP, Claude Agent SDK</li>
+              <li><strong>Introduction to Model Context Protocol</strong> — Apr 2026 · Skills: MCP</li>
+              <li><strong>Introduction to Subagents</strong> — Apr 2026 · Skills: Claude Code Subagents</li>
+              <li><strong>Introduction to Agent Skills</strong> — Apr 2026 · Skills: Claude Code Subagents, Claude Skills</li>
+              <li><strong>Introduction to Claude Cowork</strong> — Apr 2026 · Skills: Anthropic Claude</li>
+              <li><strong>Claude Code 101</strong> — Apr 2026 · Skills: Claude Code Subagents, Claude Skills</li>
+              <li><strong>Claude 101</strong> — Apr 2026 · Skills: Anthropic Claude</li>
+            </ul>
+            <p><a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/details/certifications/" target="_blank" rel="noopener noreferrer" className="subtle-link">View credentials on LinkedIn →</a></p>
+          </div>
+        </div>
+
+        <div className="experience-item">
+          <h3 className="job-title">Other Professional Certifications</h3>
+          <div className="job-date-location">
+            <span className="date-range">May 2021 – Present</span>
+          </div>
+          <div className="job-description">
+            <p>Additional certifications across AI/ML, cloud computing, and specialized technologies:</p>
             <ul className="cert-list">
               <li><strong>Kaggle Certificates:</strong> Machine Learning, Deep Learning, Pandas, Time Series, Feature Engineering, Computer Vision, Intro to SQL, Advanced SQL</li>
               <li><strong>Google Cloud Badges:</strong> Big Data and Machine Learning Fundamentals, Build and Deploy Machine Learning Solutions on Vertex AI</li>
               <li><strong>Care AI Certificate:</strong> Introducing Artificial Intelligence: The Road Ahead</li>
               <li><strong>DeepLearning.AI Courses:</strong> LangChain Chat with Your Data, Reinforcement Fine-Tuning LLMs With GRPO, Attention in Transformers: Concepts and Code in PyTorch, DSPy: Build and Optimize Agentic Apps, ACP: Agent Communication Protocol</li>
+              <li><strong>MLOps Essentials:</strong> Model Development and Integration — NASBA, Mar 2026</li>
+              <li><strong>Introduction to Enterprise Security (eLearning)</strong> — Splunk, Mar 2026</li>
+              <li><strong>Learn Databricks GenAI</strong> — LinkedIn, Mar 2026</li>
             </ul>
-            <p>View all my detailed certifications and badges on my <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/details/certifications/" target="_blank" rel="noopener noreferrer" className="subtle-link">LinkedIn</a>.</p>
+            <p><a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/details/certifications/" target="_blank" rel="noopener noreferrer" className="subtle-link">View all credentials on LinkedIn →</a></p>
           </div>
         </div>
+
       </div>
     </div>
   );
