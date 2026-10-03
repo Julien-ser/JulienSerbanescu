@@ -24,6 +24,40 @@ import resumeworthyImage from './assets/resumeworthy.png';
 import dockerImage from './assets/docker.svg';
 import roverArmImage from './assets/rover-arm.jpg';
 
+const RAG_URL = 'https://dajulster-julienserbanescu-rag.hf.space/api/query';
+
+// Shared by the home-page chat and the Terminal `ask` command. Throws an Error
+// whose message is safe to show a visitor.
+async function askRag(query) {
+  // The Space cold-starts, so allow a long window, but never hang forever.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 45000);
+  try {
+    const res = await fetch(RAG_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      // A sleeping or crashed Space answers 5xx with an HTML page.
+      throw new Error(res.status >= 500
+        ? "I'm offline right now. Everything I'd tell you is also in the Experience, Research, and Projects apps in the dock."
+        : `That request was rejected (HTTP ${res.status}).`);
+    }
+    const data = await res.json().catch(() => {
+      throw new Error('Got an unreadable response. Try again in a moment.');
+    });
+    return { text: data.response || 'No response.', sources: data.sources || [] };
+  } catch (err) {
+    if (err.name === 'AbortError') throw new Error('No answer within 45s. The backend may be waking up, so try again shortly.');
+    if (err instanceof TypeError) throw new Error('Could not reach the backend. Check your connection and try again.');
+    throw err;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 // App definitions (each section becomes an app)
 const APPS = {
   about: {
@@ -89,7 +123,6 @@ function App() {
   const [resizing, setResizing] = useState(null); // { winId, startX, startY, startW, startH }
   const terminalRef = useRef(null);
   const googleScholarUrl = 'https://scholar.google.ca/citations?hl=en&user=mnpXcUwAAAAJ';
-  const apiUrl = 'https://dajulster-julienserbanescu-rag.hf.space/api/query';
 
   // Data arrays (preserved verbatim)
   const projects = [
@@ -490,57 +523,11 @@ function App() {
         return;
       }
       setTerminalHistory((h) => [...h, { type: 'output', text: `Querying RAG: "${query}"...` }]);
-
-      // The RAG lives on a Hugging Face Space that cold-starts, so allow a long
-      // window, but never hang the terminal indefinitely.
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 45000);
       try {
-        const res = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query }),
-          signal: controller.signal,
-        });
-
-        if (!res.ok) {
-          // A sleeping or crashed Space answers 5xx with an HTML page, so report
-          // the situation rather than leaking a status code at the visitor.
-          const text = res.status >= 500
-            ? 'The RAG backend is offline right now. Everything it knows is also in the Experience, Research, and Projects apps, which you can open from the dock.'
-            : `The RAG backend rejected that request (HTTP ${res.status}).`;
-          setTerminalHistory((h) => [...h, { type: 'output', text }]);
-          return;
-        }
-
-        let data;
-        try {
-          data = await res.json();
-        } catch {
-          setTerminalHistory((h) => [
-            ...h,
-            { type: 'output', text: 'The RAG backend returned an unreadable response. Try again in a moment.' },
-          ]);
-          return;
-        }
-
-        setTerminalHistory((h) => [...h, { type: 'output', text: data.response || 'No response.' }]);
-        if (data.sources?.length) {
-          setTerminalHistory((h) => [
-            ...h,
-            {
-              type: 'output',
-              text: `Sources: ${data.sources.map((s) => `#${s.id}`).join(', ')}`,
-            },
-          ]);
-        }
-      } catch (err) {
-        const text = err.name === 'AbortError'
-          ? 'The RAG backend did not answer within 45s. It may be waking up — try again shortly.'
-          : 'Could not reach the RAG backend. Check your connection and try again.';
+        const { text } = await askRag(query);
         setTerminalHistory((h) => [...h, { type: 'output', text }]);
-      } finally {
-        clearTimeout(timeout);
+      } catch (err) {
+        setTerminalHistory((h) => [...h, { type: 'output', text: err.message }]);
       }
     } else {
       setTerminalHistory((h) => [...h, { type: 'output', text: `Unknown command. Type "help".` }]);
@@ -790,6 +777,75 @@ function TypewriterCycle() {
   );
 }
 
+const SUGGESTED_QUESTIONS = [
+  'Why should we hire you as an AI engineering intern?',
+  'What have you published?',
+  "What's the hardest system you've shipped?",
+  'What cloud work have you done in production?',
+];
+
+// Home-page chat over the RAG. Answers come back in my voice (see PERSONA in
+// the RAG repo's queryrun.py).
+function AskMe() {
+  const [messages, setMessages] = useState([]); // { role: 'user' | 'me' | 'error', text }
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const logRef = useRef(null);
+
+  useEffect(() => {
+    if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
+  }, [messages, loading]);
+
+  const send = async (question) => {
+    const q = question.trim();
+    if (!q || loading) return;
+    setInput('');
+    setMessages((m) => [...m, { role: 'user', text: q }]);
+    setLoading(true);
+    try {
+      const { text } = await askRag(q);
+      setMessages((m) => [...m, { role: 'me', text }]);
+    } catch (err) {
+      setMessages((m) => [...m, { role: 'error', text: err.message }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section className="ask" aria-label="Ask me anything">
+      <p className="ask-label">Ask me anything. Answers come from my resume, papers, and GitHub.</p>
+      {(messages.length > 0 || loading) && (
+        <div className="ask-log" ref={logRef} aria-live="polite">
+          {messages.map((m, i) => (
+            <p key={i} className={`ask-msg ask-${m.role}`}>{m.text}</p>
+          ))}
+          {loading && <p className="ask-msg ask-me ask-thinking">Thinking…</p>}
+        </div>
+      )}
+      <form className="ask-form" onSubmit={(e) => { e.preventDefault(); send(input); }}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="e.g. Why should we hire you?"
+          aria-label="Your question"
+          maxLength={500}
+          disabled={loading}
+        />
+        <button type="submit" disabled={loading || !input.trim()}>Ask</button>
+      </form>
+      {messages.length === 0 && (
+        <div className="ask-suggestions">
+          {SUGGESTED_QUESTIONS.map((q) => (
+            <button key={q} type="button" className="tech-badge" onClick={() => send(q)} disabled={loading}>{q}</button>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 function HomeApp({ heroImage }) {
   return (
     <div className="home-app">
@@ -800,12 +856,11 @@ function HomeApp({ heroImage }) {
           <p className="hero-subtitle">Building production AI systems, resilient cloud infrastructure, and intelligent robotics.</p>
           <TypewriterCycle />
 
+          <AskMe />
+
           <p className="hero-description">
             Two-time NSERC USRA recipient, published researcher (SIGIR-AP, CIKM), and Cloud Engineer at Co-Operators.
             I build systems that move from research prototype to real-world deployment.
-          </p>
-          <p className="hero-description">
-            Open any app from the dock below, or type <strong>ask &lt;question&gt;</strong> in Terminal to query my RAG.
           </p>
 
           <div className="tech-badges">

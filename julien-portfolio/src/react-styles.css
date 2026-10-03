@@ -787,6 +787,83 @@ a { color: var(--gold); }
   animation: hero-in 0.65s 0.21s var(--ease-out) both;
 }
 
+/* Ask-me chat (RAG) — the hero's primary action */
+.ask {
+  pointer-events: auto;
+  margin-top: 22px;
+  padding: 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--bg-elev);
+  box-shadow: var(--shadow);
+  animation: hero-in 0.65s 0.19s var(--ease-out) both;
+}
+
+.ask-label {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.ask-log {
+  max-height: 340px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ask-msg {
+  margin: 0;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ask-user  { align-self: flex-end; max-width: 85%; background: var(--gold-dim); color: var(--text); }
+.ask-me    { align-self: flex-start; background: var(--bg-elev-2); color: var(--text); }
+.ask-error { align-self: flex-start; background: var(--bg-elev-2); color: var(--muted); }
+.ask-thinking { color: var(--muted); }
+
+.ask-form { display: flex; gap: 8px; }
+
+.ask-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 7px;
+  background: var(--bg-elev-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px; /* below 16px iOS zooms on focus */
+}
+
+.ask-form input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+
+.ask-form button {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 7px;
+  background: var(--gold);
+  color: var(--on-gold);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.ask-form button:hover:not(:disabled) { background: var(--gold-strong); }
+.ask-form button:disabled { opacity: 0.5; cursor: default; }
+
+.ask-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.ask-suggestions .tech-badge { cursor: pointer; text-align: left; }
+
 /* Tech badges — square-ish, not pills */
 .tech-badges {
   display: flex;
