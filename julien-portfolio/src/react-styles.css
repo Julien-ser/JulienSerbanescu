@@ -413,6 +413,15 @@ a { color: var(--gold); }
 
 .window.minimized { display: none; }
 
+/* Inline left/top/width/height come from drag state, so !important is needed to override them */
+.window.maximized {
+  left: 8px !important;
+  top: calc(var(--menubar-h) + 8px) !important;
+  width: calc(100vw - 16px) !important;
+  height: calc(100dvh - var(--menubar-h) - 86px) !important;
+}
+.window.maximized .window-titlebar { cursor: default; }
+
 .window-titlebar {
   display: grid;
   grid-template-columns: 72px 1fr 72px;
@@ -439,7 +448,12 @@ a { color: var(--gold); }
   flex-shrink: 0;
   transition: filter 0.1s ease, transform 0.1s ease;
   font-size: 0;
+  position: relative;
 }
+
+/* Grow the hit area to fill the 6px gaps without changing the 13px dot */
+.win-btn::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; }
+.win-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
 .win-btn.close    { background: #ff5f57; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
 .win-btn.minimize { background: #febc2e; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }

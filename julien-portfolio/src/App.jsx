@@ -355,6 +355,10 @@ function App() {
     setOpenWindows((prev) => prev.map((w) => w.id === appId ? { ...w, minimized: true } : w));
   };
 
+  const toggleMaximize = (appId) => {
+    setOpenWindows((prev) => prev.map((w) => w.id === appId ? { ...w, maximized: !w.maximized } : w));
+  };
+
   const bringToFront = (appId) => {
     setZIndexCounter((c) => c + 1);
     setOpenWindows((prev) =>
@@ -651,7 +655,7 @@ function App() {
         .map((win) => (
           <div
             key={win.id}
-            className={`window ${win.minimized ? 'minimized' : ''}`}
+            className={`window ${win.minimized ? 'minimized' : ''} ${win.maximized ? 'maximized' : ''}`}
             style={{
               left: win.x,
               top: win.y,
@@ -662,11 +666,11 @@ function App() {
             }}
             onClick={() => bringToFront(win.id)}
           >
-            <div className="window-titlebar" onMouseDown={(e) => startDrag(win.id, e)}>
+            <div className="window-titlebar" onMouseDown={(e) => !win.maximized && startDrag(win.id, e)} onDoubleClick={() => toggleMaximize(win.id)}>
               <div className="window-controls">
-                <button className="win-btn close"    onClick={() => closeWindow(win.id)}    onMouseDown={(e) => e.stopPropagation()} title="Close" />
-                <button className="win-btn minimize" onClick={() => minimizeWindow(win.id)} onMouseDown={(e) => e.stopPropagation()} title="Minimize" />
-                <button className="win-btn maximize"                                         onMouseDown={(e) => e.stopPropagation()} title="Expand" />
+                <button className="win-btn close"    onClick={() => closeWindow(win.id)}    onMouseDown={(e) => e.stopPropagation()} title="Close"    aria-label={`Close ${win.title}`} />
+                <button className="win-btn minimize" onClick={() => minimizeWindow(win.id)} onMouseDown={(e) => e.stopPropagation()} title="Minimize" aria-label={`Minimize ${win.title}`} />
+                <button className="win-btn maximize" onClick={() => toggleMaximize(win.id)} onMouseDown={(e) => e.stopPropagation()} title={win.maximized ? 'Restore' : 'Expand'} aria-label={`${win.maximized ? 'Restore' : 'Expand'} ${win.title}`} aria-pressed={!!win.maximized} />
               </div>
               <span className="window-title">{win.title}</span>
               <div />
