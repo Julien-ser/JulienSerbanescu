@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   User, Briefcase, Microscope, FolderGit2, Bot,
-  Trophy, Users, GraduationCap, Mail, SquareTerminal,
+  Trophy, Users, GraduationCap, Mail, SquareTerminal, ScrollText,
 } from 'lucide-react';
 import './react-styles.css';
+import CaptainsLogApp from './CaptainsLog.jsx';
 
 // Import images from assets
 import profileImage from './assets/Untitled.png';
@@ -64,6 +65,11 @@ const APPS = {
     id: 'about',
     title: 'About Me',
     component: 'AboutApp',
+  },
+  log: {
+    id: 'log',
+    title: "Captain's Log",
+    component: 'CaptainsLogApp',
   },
   experience: {
     id: 'experience',
@@ -488,7 +494,7 @@ function App() {
           type: 'output',
           text:
             'Commands:\n' +
-            '  open <app>   - open an app window (about, experience, research, projects, robots, competitions, organizations, certificates, contact, terminal)\n' +
+            '  open <app>   - open an app window (about, log, experience, research, projects, robots, competitions, organizations, certificates, contact, terminal)\n' +
             '  close <app>  - close a window\n' +
             '  list         - list open windows\n' +
             '  clear        - clear terminal\n' +
@@ -550,6 +556,8 @@ function App() {
     switch (appId) {
       case 'about':
         return <AboutApp />;
+      case 'log':
+        return <CaptainsLogApp />;
       case 'experience':
         return <ExperienceApp coOperatorsLogo={coOperatorsLogo} cySciLogo={cySciLogo} guelphLogo={guelphLogo} athenaGuardLogo={athenaGuardLogo} />;
       case 'research':
@@ -622,7 +630,7 @@ function App() {
       <MenuBar />
       {/* Home layer (behind windows, above background) */}
       <div className="home-layer">
-        <HomeApp avatarIdle={profileImage} avatarLoading={profileImage} heroImage={heroImage} />
+        <HomeApp avatarIdle={profileImage} avatarLoading={profileImage} heroImage={heroImage} onOpenLog={() => openWindow('log')} />
       </div>
 
       {/* Dock */}
@@ -688,6 +696,7 @@ function App() {
 
 const APP_ICONS = {
   about: User,
+  log: ScrollText,
   experience: Briefcase,
   research: Microscope,
   projects: FolderGit2,
@@ -850,7 +859,7 @@ function AskMe() {
   );
 }
 
-function HomeApp({ heroImage }) {
+function HomeApp({ heroImage, onOpenLog }) {
   return (
     <div className="home-app">
       <div className="hero-container">
@@ -894,6 +903,7 @@ function HomeApp({ heroImage }) {
             <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="hero-link-btn">LinkedIn</a>
             <a href="https://github.com/Julien-ser" target="_blank" rel="noopener noreferrer" className="hero-link-btn">GitHub</a>
             <a href="https://scholar.google.com/citations?user=mnpXcUwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="hero-link-btn">Scholar</a>
+            <button type="button" className="hero-link-btn hero-link-log" onClick={onOpenLog}>Captain's Log</button>
           </div>
         </div>
         <div className="profile-container">
