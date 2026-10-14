@@ -968,9 +968,15 @@ a { color: var(--gold); }
 /* Profile container with animated conic ring */
 .profile-container {
   flex-shrink: 0;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
   animation: hero-in 0.7s 0.08s var(--ease-out) both;
 }
+
+/* The ring is positioned against the photo, not the button below it. */
+.profile-photo { position: relative; }
 
 .profile-ring {
   position: absolute;

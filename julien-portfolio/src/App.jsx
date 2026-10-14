@@ -7,8 +7,8 @@ import './react-styles.css';
 import CaptainsLogApp from './CaptainsLog.jsx';
 
 // Import images from assets
-import profileImage from './assets/Untitled.png';
-import heroImage from './assets/Untitled.png';
+import profileImage from './assets/profile.jpg';
+import heroImage from './assets/profile.jpg';
 import guelphLogo from './assets/guelp.png';
 import cySciLogo from './assets/cybersci.png';
 import coOperatorsLogo from './assets/cooperators.png';
@@ -903,14 +903,16 @@ function HomeApp({ heroImage, onOpenLog }) {
             <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="hero-link-btn">LinkedIn</a>
             <a href="https://github.com/Julien-ser" target="_blank" rel="noopener noreferrer" className="hero-link-btn">GitHub</a>
             <a href="https://scholar.google.com/citations?user=mnpXcUwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="hero-link-btn">Scholar</a>
-            <button type="button" className="hero-link-btn hero-link-log" onClick={onOpenLog}>Captain's Log</button>
           </div>
         </div>
         <div className="profile-container">
-          <div className="profile-ring" aria-hidden="true" />
-          <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="profile-link">
-            <img src={heroImage} alt="Julien Serbanescu" className="profile-image" />
-          </a>
+          <div className="profile-photo">
+            <div className="profile-ring" aria-hidden="true" />
+            <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="profile-link">
+              <img src={heroImage} alt="Julien Serbanescu" className="profile-image" />
+            </a>
+          </div>
+          <button type="button" className="hero-link-btn hero-link-log" onClick={onOpenLog}>Captain's Log</button>
         </div>
       </div>
     </div>
