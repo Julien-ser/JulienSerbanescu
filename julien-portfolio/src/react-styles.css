@@ -1520,3 +1520,15 @@ button.log-entry-head { cursor: pointer; }
 }
 
 .log-audio-intro { width: 100%; margin: 0 0 6px; }
+
+.log-transcript { margin: 0 0 6px; color: var(--muted); font-size: 0.86rem; }
+
+.log-transcript summary {
+  width: fit-content;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.log-transcript .par { margin: 8px 0 0; max-width: 68ch; line-height: 1.6; }

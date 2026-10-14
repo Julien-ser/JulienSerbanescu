@@ -11,6 +11,15 @@ const entryAudio = import.meta.glob('./logs/audio/*', { import: 'default', eager
 
 const INTRO_AUDIO = Object.entries(entryAudio).find(([path]) => /\/intro\.[a-z0-9]+$/i.test(path))?.[1];
 
+// Text of the intro recording, for anyone who can't or won't play audio.
+// Update it whenever intro.* is re-recorded.
+const INTRO_TRANSCRIPT =
+  "Hi. What you're going to see in this section is my log. A few times a week, I record what I worked on " +
+  'and what I got wrong. It shows a fuller picture of how I go about things: how I learn, how I adapt. ' +
+  'Hopefully, with enough data, I can learn a bit more about myself, and anyone viewing this can learn a bit ' +
+  "more about me and how I work. If you're hiring, it's the honest version of my résumé. And if you're " +
+  "learning the same things I am, it might save you a night. So honestly, just have fun.";
+
 function parseEntry(path, raw) {
   const text = raw.replace(/\r\n/g, '\n');
   const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -148,7 +157,15 @@ export default function CaptainsLogApp() {
       <h2 className="section-title">Captain's Log</h2>
       <div className="section-divider"></div>
       <p className="par log-intro">What I'm learning, recorded a few times a week. Newest first.</p>
-      {INTRO_AUDIO && <audio className="log-audio log-audio-intro" controls preload="none" src={INTRO_AUDIO} />}
+      {INTRO_AUDIO && (
+        <>
+          <audio className="log-audio log-audio-intro" controls preload="none" src={INTRO_AUDIO} />
+          <details className="log-transcript">
+            <summary>Transcript</summary>
+            <p className="par">{INTRO_TRANSCRIPT}</p>
+          </details>
+        </>
+      )}
 
       {LOG_ENTRIES.length === 0 && <p className="par">No entries yet.</p>}
 
