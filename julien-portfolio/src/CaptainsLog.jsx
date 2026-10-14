@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { Play, Pause, ArrowLeft } from 'lucide-react';
 
 // One Markdown file per entry in ./logs, named YYYY-MM-DD-slug.md, with a
-// small frontmatter block (title, stardate, date). Images go in ./logs/img.
+// small frontmatter block: title, stardate, date, and optionally summary and
+// audio. Images go in ./logs/img, recordings in ./logs/audio. A recording
+// named intro.* in ./logs/audio is the "what is this log" clip.
 const entryFiles = import.meta.glob('./logs/*.md', { query: '?raw', import: 'default', eager: true });
 const entryImages = import.meta.glob('./logs/img/*', { import: 'default', eager: true });
+const entryAudio = import.meta.glob('./logs/audio/*', { import: 'default', eager: true });
+
+const INTRO_AUDIO = Object.entries(entryAudio).find(([path]) => /\/intro\.[a-z0-9]+$/i.test(path))?.[1];
 
 function parseEntry(path, raw) {
   const text = raw.replace(/\r\n/g, '\n');
@@ -73,35 +79,87 @@ function renderBody(body) {
   });
 }
 
+function EntryMeta({ entry }) {
+  return (
+    <>
+      <span className="log-stardate">Stardate {entry.stardate}</span>
+      <span className="log-title">{entry.title}</span>
+      <span className="log-date">{formatDate(entry.date)}</span>
+    </>
+  );
+}
+
+// Play/pause for the intro clip, shown under the profile photo. Renders
+// nothing until an intro recording exists.
+export function LogIntroButton() {
+  const audioRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  if (!INTRO_AUDIO) return null;
+
+  const Icon = playing ? Pause : Play;
+  return (
+    <>
+      <audio
+        ref={audioRef}
+        src={INTRO_AUDIO}
+        preload="none"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPlaying(false)}
+      />
+      <button
+        type="button"
+        className="log-intro-btn"
+        aria-pressed={playing}
+        onClick={() => (playing ? audioRef.current.pause() : audioRef.current.play())}
+      >
+        <Icon size={13} strokeWidth={2} aria-hidden="true" />
+        {playing ? 'Pause' : 'What is the log?'}
+      </button>
+    </>
+  );
+}
+
 export default function CaptainsLogApp() {
-  const [openSlug, setOpenSlug] = useState(LOG_ENTRIES[0]?.slug);
+  const [openSlug, setOpenSlug] = useState(null);
+  const entry = LOG_ENTRIES.find((e) => e.slug === openSlug);
+
+  if (entry) {
+    const audio = entry.audio && entryAudio[`./logs/audio/${entry.audio}`];
+    return (
+      <div className="log-app">
+        <button type="button" className="log-back" onClick={() => setOpenSlug(null)}>
+          <ArrowLeft size={14} strokeWidth={2} aria-hidden="true" />
+          All entries
+        </button>
+        <article className="log-entry is-open">
+          <header className="log-entry-head">
+            <EntryMeta entry={entry} />
+          </header>
+          {audio && <audio className="log-audio" controls preload="none" src={audio} />}
+          <div className="log-body">{renderBody(entry.body)}</div>
+        </article>
+      </div>
+    );
+  }
 
   return (
     <div className="log-app">
       <h2 className="section-title">Captain's Log</h2>
       <div className="section-divider"></div>
       <p className="par log-intro">What I'm learning, recorded a few times a week. Newest first.</p>
+      {INTRO_AUDIO && <audio className="log-audio log-audio-intro" controls preload="none" src={INTRO_AUDIO} />}
 
       {LOG_ENTRIES.length === 0 && <p className="par">No entries yet.</p>}
 
-      {LOG_ENTRIES.map((entry) => {
-        const isOpen = entry.slug === openSlug;
-        return (
-          <article key={entry.slug} className={`log-entry ${isOpen ? 'is-open' : ''}`}>
-            <button
-              type="button"
-              className="log-entry-head"
-              aria-expanded={isOpen}
-              onClick={() => setOpenSlug(isOpen ? null : entry.slug)}
-            >
-              <span className="log-stardate">Stardate {entry.stardate}</span>
-              <span className="log-title">{entry.title}</span>
-              <span className="log-date">{formatDate(entry.date)}</span>
-            </button>
-            {isOpen && <div className="log-body">{renderBody(entry.body)}</div>}
-          </article>
-        );
-      })}
+      {LOG_ENTRIES.map((e) => (
+        <article key={e.slug} className="log-entry">
+          <button type="button" className="log-entry-head" onClick={() => setOpenSlug(e.slug)}>
+            <EntryMeta entry={e} />
+            {e.summary && <span className="log-summary">{e.summary}</span>}
+          </button>
+        </article>
+      ))}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import {
   Trophy, Users, GraduationCap, Mail, SquareTerminal, ScrollText,
 } from 'lucide-react';
 import './react-styles.css';
-import CaptainsLogApp from './CaptainsLog.jsx';
+import CaptainsLogApp, { LogIntroButton } from './CaptainsLog.jsx';
 
 // Import images from assets
 import profileImage from './assets/profile.jpg';
@@ -913,6 +913,7 @@ function HomeApp({ heroImage, onOpenLog }) {
             </a>
           </div>
           <button type="button" className="hero-link-btn hero-link-log" onClick={onOpenLog}>Captain's Log</button>
+          <LogIntroButton />
         </div>
       </div>
     </div>

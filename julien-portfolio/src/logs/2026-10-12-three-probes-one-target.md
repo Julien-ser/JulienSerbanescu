@@ -2,6 +2,7 @@
 title: Three Probes, One Target
 stardate: 2026.285
 date: 2026-10-12
+summary: Pointing SpiderFoot, Maltego and recon-ng at my own domain to see what a stranger could find.
 ---
 
 Captain's log, stardate 2026.285.
