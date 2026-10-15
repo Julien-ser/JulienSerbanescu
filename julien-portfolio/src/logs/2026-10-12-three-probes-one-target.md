@@ -7,6 +7,8 @@ summary: Pointing SpiderFoot, Maltego and recon-ng at my own domain to see what 
 
 Captain's log, stardate 2026.285.
 
+I have been reading Caroline Wong's **The AI Cybersecurity Handbook**, and its section on reconnaissance left me wondering how much of me was already in plain sight.
+
 Tonight's mission: reconnaissance. The target... was me.
 
 I pointed three open-source intelligence tools at my own domain to learn what a stranger could find without ever touching my servers. SpiderFoot, which scans everything at once. Maltego, which draws what it finds as a map. And recon-ng, which works one careful step at a time.
