@@ -1472,6 +1472,9 @@ button.log-entry-head { cursor: pointer; }
 
 .log-body code { font-family: var(--font-mono); font-size: 0.88em; }
 
+.log-diagram { margin: 4px 0 14px; overflow-x: auto; }
+.log-diagram svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+
 .log-image {
   display: block;
   width: 100%;
