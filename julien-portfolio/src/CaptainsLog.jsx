@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { Play, Pause, ArrowLeft } from 'lucide-react';
 
 // One Markdown file per entry in ./logs, named YYYY-MM-DD-slug.md, with a
@@ -68,9 +68,29 @@ function renderInline(text) {
   });
 }
 
+// ```mermaid blocks. The library is loaded only when an entry has a diagram.
+function Mermaid({ code }) {
+  const ref = useRef(null);
+  const id = `mermaid-${useId().replace(/:/g, '')}`;
+  useEffect(() => {
+    let live = true;
+    import('mermaid').then(async ({ default: mermaid }) => {
+      mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'strict' });
+      const { svg } = await mermaid.render(id, code);
+      if (live && ref.current) ref.current.innerHTML = svg;
+    }).catch(() => {
+      if (live && ref.current) ref.current.textContent = code;
+    });
+    return () => { live = false; };
+  }, [id, code]);
+  return <div ref={ref} className="log-diagram" />;
+}
+
 function renderBody(body) {
   return body.split(/\n{2,}/).map((block, i) => {
     const lines = block.split('\n');
+    const diagram = block.match(/^```mermaid\n([\s\S]*?)\n```$/);
+    if (diagram) return <Mermaid key={i} code={diagram[1]} />;
     const image = block.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (image) {
       const src = entryImages[`./logs/img/${image[2]}`];
