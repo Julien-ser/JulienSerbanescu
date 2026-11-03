@@ -1476,6 +1476,7 @@ button.log-entry-head { cursor: pointer; }
 
 .log-diagram { margin: 4px 0 14px; overflow-x: auto; }
 .log-diagram svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.log-diagram svg :is(.nodeLabel, .edgeLabel, .label, .cluster-label) { color: var(--text) !important; fill: var(--text); }
 
 .log-image {
   display: block;

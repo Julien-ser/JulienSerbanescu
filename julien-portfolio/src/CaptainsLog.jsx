@@ -75,8 +75,23 @@ export function Mermaid({ code }) {
   useEffect(() => {
     let live = true;
     import('mermaid').then(async ({ default: mermaid }) => {
-      const light = window.matchMedia?.('(prefers-color-scheme: light)').matches;
-      mermaid.initialize({ startOnLoad: false, theme: light ? 'neutral' : 'dark', securityLevel: 'strict' });
+      // Theme from the site's CSS tokens, which already switch with light/dark.
+      const css = getComputedStyle(document.documentElement);
+      const v = (name) => css.getPropertyValue(name).trim();
+      mermaid.initialize({
+        startOnLoad: false, securityLevel: 'strict', theme: 'base',
+        themeVariables: {
+          fontFamily: v('--font-sans'), fontSize: '14px',
+          background: v('--bg'), textColor: v('--text'),
+          primaryColor: v('--bg-elev-2'), primaryTextColor: v('--text'), primaryBorderColor: v('--gold'),
+          secondaryColor: v('--bg-elev'), tertiaryColor: v('--bg-elev'),
+          lineColor: v('--gold'), edgeLabelBackground: v('--bg-elev'),
+          clusterBkg: v('--bg-elev'), clusterBorder: v('--muted'),
+          actorBkg: v('--bg-elev-2'), actorBorder: v('--gold'), actorTextColor: v('--text'),
+          signalColor: v('--text'), signalTextColor: v('--text'),
+          noteBkgColor: v('--bg-elev'), noteBorderColor: v('--muted'), noteTextColor: v('--text'),
+        },
+      });
       const { svg } = await mermaid.render(id, code);
       if (live && ref.current) ref.current.innerHTML = svg;
     }).catch(() => {
