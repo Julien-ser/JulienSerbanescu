@@ -254,6 +254,22 @@ function App() {
 
   const robotVideos = [
     {
+      id: 'agentic-robot-mcp',
+      title: 'Robot MCP: Claude Drives a Mecanum Robot Car',
+      description: 'An MCP server for a Freenove 4WD mecanum car (Raspberry Pi Pico W). It exposes drive, strafe, rotate and sensor reads as MCP tools, so Claude can plan and run movement from plain-English instructions.',
+      provider: 'linkedin',
+      embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:activity:7465433172923539456',
+      sourceUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7465433172923539456/',
+      repoUrl: 'https://github.com/Julien-ser/AgenticRobot'
+    },
+    {
+      id: 'emg-robot-arm',
+      title: 'EMG-Controlled Robot Claw',
+      description: 'An EMG muscle sensor on my forearm feeds an Arduino: flex and the servo claw closes, relax and it opens. Each reading is compared with a rolling average of the last 8, with a separate flex and relax threshold, so the claw adapts to signal drift without chattering.',
+      embedUrl: 'https://drive.google.com/file/d/1HyN35DjB8WfcIFGGSs8RaMI56U4w3hBf/preview',
+      sourceUrl: 'https://drive.google.com/file/d/1HyN35DjB8WfcIFGGSs8RaMI56U4w3hBf/view?usp=sharing'
+    },
+    {
       id: 'x-status-2026306411378962805',
       title: 'RFID Scanner Encryption',
       description: 'Clip from X.',
@@ -1407,13 +1423,14 @@ function RobotsApp({ robotVideos, activeRobotVideoIndex, setActiveRobotVideoInde
       </div>
       {/* Carousel main */}
       <div className="carousel-view">
-        <div className={`robot-video-frame ${activeRobotVideo.provider === 'x' ? 'is-x' : ''}`}>
+        <div className={`robot-video-frame ${activeRobotVideo.provider ? `is-${activeRobotVideo.provider}` : ''}`}>
           <iframe src={activeRobotVideo.embedUrl} title={activeRobotVideo.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </div>
         <div className="robot-video-meta">
           <h3>{activeRobotVideo.title}</h3>
           <p>{activeRobotVideo.description}</p>
           <a href={activeRobotVideo.sourceUrl} target="_blank" rel="noreferrer">Open Source Video</a>
+          {activeRobotVideo.repoUrl && <> · <a href={activeRobotVideo.repoUrl} target="_blank" rel="noreferrer">Code on GitHub</a></>}
         </div>
       </div>
     </div>
