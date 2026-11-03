@@ -267,7 +267,8 @@ function App() {
       title: 'EMG-Controlled Robot Claw',
       description: 'An EMG muscle sensor on my forearm feeds an Arduino: flex and the servo claw closes, relax and it opens. Each reading is compared with a rolling average of the last 8, with a separate flex and relax threshold, so the claw adapts to signal drift without chattering.',
       embedUrl: 'https://drive.google.com/file/d/1HyN35DjB8WfcIFGGSs8RaMI56U4w3hBf/preview',
-      sourceUrl: 'https://drive.google.com/file/d/1HyN35DjB8WfcIFGGSs8RaMI56U4w3hBf/view?usp=sharing'
+      sourceUrl: 'https://drive.google.com/file/d/1HyN35DjB8WfcIFGGSs8RaMI56U4w3hBf/view?usp=sharing',
+      repoUrl: 'https://github.com/Julien-ser/emg-robot-arm'
     },
     {
       id: 'x-status-2026306411378962805',
