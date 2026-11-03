@@ -1111,7 +1111,6 @@ a { color: var(--gold); }
   border: 0;
 }
 
-.robot-video-frame.is-linkedin iframe { min-height: 560px; }
 .robot-video-meta          { margin-top: 10px; color: var(--text); }
 .robot-video-meta p        { color: var(--muted); font-size: 0.84rem; }
 

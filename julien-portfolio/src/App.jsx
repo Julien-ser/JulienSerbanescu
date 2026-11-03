@@ -257,9 +257,9 @@ function App() {
       id: 'agentic-robot-mcp',
       title: 'Robot MCP: Claude Drives a Mecanum Robot Car',
       description: 'An MCP server for a Freenove 4WD mecanum car (Raspberry Pi Pico W). It exposes drive, strafe, rotate and sensor reads as MCP tools, so Claude can plan and run movement from plain-English instructions.',
-      provider: 'linkedin',
-      embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:activity:7465433172923539456',
-      sourceUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7465433172923539456/',
+      embedUrl: 'https://drive.google.com/file/d/1MzNtsfGhl7HNqLoKlAYh65q8DtsLfUt3/preview',
+      sourceUrl: 'https://drive.google.com/file/d/1MzNtsfGhl7HNqLoKlAYh65q8DtsLfUt3/view?usp=sharing',
+      postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7465433172923539456/',
       repoUrl: 'https://github.com/Julien-ser/AgenticRobot'
     },
     {
@@ -1431,7 +1431,8 @@ function RobotsApp({ robotVideos, activeRobotVideoIndex, setActiveRobotVideoInde
           <h3>{activeRobotVideo.title}</h3>
           <p>{activeRobotVideo.description}</p>
           <a href={activeRobotVideo.sourceUrl} target="_blank" rel="noreferrer">Open Source Video</a>
-          {activeRobotVideo.repoUrl && <> · <a href={activeRobotVideo.repoUrl} target="_blank" rel="noreferrer">Code on GitHub</a></>}
+          {activeRobotVideo.postUrl && <> · <a href={activeRobotVideo.postUrl} target="_blank" rel="noreferrer">LinkedIn Post</a></>}
+          {activeRobotVideo.repoUrl &&<> · <a href={activeRobotVideo.repoUrl} target="_blank" rel="noreferrer">Code on GitHub</a></>}
         </div>
       </div>
     </div>
