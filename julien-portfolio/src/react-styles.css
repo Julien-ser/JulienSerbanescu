@@ -42,6 +42,7 @@
   --hue-competitions: 86;
   --hue-organizations: 22;
   --hue-certificates: 152;
+  --hue-opensource: 330;
   --hue-contact: 236;
   --hue-terminal: 250;
 }
@@ -286,6 +287,7 @@ a { color: var(--gold); }
 .dock-item[data-app='competitions']  { --tile-hue: var(--hue-competitions); }
 .dock-item[data-app='organizations'] { --tile-hue: var(--hue-organizations); }
 .dock-item[data-app='certificates']  { --tile-hue: var(--hue-certificates); }
+.dock-item[data-app='opensource']    { --tile-hue: var(--hue-opensource); }
 .dock-item[data-app='contact']       { --tile-hue: var(--hue-contact); }
 
 /* Terminal is the odd one out on purpose: near-neutral, so it reads as chrome
@@ -1535,3 +1537,44 @@ button.log-entry-head { cursor: pointer; }
 }
 
 .log-transcript .par { margin: 8px 0 0; max-width: 68ch; line-height: 1.6; }
+
+/* ===================== Open Source app ===================== */
+.oss-app { display: grid; gap: 10px; }
+.oss-pipe {
+  list-style: none; margin: 12px 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px;
+}
+.oss-node {
+  position: relative; display: grid; gap: 4px; min-width: 0;
+  padding: 10px 12px; border-radius: 10px;
+  background: var(--bg); border: 1px solid var(--border);
+  font-size: 0.8rem; line-height: 1.45; color: var(--text);
+}
+.oss-node strong { font-size: 0.86rem; }
+.oss-node-text { color: var(--muted); overflow-wrap: anywhere; }
+.oss-lane {
+  font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.oss-node.lane-you { border-color: var(--gold); }
+.oss-node.lane-you .oss-lane { color: var(--gold); }
+.oss-node.lane-upstream { border-style: dashed; }
+.oss-node.is-gate::after,
+.oss-node.is-loop::after {
+  position: absolute; top: 8px; right: 10px;
+  font-family: var(--font-mono); font-size: 0.6rem; color: var(--gold);
+}
+.oss-node.is-gate::after { content: 'gate'; }
+.oss-node.is-loop::after { content: '\21BA  loop'; }
+.oss-why { margin: 4px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+.oss-flow {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin: 8px 0 10px; padding: 10px; border-radius: 10px;
+  background: var(--bg); border: 1px solid var(--border);
+}
+.oss-flow-step {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--text);
+  padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border-strong);
+  background: var(--bg-elev); overflow-wrap: anywhere; min-width: 0;
+}
+.oss-flow-arrow { color: var(--gold); font-size: 0.8rem; }

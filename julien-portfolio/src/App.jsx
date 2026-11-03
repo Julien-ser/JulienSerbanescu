@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   User, Briefcase, Microscope, FolderGit2, Bot,
-  Trophy, Users, GraduationCap, Mail, SquareTerminal, ScrollText,
+  Trophy, Users, GraduationCap, Mail, SquareTerminal, ScrollText, GitPullRequest,
 } from 'lucide-react';
 import './react-styles.css';
 import CaptainsLogApp, { LogIntroButton } from './CaptainsLog.jsx';
@@ -85,6 +85,11 @@ const APPS = {
     id: 'projects',
     title: 'Projects',
     component: 'ProjectsApp',
+  },
+  opensource: {
+    id: 'opensource',
+    title: 'Open Source',
+    component: 'OpenSourceApp',
   },
   robots: {
     id: 'robots',
@@ -494,7 +499,7 @@ function App() {
           type: 'output',
           text:
             'Commands:\n' +
-            '  open <app>   - open an app window (about, log, experience, research, projects, robots, competitions, organizations, certificates, contact, terminal)\n' +
+            '  open <app>   - open an app window (about, log, experience, research, projects, opensource, robots, competitions, organizations, certificates, contact, terminal)\n' +
             '  close <app>  - close a window\n' +
             '  list         - list open windows\n' +
             '  clear        - clear terminal\n' +
@@ -570,6 +575,8 @@ function App() {
             setSelectedProjectId={setSelectedProjectId}
           />
         );
+      case 'opensource':
+        return <OpenSourceApp />;
       case 'robots':
         return (
           <RobotsApp
@@ -692,6 +699,129 @@ function App() {
   );
 }
 
+// ===================== Open Source ====================
+
+const PIPELINE = [
+  { lane: 'You', title: 'Trigger', text: 'one-line ask: "check my PRs" / "find issues"' },
+  { lane: 'Agent', title: '1 · Scout', text: 'gh issue + PR search across target repos' },
+  { lane: 'Agent', title: '2 · Gates', text: 'assignment gate · CONTRIBUTING · issue still open · competing PRs', gate: true },
+  { lane: 'Agent', title: '3 · Fix', text: 'reproduce in local fork → mirror sibling impl → tests / VCR cassettes' },
+  { lane: 'Agent', title: '4 · Repo checks', text: 'pre-commit · pytest · generated-docs --check' },
+  { lane: 'You', title: 'Human gate', text: 'I approve every push, PR and comment', gate: true },
+  { lane: 'Upstream', title: '5 · PR + review', text: 'CodeRabbit · Macroscope · veria-ai · Copilot · CodSpeed · maintainers' },
+  { lane: 'Agent', title: '6 · Sweep', text: 'Gmail MCP + gh status → review comments, red CI and conflicts loop back to Fix', loop: true },
+  { lane: 'Agent', title: '7 · Verify credit', text: 'authorship or Co-authored-by on the squash commit' },
+  { lane: 'Agent', title: '8 · Fan-out', text: '/sync-profile → resume · README · this site · LinkedIn' },
+];
+
+const OSS_PRS = [
+  {
+    id: '6100', repo: 'pydantic/pydantic-ai', title: 'Streaming support for CohereModel',
+    role: 'Author · co-authored with maintainer', merged: 'Nov 2026',
+    url: 'https://github.com/pydantic/pydantic-ai/pull/6100',
+    problem: 'CohereModel had no request_stream, so agent.run_stream() failed for every Cohere model.',
+    did: "Wrote request_stream() and CohereStreamedResponse, which translate Cohere's stream events (content start/delta, tool-call start/delta, message end) into pydantic-ai part events, tracking thinking vs. text per content index. Extracted a reusable _map_api_errors context manager so one error mapper covers both the initial call and stream iteration, and split out _map_cohere_usage so the final stream event reports tokens. The maintainer then unified the request path and peeked the first event so 401/429 errors raise when the stream opens.",
+    flow: ['Agent.run_stream', 'request_stream', 'chat_stream (peeked)', 'CohereStreamedResponse', 'text · thinking · tool-call parts', 'finish reason + usage'],
+    learned: 'How agent frameworks normalize provider streams into one event model, and why lazy SDK streams hide errors until the first read.',
+  },
+  {
+    id: '5833', repo: 'pydantic/pydantic-ai', title: 'Cohere silently dropped tool_choice',
+    role: 'Author', merged: 'Jun 2026',
+    url: 'https://github.com/pydantic/pydantic-ai/pull/5833',
+    problem: 'CohereModel never forwarded tool_choice, so "required", "none" or a named tool subset quietly behaved like "auto".',
+    did: "Added _get_tool_choice(), which runs the shared resolve_tool_choice canonicalizer and maps it to Cohere's v2 API. Cohere returns 422 for a named tool, so a named subset filters the tools array and sends REQUIRED, matching MistralModel. Added Cohere to the cross-provider tool_choice test matrix with 6 recorded-API cassettes.",
+    flow: ['ModelSettings.tool_choice', 'resolve_tool_choice()', 'auto → omit · required → REQUIRED · none → NONE · subset → filter + REQUIRED', 'client.chat'],
+    learned: 'Provider adapters fail silently when one setting is unmapped; a cross-provider test matrix is what catches it.',
+  },
+  {
+    id: '1320', repo: 'sooperset/mcp-atlassian', title: 'Confluence permission-checking MCP tools',
+    role: 'Author', merged: 'Jul 2026',
+    url: 'https://github.com/sooperset/mcp-atlassian/pull/1320',
+    problem: 'Agents had no way to ask "who can see or edit this Confluence space or page?"',
+    did: 'Added a PermissionsMixin to ConfluenceFetcher and two read-only tools in a new confluence_permissions toolset: content permission checks (v1 API) and space permission listing (v2 API, cursor pagination). Cloud-only with a clear Server/DC error; toolset metadata, generated docs, unit and e2e tests (+743 lines).',
+    flow: ['MCP client', 'FastMCP server', 'read-only toolset gate', 'ConfluenceFetcher + PermissionsMixin', 'Confluence Cloud REST v1 / v2'],
+    learned: 'How an MCP server is layered, from tool registration and toolset gating down to fetcher mixins, and how to design read-only tools safely.',
+  },
+  {
+    id: '1481', repo: 'sooperset/mcp-atlassian', title: 'Cross-request credential validation cache',
+    role: 'Co-author (from my #1423)', merged: 'Jul 2026',
+    url: 'https://github.com/sooperset/mcp-atlassian/pull/1481',
+    problem: 'In multi-user HTTP mode every request re-validated its token. Behind a WAF that traffic got 429-throttled and surfaced as "invalid token". A TTLCache for exactly this was declared but never used.',
+    did: 'Wired a cross-request cache into _create_and_validate(), keyed on (service, sha256(credential)) so raw tokens are never stored, with a configurable TTL (default 5 min) and no caching of failures. The maintainer consolidated it with a parallel fix that adds target scoping, shared in-flight validation and explicit 429 reporting.',
+    flow: ['request + token', 'sha256 cache lookup', 'hit → reuse (≤ 5 min)', 'miss → validate once → cache success'],
+    learned: 'Finding dead code, never using raw secrets as cache keys, and never reporting a rate limit as an auth failure.',
+  },
+  {
+    id: '1469', repo: 'sooperset/mcp-atlassian', title: 'Non-image Jira attachments rejected by MCP clients',
+    role: 'Co-author (from my #1424)', merged: 'Jul 2026',
+    url: 'https://github.com/sooperset/mcp-atlassian/pull/1469',
+    problem: 'Every attachment came back as an EmbeddedResource blob; clients like Claude Desktop only accept image MIME types there, so ZIPs and documents silently vanished.',
+    did: 'Traced it to how results were typed, not fetched. Images keep EmbeddedResource; everything else returns TextContent with a JSON envelope (filename, mimeType, base64 content). The maintainer re-landed it with Co-authored-by credit.',
+    flow: ['download attachment', 'is image?', 'yes → EmbeddedResource', 'no → TextContent (base64 JSON)'],
+    learned: "MCP content types are part of a tool's contract with the client. Separate \"data is wrong\" from \"data is typed wrong\" before fixing.",
+  },
+];
+
+function Flow({ steps }) {
+  return (
+    <div className="oss-flow" role="list">
+      {steps.map((step, i) => (
+        <React.Fragment key={step}>
+          {i > 0 && <span className="oss-flow-arrow" aria-hidden="true">→</span>}
+          <span className="oss-flow-step" role="listitem">{step}</span>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+function OpenSourceApp() {
+  return (
+    <div className="oss-app">
+      <h2 className="section-title">Open Source</h2>
+      <div className="section-divider"></div>
+      <p className="par">
+        5 merged pull requests to production AI-agent frameworks (pydantic-ai and mcp-atlassian). Below: how I ship them, then what each one changed.
+      </p>
+
+      <section className="oss-pipeline">
+        <h3 className="job-title">How I ship PRs: a human-in-the-loop agent pipeline</h3>
+        <p className="job-description">
+          Claude Code does the engineering, my Obsidian vault is its long-term memory (a tracker every sweep reads first and logs to), and I gate anything public.
+        </p>
+        <ol className="oss-pipe">
+          {PIPELINE.map((s) => (
+            <li key={s.title} className={`oss-node lane-${s.lane.toLowerCase()}${s.gate ? ' is-gate' : ''}${s.loop ? ' is-loop' : ''}`}>
+              <span className="oss-lane">{s.lane}</span>
+              <strong>{s.title}</strong>
+              <span className="oss-node-text">{s.text}</span>
+            </li>
+          ))}
+        </ol>
+        <ul className="job-description oss-why">
+          <li><strong>Gates before code.</strong> Major AI repos now auto-close unassigned PRs and popular bugs draw competing patches within hours, so eligibility is checked before the bug is even read.</li>
+          <li><strong>The vault is the memory.</strong> Sessions are stateless; the tracker lets a sweep months later resume exactly where the last one stopped.</li>
+          <li><strong>A human on every outward action.</strong> The agent fixes, tests and drafts; I approve pushes. Review bots feed the fix loop and get answered with code.</li>
+          <li><strong>The loop ends at credit.</strong> A merge counts only once the squash commit carries my authorship or Co-authored-by.</li>
+        </ul>
+      </section>
+
+      {OSS_PRS.map((pr) => (
+        <section key={pr.id} className="oss-pr">
+          <h3 className="job-title">
+            <a href={pr.url} target="_blank" rel="noreferrer" className="subtle-link">{pr.repo} #{pr.id}</a>: {pr.title}
+          </h3>
+          <p className="job-date"><span className="date-range">Merged {pr.merged}</span><span>{pr.role}</span></p>
+          <p className="job-description"><strong>Problem:</strong> {pr.problem}</p>
+          <p className="job-description"><strong>What I did:</strong> {pr.did}</p>
+          <Flow steps={pr.flow} />
+          <p className="job-description"><strong>Takeaway:</strong> {pr.learned}</p>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 // ===================== Dock icon system ====================
 
 const APP_ICONS = {
@@ -700,6 +830,7 @@ const APP_ICONS = {
   experience: Briefcase,
   research: Microscope,
   projects: FolderGit2,
+  opensource: GitPullRequest,
   robots: Bot,
   competitions: Trophy,
   organizations: Users,
