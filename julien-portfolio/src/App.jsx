@@ -4,7 +4,7 @@ import {
   Trophy, Users, GraduationCap, Mail, SquareTerminal, ScrollText, GitPullRequest,
 } from 'lucide-react';
 import './react-styles.css';
-import CaptainsLogApp, { LogIntroButton } from './CaptainsLog.jsx';
+import CaptainsLogApp, { LogIntroButton, Mermaid } from './CaptainsLog.jsx';
 
 // Import images from assets
 import profileImage from './assets/profile.jpg';
@@ -701,18 +701,32 @@ function App() {
 
 // ===================== Open Source ====================
 
-const PIPELINE = [
-  { lane: 'You', title: 'Trigger', text: 'one-line ask: "check my PRs" / "find issues"' },
-  { lane: 'Agent', title: '1 · Scout', text: 'gh issue + PR search across target repos' },
-  { lane: 'Agent', title: '2 · Gates', text: 'assignment gate · CONTRIBUTING · issue still open · competing PRs', gate: true },
-  { lane: 'Agent', title: '3 · Fix', text: 'reproduce in local fork → mirror sibling impl → tests / VCR cassettes' },
-  { lane: 'Agent', title: '4 · Repo checks', text: 'pre-commit · pytest · generated-docs --check' },
-  { lane: 'You', title: 'Human gate', text: 'I approve every push, PR and comment', gate: true },
-  { lane: 'Upstream', title: '5 · PR + review', text: 'CodeRabbit · Macroscope · veria-ai · Copilot · CodSpeed · maintainers' },
-  { lane: 'Agent', title: '6 · Sweep', text: 'Gmail MCP + gh status → review comments, red CI and conflicts loop back to Fix', loop: true },
-  { lane: 'Agent', title: '7 · Verify credit', text: 'authorship or Co-authored-by on the squash commit' },
-  { lane: 'Agent', title: '8 · Fan-out', text: '/sync-profile → resume · README · this site · LinkedIn' },
-];
+const PIPELINE_DIAGRAM = `flowchart TD
+    J(["You: 'check my PRs' / 'find issues'"]) --> CC
+    subgraph MEM["Memory: Obsidian vault"]
+        T["OSS tracker<br/>+ progress log"]
+        B["Blockers =<br/>learned rules"]
+    end
+    subgraph AG["Claude Code session"]
+        CC["Orchestrator"] --> SCOUT["1. Scout<br/>gh issue + PR search"]
+        SCOUT --> GATE{"2. Eligible?<br/>assignment gate · CONTRIBUTING<br/>issue open · no competing PR"}
+        GATE -->|no| SKIP["log + skip"]
+        GATE -->|yes| FIX["3. Fix in local fork<br/>repro → mirror sibling impl<br/>→ tests / VCR cassettes"]
+        FIX --> CHK["4. Repo checks<br/>pre-commit · pytest<br/>generated-docs check"]
+    end
+    CC <-->|read state / write log| T
+    GATE -.-> B
+    CHK --> H{"You: approve push?"}
+    H -->|yes| PR["5. Push + open PR"]
+    subgraph UP["Upstream repo"]
+        PR --> BOTS["Review bots<br/>CodeRabbit · Macroscope · veria-ai<br/>Copilot · CodSpeed"]
+        PR --> MAINT["Maintainers"]
+    end
+    BOTS --> SWEEP["6. Sweep<br/>Gmail MCP + gh status"]
+    MAINT --> SWEEP
+    SWEEP -->|review / red CI / conflicts| FIX
+    SWEEP -->|merged| CRED["7. Verify credit<br/>author / Co-authored-by"]
+    CRED --> SYNC["8. /sync-profile<br/>resume · README · this site · LinkedIn"]`;
 
 const OSS_PRS = [
   {
@@ -721,7 +735,16 @@ const OSS_PRS = [
     url: 'https://github.com/pydantic/pydantic-ai/pull/6100',
     problem: 'CohereModel had no request_stream, so agent.run_stream() failed for every Cohere model.',
     did: "Wrote request_stream() and CohereStreamedResponse, which translate Cohere's stream events (content start/delta, tool-call start/delta, message end) into pydantic-ai part events, tracking thinking vs. text per content index. Extracted a reusable _map_api_errors context manager so one error mapper covers both the initial call and stream iteration, and split out _map_cohere_usage so the final stream event reports tokens. The maintainer then unified the request path and peeked the first event so 401/429 errors raise when the stream opens.",
-    flow: ['Agent.run_stream', 'request_stream', 'chat_stream (peeked)', 'CohereStreamedResponse', 'text · thinking · tool-call parts', 'finish reason + usage'],
+    diagram: `flowchart TD
+    U[Agent.run_stream] --> R[CohereModel.request_stream]
+    R --> C["_chat(stream=True)<br/>client.chat_stream"]
+    C --> P["PeekableAsyncStream<br/>peek inside _map_api_errors"]
+    P -->|401 / 429| E[ModelHTTPError]
+    P --> S[CohereStreamedResponse]
+    S --> M{event type}
+    M -->|content-delta| T["text / thinking part"]
+    M -->|tool-call start/delta| TC["tool-call part"]
+    M -->|message-end| F["finish reason<br/>+ usage"]`,
     learned: 'How agent frameworks normalize provider streams into one event model, and why lazy SDK streams hide errors until the first read.',
   },
   {
@@ -730,7 +753,17 @@ const OSS_PRS = [
     url: 'https://github.com/pydantic/pydantic-ai/pull/5833',
     problem: 'CohereModel never forwarded tool_choice, so "required", "none" or a named tool subset quietly behaved like "auto".',
     did: "Added _get_tool_choice(), which runs the shared resolve_tool_choice canonicalizer and maps it to Cohere's v2 API. Cohere returns 422 for a named tool, so a named subset filters the tools array and sends REQUIRED, matching MistralModel. Added Cohere to the cross-provider tool_choice test matrix with 6 recorded-API cassettes.",
-    flow: ['ModelSettings.tool_choice', 'resolve_tool_choice()', 'auto → omit · required → REQUIRED · none → NONE · subset → filter + REQUIRED', 'client.chat'],
+    diagram: `flowchart TD
+    MS["ModelSettings.tool_choice"] --> RC["resolve_tool_choice()<br/>shared canonicalizer"]
+    RC --> D{canonical value}
+    D -->|auto| A["omit: model decides"]
+    D -->|required| Q["REQUIRED"]
+    D -->|none| N["NONE, tools kept"]
+    D -->|named subset| NS["filter tools to subset<br/>+ REQUIRED"]
+    A --> API["client.chat"]
+    Q --> API
+    N --> API
+    NS --> API`,
     learned: 'Provider adapters fail silently when one setting is unmapped; a cross-provider test matrix is what catches it.',
   },
   {
@@ -739,7 +772,12 @@ const OSS_PRS = [
     url: 'https://github.com/sooperset/mcp-atlassian/pull/1320',
     problem: 'Agents had no way to ask "who can see or edit this Confluence space or page?"',
     did: 'Added a PermissionsMixin to ConfluenceFetcher and two read-only tools in a new confluence_permissions toolset: content permission checks (v1 API) and space permission listing (v2 API, cursor pagination). Cloud-only with a clear Server/DC error; toolset metadata, generated docs, unit and e2e tests (+743 lines).',
-    flow: ['MCP client', 'FastMCP server', 'read-only toolset gate', 'ConfluenceFetcher + PermissionsMixin', 'Confluence Cloud REST v1 / v2'],
+    diagram: `flowchart TD
+    LLM["MCP client / agent"] -->|tool call| SRV["FastMCP server"]
+    SRV -->|"toolset gate:<br/>confluence_permissions, read-only"| F["ConfluenceFetcher<br/>+ PermissionsMixin"]
+    F -->|v1| CP["POST content/{id}/permission/check"]
+    F -->|v2| SP["GET spaces/{id}/permissions<br/>cursor paging"]
+    F -.->|Server / DC| X["clear unsupported error"]`,
     learned: 'How an MCP server is layered, from tool registration and toolset gating down to fetcher mixins, and how to design read-only tools safely.',
   },
   {
@@ -748,7 +786,21 @@ const OSS_PRS = [
     url: 'https://github.com/sooperset/mcp-atlassian/pull/1481',
     problem: 'In multi-user HTTP mode every request re-validated its token. Behind a WAF that traffic got 429-throttled and surfaced as "invalid token". A TTLCache for exactly this was declared but never used.',
     did: 'Wired a cross-request cache into _create_and_validate(), keyed on (service, sha256(credential)) so raw tokens are never stored, with a configurable TTL (default 5 min) and no caching of failures. The maintainer consolidated it with a parallel fix that adds target scoping, shared in-flight validation and explicit 429 reporting.',
-    flow: ['request + token', 'sha256 cache lookup', 'hit → reuse (≤ 5 min)', 'miss → validate once → cache success'],
+    diagram: `sequenceDiagram
+    participant C as Client request
+    participant D as _create_and_validate
+    participant K as TTL cache (sha256 key)
+    participant A as Atlassian API
+    C->>D: request with PAT / OAuth token
+    D->>K: lookup (service, target, sha256(token))
+    alt hit, within 5 min
+        K-->>D: valid
+    else miss
+        D->>A: GET myself / user/current
+        A-->>D: 200 OK
+        D->>K: store (success only)
+    end
+    D-->>C: fetcher ready`,
     learned: 'Finding dead code, never using raw secrets as cache keys, and never reporting a rate limit as an auth failure.',
   },
   {
@@ -757,23 +809,16 @@ const OSS_PRS = [
     url: 'https://github.com/sooperset/mcp-atlassian/pull/1469',
     problem: 'Every attachment came back as an EmbeddedResource blob; clients like Claude Desktop only accept image MIME types there, so ZIPs and documents silently vanished.',
     did: 'Traced it to how results were typed, not fetched. Images keep EmbeddedResource; everything else returns TextContent with a JSON envelope (filename, mimeType, base64 content). The maintainer re-landed it with Co-authored-by credit.',
-    flow: ['download attachment', 'is image?', 'yes → EmbeddedResource', 'no → TextContent (base64 JSON)'],
+    diagram: `flowchart TD
+    T["jira_download_attachments"] --> G["fetch + base64 encode"]
+    G --> I{is image?}
+    I -->|yes| ER["EmbeddedResource<br/>image MIME"]
+    I -->|no| TX["TextContent<br/>JSON: filename, mimeType,<br/>base64 content"]
+    ER --> CL["MCP client accepts"]
+    TX --> CL`,
     learned: "MCP content types are part of a tool's contract with the client. Separate \"data is wrong\" from \"data is typed wrong\" before fixing.",
   },
 ];
-
-function Flow({ steps }) {
-  return (
-    <div className="oss-flow" role="list">
-      {steps.map((step, i) => (
-        <React.Fragment key={step}>
-          {i > 0 && <span className="oss-flow-arrow" aria-hidden="true">→</span>}
-          <span className="oss-flow-step" role="listitem">{step}</span>
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
 
 function OpenSourceApp() {
   return (
@@ -789,15 +834,7 @@ function OpenSourceApp() {
         <p className="job-description">
           Claude Code does the engineering, my Obsidian vault is its long-term memory (a tracker every sweep reads first and logs to), and I gate anything public.
         </p>
-        <ol className="oss-pipe">
-          {PIPELINE.map((s) => (
-            <li key={s.title} className={`oss-node lane-${s.lane.toLowerCase()}${s.gate ? ' is-gate' : ''}${s.loop ? ' is-loop' : ''}`}>
-              <span className="oss-lane">{s.lane}</span>
-              <strong>{s.title}</strong>
-              <span className="oss-node-text">{s.text}</span>
-            </li>
-          ))}
-        </ol>
+        <div className="oss-diagram"><Mermaid code={PIPELINE_DIAGRAM} /></div>
         <ul className="job-description oss-why">
           <li><strong>Gates before code.</strong> Major AI repos now auto-close unassigned PRs and popular bugs draw competing patches within hours, so eligibility is checked before the bug is even read.</li>
           <li><strong>The vault is the memory.</strong> Sessions are stateless; the tracker lets a sweep months later resume exactly where the last one stopped.</li>
@@ -814,7 +851,7 @@ function OpenSourceApp() {
           <p className="job-date"><span className="date-range">Merged {pr.merged}</span><span>{pr.role}</span></p>
           <p className="job-description"><strong>Problem:</strong> {pr.problem}</p>
           <p className="job-description"><strong>What I did:</strong> {pr.did}</p>
-          <Flow steps={pr.flow} />
+          <div className="oss-diagram"><Mermaid code={pr.diagram} /></div>
           <p className="job-description"><strong>Takeaway:</strong> {pr.learned}</p>
         </section>
       ))}

@@ -69,13 +69,14 @@ function renderInline(text) {
 }
 
 // ```mermaid blocks. The library is loaded only when an entry has a diagram.
-function Mermaid({ code }) {
+export function Mermaid({ code }) {
   const ref = useRef(null);
   const id = `mermaid-${useId().replace(/:/g, '')}`;
   useEffect(() => {
     let live = true;
     import('mermaid').then(async ({ default: mermaid }) => {
-      mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'strict' });
+      const light = window.matchMedia?.('(prefers-color-scheme: light)').matches;
+      mermaid.initialize({ startOnLoad: false, theme: light ? 'neutral' : 'dark', securityLevel: 'strict' });
       const { svg } = await mermaid.render(id, code);
       if (live && ref.current) ref.current.innerHTML = svg;
     }).catch(() => {
