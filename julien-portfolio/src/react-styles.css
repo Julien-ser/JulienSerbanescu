@@ -849,9 +849,10 @@ a { color: var(--gold); }
 .ask-error { align-self: flex-start; background: var(--bg-elev-2); color: var(--muted); }
 .ask-thinking { color: var(--muted); }
 
-.ask-form { display: flex; gap: 8px; }
+.ask-form { display: flex; gap: 8px; align-items: flex-start; }
 
-.ask-form input {
+.ask-form input,
+.ask-form textarea {
   flex: 1;
   min-width: 0;
   padding: 9px 12px;
@@ -863,7 +864,15 @@ a { color: var(--gold); }
   font-size: 16px; /* below 16px iOS zooms on focus */
 }
 
-.ask-form input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+.ask-form textarea {
+  resize: vertical;
+  min-height: 42px;
+  max-height: 220px;
+  line-height: 1.4;
+}
+
+.ask-form input:focus,
+.ask-form textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
 
 .ask-form button {
   padding: 9px 18px;

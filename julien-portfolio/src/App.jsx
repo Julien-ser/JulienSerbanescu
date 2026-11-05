@@ -1022,13 +1022,14 @@ function AskMe() {
         </div>
       )}
       <form className="ask-form" onSubmit={(e) => { e.preventDefault(); send(input); }}>
-        <input
-          type="text"
+        <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="e.g. Why should we hire you?"
+          onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input); } }}
+          placeholder="Ask anything, or paste a job description…"
           aria-label="Your question"
-          maxLength={500}
+          maxLength={4000}
+          rows={1}
           disabled={loading}
         />
         <button type="submit" disabled={loading || !input.trim()}>Ask</button>
