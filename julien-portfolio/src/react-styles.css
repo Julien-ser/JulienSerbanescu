@@ -1122,6 +1122,7 @@ a { color: var(--gold); }
 
 .robot-video-meta          { margin-top: 10px; color: var(--text); }
 .robot-video-meta p        { color: var(--muted); font-size: 0.84rem; }
+.log-video-frame           { margin: 16px 0; max-width: 560px; }
 
 /* ── Research ── */
 .pdf-preview {

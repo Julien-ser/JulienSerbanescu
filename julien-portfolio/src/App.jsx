@@ -254,6 +254,13 @@ function App() {
 
   const robotVideos = [
     {
+      id: 'spider-football-cheerleader',
+      title: 'Robot Spider Cheers My Handheld Football Game',
+      description: 'A cheap WiFi robot spider wired into my handheld Football Heads game (Messi vs Ronaldo, running on a CYD/ESP32). I packet-captured the controller app to reverse-engineer the robot’s HTTP command API, then had the game fire those commands live — so the spider celebrates goals and reacts to the final result. Here it dances after a goal.',
+      embedUrl: 'https://drive.google.com/file/d/1NnkBVotTtHavIlrQe9OpjS6F3GTvQBqL/preview',
+      sourceUrl: 'https://drive.google.com/file/d/1NnkBVotTtHavIlrQe9OpjS6F3GTvQBqL/view?usp=sharing'
+    },
+    {
       id: 'agentic-robot-mcp',
       title: 'Robot MCP: Claude Drives a Mecanum Robot Car',
       description: 'An MCP server for a Freenove 4WD mecanum car (Raspberry Pi Pico W). It exposes drive, strafe, rotate and sensor reads as MCP tools, so Claude can plan and run movement from plain-English instructions.',
