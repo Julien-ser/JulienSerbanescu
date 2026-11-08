@@ -182,6 +182,17 @@ export default function CaptainsLogApp() {
             <EntryMeta entry={entry} />
           </header>
           {audio && <audio className="log-audio" controls preload="none" src={audio} />}
+          {entry.video && (
+            <div className="robot-video-frame log-video-frame">
+              <iframe
+                src={entry.video}
+                title={entry.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
           <div className="log-body">{renderBody(entry.body)}</div>
         </article>
       </div>
