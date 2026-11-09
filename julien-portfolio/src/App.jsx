@@ -254,6 +254,13 @@ function App() {
 
   const robotVideos = [
     {
+      id: 'esp8266-julienlab-deck',
+      title: 'julienlab Deck — Encoder-Driven ESP8266 Dashboard',
+      description: 'A pocket dashboard: a rotary encoder and 1.3" OLED on an ESP8266 that pulls live data from my home server — tracked stock holdings, multi-source news, task deadlines, service health and local weather. A stdlib-only Python service aggregates everything into one compact JSON over a Cloudflare tunnel, with per-item detail (full news articles, per-service memory/uptime) fetched on demand so it all fits in the ESP8266’s ~40 KB of RAM. Turn the knob to scroll, press to drill in, back to pop out.',
+      embedUrl: 'https://drive.google.com/file/d/1mUMyTxFDXNTqRMZdTJp4MLmfPqkcwakI/preview',
+      sourceUrl: 'https://drive.google.com/file/d/1mUMyTxFDXNTqRMZdTJp4MLmfPqkcwakI/view?usp=sharing'
+    },
+    {
       id: 'spider-football-cheerleader',
       title: 'Robot Spider Cheers My Handheld Football Game',
       description: 'A cheap WiFi robot spider wired into my handheld Football Heads game (Messi vs Ronaldo, running on a CYD/ESP32). I packet-captured the controller app to reverse-engineer the robot’s HTTP command API, then had the game fire those commands live — so the spider celebrates goals and reacts to the final result. Here it dances after a goal.',
