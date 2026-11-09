@@ -153,9 +153,9 @@ function App() {
       title: 'AKO: Agentic Kernel Optimization',
       image: AKOImage,
       alt: 'AKO Agentic Kernel Optimization',
-      summary: 'Built an agentic system for kernel-level optimization workflows.',
+      summary: 'LLM agent loop that writes, verifies, and profiles Triton GPU kernels: 1.16× over PyTorch on softmax at ~75% of peak bandwidth.',
       description:
-        'AKO explores agent-driven optimization pipelines targeting kernel-level decisions, combining automation and iterative reasoning to improve execution performance.',
+        'AKO is a compile-verify-profile-refine loop for GPU kernels. An LLM writes Triton kernels (portable to AMD ROCm), each candidate runs in an isolated process and is checked against PyTorch, then timed on the GPU, and the Jev decision model picks the next optimization move. On a Tesla T4 the best softmax kernel beat PyTorch by 1.16× at 241 GB/s (~75% of peak bandwidth). Matmul reached only 0.18× of cuBLAS, an honest gap pointing at tensor-core utilization. The correctness gate caught a fast-but-wrong kernel and two hangs, and Jev vs a random-move ablation was within noise. Next: AMD MI300X and performance per watt.',
       href: 'https://github.com/Julien-ser/AKO-Agentic-Kernel-Optimization'
     },
     {
