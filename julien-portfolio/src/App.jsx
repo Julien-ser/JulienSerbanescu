@@ -19,6 +19,7 @@ import jarvImage from './assets/jarv.jpg';
 import jusImage from './assets/jus.png';
 import roboticsImage from './assets/robotics.png';
 import AKOImage from './assets/ako.png';
+import zerovramImage from './assets/zerovram.png';
 import resqImage from './assets/resq.png';
 import suaveImage from './assets/squave.png';
 import resumeworthyImage from './assets/resumeworthy.png';
@@ -157,6 +158,16 @@ function App() {
       description:
         'AKO is a compile-verify-profile-refine loop for GPU kernels. An LLM writes Triton kernels (portable to AMD ROCm), each candidate runs in an isolated process and is checked against PyTorch, then timed on the GPU, and the Jev decision model picks the next optimization move. On a Tesla T4 the best softmax kernel beat PyTorch by 1.16× at 241 GB/s (~75% of peak bandwidth). Matmul reached only 0.18× of cuBLAS, an honest gap pointing at tensor-core utilization. The correctness gate caught a fast-but-wrong kernel and two hangs, and Jev vs a random-move ablation was within noise. Next: AMD MI300X and performance per watt.',
       href: 'https://github.com/Julien-ser/AKO-Agentic-Kernel-Optimization'
+    },
+    {
+      id: 'zerovram',
+      title: 'zerovram: Local Coding Agent on an Integrated GPU',
+      image: zerovramImage,
+      alt: 'zerovram benchmark: CPU vs Intel Iris Xe',
+      summary: 'A private, offline coding agent on a laptop with no graphics card: a 30B coding model on the Intel Iris Xe iGPU, 1.7–1.8× faster than CPU.',
+      description:
+        'zerovram runs a 30B coding model (qwen3-coder, mixture-of-experts) on a laptop iGPU. Ollama detects Intel integrated GPUs and then drops them by default; enabling the Vulkan backend and the iGPU flag moved the whole model onto the Iris Xe, for 1.8× faster prompt reading and 1.7× faster generation than CPU (about 10 tokens/s). Memory benchmarks I wrote in OpenCL showed both CPU and iGPU capped near 30 GB/s, which explains the ceiling. The repo includes a one-command setup script, a benchmark, and tinyagent: a stdlib-only, Claude-Code-style agent with a ~300-token system prompt, sandboxed file tools, approval before writes and commands, live progress, and a parser that recovers tool calls the model writes as plain text.',
+      href: 'https://github.com/Julien-ser/zerovram'
     },
     {
       id: 'suaveai-detection-model',
