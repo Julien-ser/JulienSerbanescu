@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Puppeteer · Captain's Log · Julien Serbanescu</title><meta name="description" content="Teaching a cheap robot spider to cheer my handheld football game — which first meant stealing its language off the air with a packet capture.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-07-the-puppeteer/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-07-the-puppeteer/"><meta property="og:title" content="The Puppeteer · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="Teaching a cheap robot spider to cheer my handheld football game — which first meant stealing its language off the air with a packet capture."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Puppeteer","datePublished":"2026-11-07","description":"Teaching a cheap robot spider to cheer my handheld football game — which first meant stealing its language off the air with a packet capture.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-11-07-the-puppeteer/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>The Puppeteer</h1><p class="meta">Stardate 2026.311 · 2026-11-07</p>
+<p>Captain's log, stardate 2026.311.</p>
+<p>Two toys on the desk tonight: a handheld football game I built — Messi versus Ronaldo on a tiny screen — and a cheap four-legged robot spider that came with a phone app and no manual worth reading. The mission was simple and ridiculous: make the spider celebrate the goals.</p>
+<p>One problem. The spider only takes orders from its own app. To make it dance for my game, I first had to learn the language it speaks.</p>
+<h2>Listening to the air</h2>
+<p>The spider makes its own little WiFi network, and the app talks to it over that. Every time you press a button — forward, dance, stop — the app sends a small message across that WiFi to the robot. Those messages are called <strong>packets</strong>. They're invisible, but they aren't secret; they're just going past, through the air, all the time.</p>
+<p>A <strong>packet capture</strong> is a recording of them. You run a sniffer, press one button, and watch exactly which packet went out. Tools like <strong>Wireshark</strong> exist for precisely this — they catch every packet and let you read it, line by line.</p>
+<h2>Isolating one command</h2>
+<p>The trick isn't catching packets — it's catching the *right* one. So I did it deliberately: start recording, press only &quot;forward&quot;, stop. Start again, press only &quot;dance&quot;, stop. One button at a time, with a pause between, so each command stands alone in the recording instead of drowning in the noise.</p>
+<p>Then I filtered the capture down to just the conversation with the robot and read what came out. No encryption, no code — the commands were sitting there in plain text:</p>
+<p><code>POST /api/v1/action  {&quot;action&quot;:&quot;forward&quot;}</code></p>
+<p>That was the whole secret. A tiny web request with the action's name inside. Once I could read one, I could read all of them: <code>dance1</code>, <code>fighting</code>, <code>sleep</code>, the lot.</p>
+<h2>The payoff</h2>
+<p>From there it was mine. I taught the football game to fire those same requests at the right moments — Messi scores, the spider greets the crowd; Ronaldo scores, it shadow-boxes; whoever wins at full-time gets a victory dance, or a sulk. The clip above is the spider reacting to the final whistle.</p>
+<p>Captain's log, supplemental. The lesson wasn't really about robots. <strong>Reverse engineering only works on things you can watch cross a line.</strong> The commands were catchable because they travelled over the air, where I could listen. The robot's distance sensor — which it uses to avoid walls but never transmits — stayed a mystery no matter how hard I looked, and that's the honest boundary of the method: you can read what moves, not what stays home. Next on the chart: a proper handheld remote, so the spider answers to me and not just its app.</p>
+<p>End log.</p></main></body></html>

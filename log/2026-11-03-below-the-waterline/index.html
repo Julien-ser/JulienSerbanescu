@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Below the Waterline · Captain's Log · Julien Serbanescu</title><meta name="description" content="A few days off Python: reading TypeScript, relearning C++, and a first look at how Windows drivers sit under everything.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-03-below-the-waterline/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-03-below-the-waterline/"><meta property="og:title" content="Below the Waterline · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="A few days off Python: reading TypeScript, relearning C++, and a first look at how Windows drivers sit under everything."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Below the Waterline","datePublished":"2026-11-03","description":"A few days off Python: reading TypeScript, relearning C++, and a first look at how Windows drivers sit under everything.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-11-03-below-the-waterline/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>Below the Waterline</h1><p class="meta">Stardate 2026.307 · 2026-11-03</p>
+<p>Captain's log, stardate 2026.307.</p>
+<p>A few days away from Python. I took on two languages I read more than I write, and then went one level lower, to where the operating system meets the hardware.</p>
+<h2>TypeScript: Python with a contract</h2>
+<p>Reading TypeScript was easier than I expected, because most of it maps straight across. A <code>dict</code> becomes a <code>Record</code> or a <code>Map</code>. <code>Optional[str]</code> becomes <code>name?: string</code>. A <code>Literal</code> becomes a union type: <code>type J = &quot;CA&quot; | &quot;US&quot;</code>. Two things caught me. Always use <code>===</code>, because <code>==</code> converts types before comparing. And an arrow function that returns an object needs parentheses, <code>(s) =&gt; ({ id: s.id })</code>, or the braces are read as a function body and it returns <code>undefined</code>.</p>
+<h2>C++: who owns this memory?</h2>
+<p>Python hides one question that C++ asks on every line: who owns this, and when does it go away? Passing a <code>vector</code> by value copies all of it, so read-only inputs go in as <code>const T&amp;</code>. A reference can't be null, but a pointer can, so a pointer always gets checked. RAII ties cleanup to scope: <code>unique_ptr</code> frees its memory when it leaves scope, and most leaks can't happen. Some small traps: <code>size()</code> is unsigned, so <code>size() - 1</code> on an empty vector wraps to a huge number. <code>stack.pop()</code> returns nothing. And <code>priority_queue</code> is a max-heap by default, the opposite of Python's <code>heapq</code>.</p>
+<h2>Drivers: no safety net</h2>
+<p>Then I went down to drivers. A user-mode program that crashes takes only itself down. A kernel-mode driver shares one address space with the whole OS, so a bad pointer can corrupt anything. That's why Windows stops with a blue screen instead of running on in a corrupt state.</p>
+<pre class="diagram">flowchart TD
+    A[&quot;App: ReadFile()&quot;] --&gt; IO[&quot;I/O manager&lt;br/&gt;builds an IRP&quot;]
+    subgraph K[&quot;Kernel mode: one shared address space&quot;]
+        IO --&gt; F[&quot;Filter driver&quot;]
+        F --&gt; FN[&quot;Function driver&quot;]
+        FN --&gt; B[&quot;Bus driver&quot;]
+    end
+    B --&gt; H[&quot;Hardware&quot;]
+    FN -.-&gt;|IoCompleteRequest| IO</pre>
+<p>Every request travels as an I/O request packet (IRP), passed down a stack of drivers until one completes it. <code>DriverEntry</code> is the driver's <code>main</code>. The rule that surprised me most: at a high interrupt level the CPU can't wait for anything, including a page fault from disk. Data used there has to live in non-paged memory, or the machine bug-checks. Newer frameworks help. With UMDF a driver runs in user mode, so a crash takes down one host process instead of the system. Graphics drivers split the work the same way: a user-mode half turns Direct3D or Vulkan calls into GPU commands, and a kernel-mode half manages memory and scheduling. If the GPU hangs for about two seconds, Windows resets the driver instead of freezing.</p>
+<p><code>volatile</code> finally made sense here too. It doesn't make code thread-safe. It makes the compiler really perform every read of a hardware register, because the device can change that value without the program knowing.</p>
+<p>Captain's log, supplemental. Each layer down has fewer guard rails. Next on the chart: write a small C++ program with a deliberate leak and find it with a sanitizer.</p>
+<p>End log.</p></main></body></html>

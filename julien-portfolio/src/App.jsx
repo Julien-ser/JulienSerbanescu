@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './react-styles.css';
-import CaptainsLogApp, { LogIntroButton, Mermaid } from './CaptainsLog.jsx';
+import CaptainsLogApp, { LogIntroButton, Mermaid, LOG_ENTRIES } from './CaptainsLog.jsx';
 
 // Import images from assets
 import profileImage from './assets/profile.jpg';
@@ -1169,6 +1169,19 @@ function HomeApp({ heroImage, onOpenLog }) {
               </li>
             ))}
           </ul>
+        </section>
+        {/* Real links to the static log pages (scripts/build-log-pages.mjs) so crawlers find them */}
+        <section className="datasheet-block datasheet-wide" aria-labelledby="log-h">
+          <h2 id="log-h" className="datasheet-h">Captain's Log · latest</h2>
+          <ul className="datasheet-list">
+            {LOG_ENTRIES.slice(0, 4).map((e) => (
+              <li key={e.slug}>
+                <a href={`${import.meta.env.BASE_URL}log/${e.slug}/`}>{e.title}</a>
+                <span className="datasheet-meta">Stardate {e.stardate} · {e.date}</span>
+              </li>
+            ))}
+          </ul>
+          <a className="datasheet-more" href={`${import.meta.env.BASE_URL}log/`}>All entries →</a>
         </section>
       </div>
     </div>

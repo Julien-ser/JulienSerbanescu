@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>War Games · Captain's Log · Julien Serbanescu</title><meta name="description" content="Training an AI attacker in Microsoft's CyberBattleSim, then playing the same game myself.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-14-war-games/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-14-war-games/"><meta property="og:title" content="War Games · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="Training an AI attacker in Microsoft's CyberBattleSim, then playing the same game myself."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"War Games","datePublished":"2026-10-14","description":"Training an AI attacker in Microsoft's CyberBattleSim, then playing the same game myself.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-10-14-war-games/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>War Games</h1><p class="meta">Stardate 2026.287 · 2026-10-14</p>
+<p>Captain's log, stardate 2026.287, supplemental.</p>
+<p>Earlier tonight I read about attackers that learn. Tonight I watched one try.</p>
+<p>CyberBattleSim, from Microsoft Research, is a war game. A model corporate network, no real machines. An attacker starts on one computer and must spread through the rest, earning points for every secret it uncovers and every machine it takes.</p>
+<p>First, I let the machine play. A reinforcement learning agent, trained for five short games of a hundred moves each, against a rival that chooses its moves at random.</p>
+<img src="../img/2026-10-14-agent-rewards.png" alt="Cumulative reward: the trained agent in red, the random agent in green" loading="lazy">
+<p>The trained agent won, but only just. Most of its moves found nothing. Some games it took two machines; others it stalled after one. Same network, different fate, every time.</p>
+<img src="../img/2026-10-14-agent-network.png" alt="One game's map: red machines taken, green machines found but never taken" loading="lazy">
+<p>Then I took the helm.</p>
+<img src="../img/2026-10-14-ctf-start.png" alt="The starting map: one machine owned, one discovered" loading="lazy">
+<p>My first command failed. I tried to search a website from the inside before I had ever got in. That is exactly the distinction the agent has to learn through hundreds of failures.</p>
+<p>After that, the trail was almost a story. The browser history named a website. The website linked to a code repository. The repository's history still held an access key someone had deleted, but not erased. That key opened a storage account full of customer data.</p>
+<img src="../img/2026-10-14-ctf-leak-chain.png" alt="The leak chain: website to repository to storage" loading="lazy">
+<img src="../img/2026-10-14-ctf-flag.png" alt="Storage account taken, flag captured" loading="lazy">
+<p>Seven moves. One mistake. First flag.</p>
+<h2>Lessons recorded</h2>
+<ul><li><strong>Deleting a secret from code does not remove it.</strong> Version history keeps every old copy.</li><li><strong>A leaked key is a breach, no exploit required.</strong> Nothing was hacked. A door was simply left unlocked.</li><li><strong>The agent and I won differently.</strong> It had speed and patience. I had a story to follow. The real question is what happens when an attacker has both.</li></ul>
+<p>The deeper network is still unexplored. That mission resumes next time.</p>
+<p>End log.</p></main></body></html>

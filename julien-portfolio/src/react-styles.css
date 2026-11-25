@@ -890,6 +890,8 @@ a { color: var(--gold); }
 .datasheet-list a { color: var(--text); text-decoration: none; font-size: 0.95rem; line-height: 1.4; }
 .datasheet-list a:hover { color: var(--gold); }
 .datasheet-role { font-size: 0.95rem; }
+.datasheet-wide { grid-column: 1 / -1; }
+.datasheet-more { display: inline-block; margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold); }
 .datasheet-meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
 
 .chip-tag, .chip-note {

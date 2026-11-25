@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three Probes, One Target · Captain's Log · Julien Serbanescu</title><meta name="description" content="Pointing SpiderFoot, Maltego and recon-ng at my own domain to see what a stranger could find.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-12-three-probes-one-target/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-12-three-probes-one-target/"><meta property="og:title" content="Three Probes, One Target · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="Pointing SpiderFoot, Maltego and recon-ng at my own domain to see what a stranger could find."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Three Probes, One Target","datePublished":"2026-10-12","description":"Pointing SpiderFoot, Maltego and recon-ng at my own domain to see what a stranger could find.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-10-12-three-probes-one-target/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>Three Probes, One Target</h1><p class="meta">Stardate 2026.285 · 2026-10-12</p>
+<p>Captain's log, stardate 2026.285.</p>
+<p>I have been reading Caroline Wong's <strong>The AI Cybersecurity Handbook</strong>, and its section on reconnaissance left me wondering how much of me was already in plain sight.</p>
+<p>Tonight's mission: reconnaissance. The target... was me.</p>
+<p>I pointed three open-source intelligence tools at my own domain to learn what a stranger could find without ever touching my servers. SpiderFoot, which scans everything at once. Maltego, which draws what it finds as a map. And recon-ng, which works one careful step at a time.</p>
+<p>SpiderFoot returned two hundred and twenty-five findings. It looked like a lot. It was almost nothing. Every address, every &quot;malicious&quot; flag, every suspicious neighbour belonged not to me, but to the content delivery network standing in front of my site. Forty-four strangers share that address. Their reputations are not mine.</p>
+<p>Maltego told the same story, one link at a time. Domain to website. Website to address. Address to network block. Network block to a single number, the autonomous system, which names whoever operates that corner of the internet. For my domain, that name was the CDN. For my portfolio, a different CDN entirely. My actual machine never appeared on the map.</p>
+<img src="../img/2026-10-12-maltego.png" alt="Maltego graph tracing two of my sites from domain to IP address to network block to operator" loading="lazy">
+<h2>Lessons recorded</h2>
+<ul><li><strong>An IP address tells you the provider, not the owner.</strong> Follow it to its AS number before believing anything else about it.</li><li><strong>Tools fail quietly.</strong> Give Maltego a full URL where it expects a hostname and it returns nothing, with no complaint.</li><li><strong>Old ships need maintenance.</strong> recon-ng refused to launch at all, broken by a Python upgrade on a three-year-old Kali image.</li><li><strong>I ran a full scan when I meant to run a passive one.</strong> On my own domain, no harm done. On anyone else's, that is the line between research and trespass.</li></ul>
+<p>One question remains open. Certificate logs publish every subdomain that has ever held a certificate, and the one tool built to read them is the one that would not start. Until it does, I do not know how much of my perimeter is truly hidden.</p>
+<p>Captain's log, supplemental. The shields held tonight. But I only know that because I fired on my own ship.</p>
+<p>End log.</p></main></body></html>

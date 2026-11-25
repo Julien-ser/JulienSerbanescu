@@ -6,11 +6,12 @@
   "homepage": "https://julien-serbanescu.github.io/JulienSerbanescu/",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/build-log-pages.mjs",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "publish-root": "vite build && node scripts/publish-root.mjs"
+    "publish-root": "npm run build && node scripts/publish-root.mjs",
+    "test": "node --test scripts/build-log-pages.test.mjs"
   },
   "dependencies": {
     "animejs": "^3.2.2",
