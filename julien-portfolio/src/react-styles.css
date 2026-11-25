@@ -695,6 +695,15 @@ a { color: var(--gold); }
   animation: hero-in 0.65s 0.11s var(--ease-out) both;
 }
 
+.hero-facts {
+  margin: -10px 0 22px;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  animation: hero-in 0.65s 0.14s var(--ease-out) both;
+}
+
 /* Ask-me chat (RAG) — the hero's primary action */
 .ask {
   pointer-events: auto;

@@ -1117,6 +1117,8 @@ function HomeApp({ heroImage, onOpenLog }) {
           <p className="hero-eyebrow">rst:0x1 (POWERON) · boot ok</p>
           <h1 className="hero-title">Julien Serbanescu</h1>
           <p className="hero-subtitle">I find where AI breaks, then build agents that hold up.</p>
+          {/* The quotable fact line: same wording as llms.txt, the JSON-LD description and every profile bio */}
+          <p className="hero-facts">Computer engineering student at the University of Guelph. 5 papers on where LLMs fail (SIGIR-AP, CIKM, Canadian AI), ML in production at Co-operators, merged PRs in pydantic-ai and mcp-atlassian.</p>
 
           <AskMe />
 
