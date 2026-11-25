@@ -1093,6 +1093,22 @@ const HIGHLIGHTS = [
     text: 'Speedup over PyTorch on softmax from an agent that writes, tests and profiles its own Triton kernels.' },
 ];
 
+// Visible on the home page (not only inside windows) so search engines can read them.
+// Titles and links mirror ResearchApp; update both when a paper is added.
+const PAPERS = [
+  { title: 'From Hints to Answers: Uncertainty-Aware LLM-Guided Retrieval for Multi-Hop Question Answering', venue: 'Canadian AI 2026 (PMLR v318)', href: 'https://proceedings.mlr.press/v318/alavi26a.html' },
+  { title: 'Cause-Conditioned Multi-Task Learning for Answerable Question Suggestion in MRC', venue: 'Canadian AI 2026 (PMLR v318)', href: 'https://proceedings.mlr.press/v318/moradisani26a.html' },
+  { title: 'FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought', venue: 'SIGIR-AP 2025 · first author', href: 'https://dl.acm.org/doi/pdf/10.1145/3767695.3769494' },
+  { title: 'Uncovering the Persuasive Fingerprint of LLMs in Jailbreaking Attacks', venue: 'CIKM 2025', href: 'https://dl.acm.org/doi/pdf/10.1145/3746252.3760929' },
+  { title: 'UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension', venue: 'SIGIR-AP 2024', href: 'https://dl.acm.org/doi/pdf/10.1145/3673791.3698413' },
+];
+
+const WORK = [
+  { role: 'Cloud Engineer and Administrator', org: 'Co-operators', when: 'Jan 2026 to now' },
+  { role: 'Research Assistant, Cyber Science Lab', org: 'University of Guelph', when: 'May 2025 to now' },
+  { role: 'NSERC USRA research intern (twice)', org: 'University of Guelph', when: '2024 and 2025' },
+];
+
 function HomeApp({ heroImage, onOpenLog }) {
   return (
     <div className="home-app">
@@ -1131,6 +1147,30 @@ function HomeApp({ heroImage, onOpenLog }) {
           </article>
         ))}
       </section>
+      <div className="datasheet">
+        <section className="datasheet-block" aria-labelledby="papers-h">
+          <h2 id="papers-h" className="datasheet-h">Papers</h2>
+          <ol className="datasheet-list">
+            {PAPERS.map((p) => (
+              <li key={p.href}>
+                <a href={p.href} target="_blank" rel="noopener noreferrer">{p.title}</a>
+                <span className="datasheet-meta">{p.venue}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <section className="datasheet-block" aria-labelledby="work-h">
+          <h2 id="work-h" className="datasheet-h">Work</h2>
+          <ul className="datasheet-list">
+            {WORK.map((w) => (
+              <li key={w.role}>
+                <span className="datasheet-role">{w.role}</span>
+                <span className="datasheet-meta">{w.org} · {w.when}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </div>
   );
 }
