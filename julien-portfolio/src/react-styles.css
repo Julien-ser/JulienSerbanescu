@@ -849,6 +849,49 @@ a { color: var(--gold); }
   background: repeating-linear-gradient(90deg, rgba(212, 171, 82, 0.55) 0 6px, transparent 6px 16px);
 }
 
+.datasheet {
+  max-width: 1080px;
+  margin: 56px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 40px;
+  pointer-events: auto;
+}
+
+/* opt out of the global section box; these read like a component datasheet */
+.datasheet-block {
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.datasheet-h {
+  margin: 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid #232927;
+  padding-bottom: 8px;
+}
+
+.datasheet-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.datasheet-list li { display: flex; flex-direction: column; gap: 3px; }
+.datasheet-list a { color: var(--text); text-decoration: none; font-size: 0.95rem; line-height: 1.4; }
+.datasheet-list a:hover { color: var(--gold); }
+.datasheet-role { font-size: 0.95rem; }
+.datasheet-meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+
 .chip-tag, .chip-note {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -1210,6 +1253,7 @@ a { color: var(--gold); }
   }
   .profile-container { align-self: center; }
   .chip-cards { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .datasheet { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 760px) {
