@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&family=VT323&display=swap');
 
 :root {
   --bg: #121715;
@@ -139,16 +139,20 @@ a { color: var(--gold); }
 .menu-bar-right {
   display: flex;
   align-items: center;
-  gap: 14px;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--muted);
+  gap: 12px;
+  height: 20px;
+  padding: 0 8px;
+  font-family: 'VT323', var(--font-mono);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1c2a0c;
+  background: #9cbc3c;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px #1a1d1c;
 }
 
-.menu-bar-clock {
-  color: var(--text);
-  opacity: 0.7;
-}
+.menu-bar-clock { color: inherit; }
 
 /* ── Dock ── */
 .dock {
@@ -270,13 +274,16 @@ a { color: var(--gold); }
 }
 
 .window {
-  background: var(--bg-elev);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
-  overflow: hidden;
+  --hole: radial-gradient(circle, #050605 0 4px, #b8913f 4.5px 6.5px, transparent 7px);
+  background:
+    var(--hole) left 4px top 4px / 15px 15px no-repeat,
+    var(--hole) right 4px top 4px / 15px 15px no-repeat,
+    var(--hole) left 4px bottom 4px / 15px 15px no-repeat,
+    var(--hole) right 4px bottom 4px / 15px 15px no-repeat,
+    #0d100f;
+  border-radius: 6px;
+  padding: 18px 16px 34px;
+  box-shadow: 0 0 0 1px #262c2a, 0 18px 50px rgba(0, 0, 0, 0.55);
   animation: window-appear 0.2s var(--ease-out) both;
 }
 
@@ -293,11 +300,13 @@ a { color: var(--gold); }
 
 .window-titlebar {
   display: grid;
-  grid-template-columns: 72px 1fr 72px;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  padding: 9px 10px;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in oklab, var(--bg-elev-2) 90%, transparent);
+  height: 36px;
+  padding: 0 14px;
+  background: #050807;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 1px solid #1a1f1e;
   cursor: move;
   user-select: none;
 }
@@ -305,7 +314,7 @@ a { color: var(--gold); }
 .window-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
 
 .win-btn {
@@ -324,27 +333,79 @@ a { color: var(--gold); }
 .win-btn::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; }
 .win-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
-.win-btn.close    { background: #ff5f57; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
-.win-btn.minimize { background: #febc2e; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
-.win-btn.maximize { background: #28c840; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
+.win-btn.close    { background: #ff4b3e; box-shadow: 0 0 8px rgba(255, 75, 62, 0.75); }
+.win-btn.minimize { background: #e3a23b; box-shadow: 0 0 8px rgba(227, 162, 59, 0.7); }
+.win-btn.maximize { background: #4cc26a; box-shadow: 0 0 8px rgba(76, 194, 106, 0.7); }
 
-.win-btn:hover  { filter: brightness(0.85); }
+.win-btn { width: 11px; height: 11px; }
+.win-btn:hover  { filter: brightness(1.25); }
 .win-btn:active { transform: scale(0.88); transition-duration: 0.06s; }
 
 .window-title {
-  font-weight: 500;
-  color: var(--muted);
-  font-size: 0.76rem;
-  text-align: center;
-  font-family: var(--font-sans);
-  letter-spacing: 0.01em;
+  font-family: 'VT323', var(--font-mono);
+  font-size: 1.3rem;
+  color: #f5d76e;
+  text-shadow: 0 0 6px rgba(245, 215, 110, 0.35);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .window-content {
-  height: calc(100% - 42px);
+  --text: #d6e6fb;
+  --muted: #8fa6c2;
+  height: calc(100% - 36px);
   overflow: auto;
   padding: 18px;
   color: var(--text);
+  background: #050807;
+  border-radius: 0 0 3px 3px;
+  box-shadow: inset 0 0 0 1px #1c2120;
+  text-shadow: 0 0 6px rgba(140, 190, 255, 0.18);
+}
+
+/* The module's I2C header; always wired, so never an empty pin */
+.module-header {
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.module-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 22px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #c9cec9;
+}
+
+.module-pin i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #050605 0 2.5px, #d4ab52 3px);
+}
+
+/* Ribbons sit above the J1 strip (z 50) and under every window (z >= 1000) */
+.wires {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 60;
+  pointer-events: none;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
 }
 
 .resize-handle {
@@ -1188,15 +1249,13 @@ a { color: var(--gold); }
     border-radius: 10px;
   }
 
-  .window-titlebar {
-    padding: 10px 12px;
-    grid-template-columns: 56px 1fr 56px;
-  }
+  .window { padding: 10px 8px 28px; }
+  .window-titlebar { padding: 0 10px; }
 
   .win-btn { width: 13px; height: 13px; }
 
   .window-content {
-    height: calc(100% - 42px);
+    height: calc(100% - 36px);
     padding: 12px;
     overflow-x: hidden;
   }

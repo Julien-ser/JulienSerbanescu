@@ -141,7 +141,7 @@ function App() {
       alt: 'ResumeWorthy',
       summary: 'AI-powered platform to find jobs, tailor resumes/cover letters, and discover recruiters using Agents and LangChain.',
       description:
-        'ResumeWorthy is a comprehensive job search and career advancement platform powered by AI Agents and LangChain. It enables users to discover job opportunities, generate customized resumes and cover letters, and connect with recruiters. The platform leverages intelligent agents to streamline the entire job application process.',
+        'ResumeWorthy is a job search tool built on LangChain agents. It finds openings, writes a tailored resume and cover letter for each one, and looks up recruiters to contact.',
       href: 'https://github.com/Julien-ser/ResumeWorthy',
       demoUrl: 'https://resume-worthy.vercel.app/'
     },
@@ -709,6 +709,7 @@ function App() {
           <div
             key={win.id}
             className={`window ${win.minimized ? 'minimized' : ''} ${win.maximized ? 'maximized' : ''}`}
+            data-win={win.id}
             style={{
               left: win.x,
               top: win.y,
@@ -720,18 +721,23 @@ function App() {
             onClick={() => bringToFront(win.id)}
           >
             <div className="window-titlebar" onMouseDown={(e) => !win.maximized && startDrag(win.id, e)} onDoubleClick={() => toggleMaximize(win.id)}>
+              <span className="window-title">{win.title}</span>
+              {/* Status LEDs: amber minimize, green maximize, red close */}
               <div className="window-controls">
-                <button className="win-btn close"    onClick={() => closeWindow(win.id)}    onMouseDown={(e) => e.stopPropagation()} title="Close"    aria-label={`Close ${win.title}`} />
                 <button className="win-btn minimize" onClick={() => minimizeWindow(win.id)} onMouseDown={(e) => e.stopPropagation()} title="Minimize" aria-label={`Minimize ${win.title}`} />
                 <button className="win-btn maximize" onClick={() => toggleMaximize(win.id)} onMouseDown={(e) => e.stopPropagation()} title={win.maximized ? 'Restore' : 'Expand'} aria-label={`${win.maximized ? 'Restore' : 'Expand'} ${win.title}`} aria-pressed={!!win.maximized} />
+                <button className="win-btn close"    onClick={() => closeWindow(win.id)}    onMouseDown={(e) => e.stopPropagation()} title="Close"    aria-label={`Close ${win.title}`} />
               </div>
-              <span className="window-title">{win.title}</span>
-              <div />
             </div>
             <div className="window-content">{renderAppContent(win.id)}</div>
             <div className="resize-handle" onMouseDown={(e) => startResize(win.id, e)} />
+            <div className="module-header" aria-hidden="true">
+              {SIGNALS.map((sig) => <span key={sig} className="module-pin"><i />{sig}</span>)}
+            </div>
           </div>
         ))}
+
+      <Wires windows={openWindows} />
 
     </div>
   );
@@ -905,6 +911,52 @@ const PIN_LABELS = {
   projects: 'PROJECTS', opensource: 'OSS', robots: 'ROBOTS', competitions: 'COMPS',
   organizations: 'ORGS', certificates: 'CERTS', contact: 'CONTACT', terminal: 'TERM',
 };
+
+// Each window is an I2C display module wired to its J1 pin: one ribbon per visible window.
+const SIGNALS = ['GND', 'VCC', 'SCL', 'SDA'];
+const WIRE_COLORS = ['#4d5350', '#b5473d', '#c4a23c', '#4a7cbc'];
+
+// Endpoints are measured from the real pins every frame while a window is visible,
+// so ribbons follow drag, resize and maximize without hooking each of them.
+// ponytail: rAF loop + querySelector per frame; fine for 12 windows, cache nodes if it ever profiles hot.
+function Wires({ windows }) {
+  const svgRef = useRef(null);
+  const ids = windows.filter((w) => !w.minimized).map((w) => w.id);
+  const key = ids.join(',');
+  useEffect(() => {
+    if (!key) return undefined;
+    let raf;
+    const tick = () => {
+      for (const id of key.split(',')) {
+        const pad = document.querySelector(`.dock-item[data-app="${id}"] .pin-pad`);
+        const pins = document.querySelectorAll(`.window[data-win="${id}"] .module-pin i`);
+        if (!pad || !pins.length) continue;
+        const p = pad.getBoundingClientRect();
+        pins.forEach((pin, i) => {
+          const path = svgRef.current && svgRef.current.querySelector(`[data-w="${id}-${i}"]`);
+          if (!path) return;
+          const r = pin.getBoundingClientRect();
+          const sx = r.left + r.width / 2;
+          const sy = r.top + r.height / 2;
+          const ex = p.left + p.width / 2 + (i - 1.5) * 5;
+          const ey = p.top - 8;
+          const dy = Math.max(40, Math.abs(ey - sy) / 2);
+          path.setAttribute('d', `M${sx},${sy} C${sx},${sy + dy} ${ex},${ey - dy} ${ex},${ey}`);
+        });
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    tick();
+    return () => cancelAnimationFrame(raf);
+  }, [key]);
+  return (
+    <svg ref={svgRef} className="wires" aria-hidden="true">
+      {ids.map((id) => SIGNALS.map((sig, i) => (
+        <path key={`${id}-${sig}`} data-w={`${id}-${i}`} stroke={WIRE_COLORS[i]} />
+      )))}
+    </svg>
+  );
+}
 
 // Background: the page is an ESP32-style dev board, kept faint so the content leads.
 function BoardArt() {
@@ -1090,7 +1142,7 @@ function AboutApp() {
       <div className="section-divider"></div>
       <div className="about-text">
         <p className="par">
-          I'm Julien Serbanescu, a Computer Engineering student at the University of Guelph with co-op, minoring in Entrepreneurship. My expertise spans artificial intelligence, cloud infrastructure, cybersecurity, and cutting-edge research. I build systems that combine deep technical innovation with measurable real-world impact.
+          I'm Julien Serbanescu, a Computer Engineering student at the University of Guelph with co-op, minoring in Entrepreneurship. I work on AI, cloud infrastructure and security, and I publish research on where language models fail.
         </p>
         <p className="par">
           As a two-time NSERC USRA recipient, I've conducted research on robust multi-hop question answering with retrieval-augmented LLMs and adversarial robustness in LLMs and CNNs. I co-developed Latent Twin Retrieval (LTR) for evaluating misinformation resilience in QA systems, and built RL-based defenses for LLM jailbreak detection and mitigation.
@@ -1116,9 +1168,9 @@ function ExperienceApp({ coOperatorsLogo, cySciLogo, guelphLogo, athenaGuardLogo
           <span className="date-range">Jan 2026 - Present</span>
           <span className="location">Co-Operators, Toronto, ON</span>
         </p>
-        <p className="job-description">Leading cloud infrastructure, security telemetry, and automation initiatives at one of Canada's largest insurance and financial services cooperatives, driving operational excellence and audit readiness.</p>
+        <p className="job-description">Cloud infrastructure, security logging and automation at one of Canada's largest insurance cooperatives.</p>
         <ul className="job-highlights">
-          <li>Architected an <strong>ML email classifier on AKS</strong>, selecting <strong>Logistic Regression + TF-IDF</strong> over Naive Bayes and SVM through <strong>MLflow</strong> experiment tracking. Automated <strong>ServiceNow</strong> ticket creation and deduplication via <strong>Microsoft Graph API</strong> and <strong>.NET</strong>, cutting triage time for the <strong>30+ person CPOE team by 77%</strong> (30 min to under 7 min).</li>
+          <li>Architected an <strong>ML email classifier on AKS</strong>, selecting <strong>LinearSVC + TF-IDF</strong> (96.9% test accuracy) over Naive Bayes and Logistic Regression through <strong>MLflow</strong> experiment tracking. Automated <strong>ServiceNow</strong> ticket creation and deduplication via <strong>Microsoft Graph API</strong> and <strong>.NET</strong>, cutting triage time for the <strong>30+ person CPOE team by 77%</strong> (30 min to under 7 min).</li>
           <li>Engineered a <strong>Splunk Cloud/Enterprise</strong> log ingestion pipeline across <strong>8 IAM servers</strong>, handling <strong>2.5M+ events/day</strong> and <strong>50 GB</strong> of indexed IAM telemetry, with real-time dashboards that auto-generate <strong>ServiceNow</strong> incidents. Extended automated monitoring across <strong>215 Azure</strong> file share instances.</li>
           <li>Recognized for <strong>"Execute with accountability"</strong> after eliminating <strong>233 orphaned service accounts (16.1% reduction)</strong> from <strong>Azure Active Directory</strong> via automated <strong>PowerShell</strong>, strengthening <strong>IGA/PAM</strong> posture.</li>
           <li>Executed a <strong>zero-downtime PostgreSQL v13 to v16</strong> migration using <strong>Terraform (IaC)</strong> across both <strong>Azure</strong> and <strong>AWS</strong>, validating deployments against JFrog Artifactory instances on each cloud.</li>
@@ -1134,11 +1186,11 @@ function ExperienceApp({ coOperatorsLogo, cySciLogo, guelphLogo, athenaGuardLogo
           <span className="date-range">May 2025 - Present</span>
           <span className="location">University of Guelph, Guelph, ON</span>
         </p>
-        <p className="job-description">At the Cyber Science Lab, I develop cutting-edge adversarial robustness strategies for language and vision models, and pioneer reinforcement learning techniques to mitigate LLM jailbreak attacks.</p>
+        <p className="job-description">At the Cyber Science Lab I test how language and vision models break under attack, and build reinforcement-learning defenses against LLM jailbreaks.</p>
         <ul className="job-highlights">
           <li>Implemented baseline and inference pipelines for psychologically inspired LLM jailbreak methods, achieving up to <strong>97% attack success rate</strong> and reducing model <strong>perplexity to 23.6</strong> across multiple LLMs.</li>
           <li><a href="https://github.com/CyberScienceLab/Julien-Reinforcement-Learning-for-Real-Time-Jailbreak-Recovery-" target="_blank" rel="noopener noreferrer" className="subtle-link">Developed a real-time, adaptive RL-based defense system</a> against LLM jailbreaks using <strong>Gymnasium</strong> and <strong>Stable Baselines3</strong>, achieving a <strong>96% true positive rate</strong> on malicious prompt detection, with only a <strong>39%</strong> false positive rate. Deployed the trained policy via <strong>ONNX</strong> on <strong>FastAPI</strong> for lightweight, low-latency inference. Developed auto-patching layer using <strong>SentenceTransformers embeddings</strong> for detecting and defending against malicious/harmful prompts.</li>
-          <li>Pioneered auto-vaccination techniques for Vision-Language Models (VLMs), dramatically reducing Attack Success Rate (ASR): <strong>BLIP-2 (100%→25%)</strong> and <strong>LLaVA (99.2%→6.3%)</strong>, while maintaining task quality and model performance.</li>
+          <li>Built auto-vaccination for vision-language models (VLMs) that cut attack success rate (ASR): <strong>BLIP-2 (100%→25%)</strong> and <strong>LLaVA (99.2%→6.3%)</strong>, while maintaining task quality and model performance.</li>
         </ul>
       </div>
 
@@ -1163,7 +1215,7 @@ function ExperienceApp({ coOperatorsLogo, cySciLogo, guelphLogo, athenaGuardLogo
           <span className="date-range">Aug 2024 - Mar 2025</span>
           <span className="location">AthenaGuard, Guelph, ON</span>
         </p>
-        <p className="job-description">AthenaGuard is a startup focused on leveraging AI to detect suspicious content in communications such as emails, SMS, and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
+        <p className="job-description">AthenaGuard is a startup that uses machine learning to flag suspicious emails, texts and calls. As CTO and cofounder, I lead the development of the core platform and models.</p>
         <ul className="job-highlights">
           <li>Built a Flask web app with OAuth and Flutter SMS detection; trained <strong>GradientBoost</strong> models achieving <strong>87% accuracy</strong> for email/text phishing detection.</li>
         </ul>
