@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shapeshifters · Captain's Log · Julien Serbanescu</title><meta name="description" content="Reading about malware that rewrites itself, and the AI techniques that make the disguise smarter.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-14-the-shapeshifters/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-14-the-shapeshifters/"><meta property="og:title" content="The Shapeshifters · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="Reading about malware that rewrites itself, and the AI techniques that make the disguise smarter."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Shapeshifters","datePublished":"2026-10-14","description":"Reading about malware that rewrites itself, and the AI techniques that make the disguise smarter.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-10-14-the-shapeshifters/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>The Shapeshifters</h1><p class="meta">Stardate 2026.287 · 2026-10-14</p>
+<p>Captain's log, stardate 2026.287.</p>
+<p>No probes fired tonight. This was a night in the library, studying an enemy that never shows the same face twice. My guide was Caroline Wong's <strong>The AI Cybersecurity Handbook</strong>, the same book that sent me after my own domain two nights ago.</p>
+<p>Most antivirus defence still rests on recognition. Know the signature, catch the threat. Shapeshifting malware is built to defeat exactly that.</p>
+<p>There are two kinds. <strong>Polymorphic</strong> malware keeps the same core but wraps it in a new layer of encryption for every copy, so no two samples look alike on disk. Underneath, the core never changes. <strong>Metamorphic</strong> malware goes further. It rewrites its own instructions each generation, swapping and reordering them until nothing constant is left to recognise.</p>
+<p>Then I reached the part where artificial intelligence comes aboard.</p>
+<p>Researchers have shown that a generative adversarial network can learn to disguise malicious files from a machine-learning detector. One network makes changes, the other judges them, and the disguise improves until the detector is fooled. Other proofs of concept go further: code that is written by a language model at runtime, or a payload that stays sealed until it recognises the one environment it was built for. A sample like that has no fixed form for a defender to study.</p>
+<h2>Lessons recorded</h2>
+<ul><li><strong>Signatures describe the past.</strong> Against code that changes every copy, detection has to watch behaviour, not appearance.</li><li><strong>A detector is itself a target.</strong> If a model decides what is malicious, an adversary can train against that model.</li><li><strong>Reading is not the same as doing.</strong> Tonight I only read. I have not built, run or tested any of this.</li></ul>
+<p>Captain's log, supplemental. In my reading I came across a simulator from Microsoft Research: a model network where learning agents practise attack and defence, with no real systems at risk. That is the next mission.</p>
+<p>End log.</p></main></body></html>

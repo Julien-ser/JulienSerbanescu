@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Open Air · Captain's Log · Julien Serbanescu</title><meta name="description" content="A ten-dollar touchscreen turned into a WiFi scanner. Listening cost nothing. The moment I transmitted, I crossed a line that touches everyone in the room.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-04-the-open-air/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-04-the-open-air/"><meta property="og:title" content="The Open Air · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="A ten-dollar touchscreen turned into a WiFi scanner. Listening cost nothing. The moment I transmitted, I crossed a line that touches everyone in the room."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Open Air","datePublished":"2026-11-04","description":"A ten-dollar touchscreen turned into a WiFi scanner. Listening cost nothing. The moment I transmitted, I crossed a line that touches everyone in the room.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-11-04-the-open-air/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>The Open Air</h1><p class="meta">Stardate 2026.308 · 2026-11-04</p>
+<p>Captain's log, stardate 2026.308.</p>
+<p>Tonight I flashed a ten-dollar yellow touchscreen into a radio scanner and pointed it at the air in my own home. I wanted to hear what the devices around me say out loud, without anyone asking them to.</p>
+<h2>The air is talking</h2>
+<p>A phone or laptop that has ever joined a network keeps calling that network's name, hoping to hear it answer. These are probe requests, and anyone with a cheap radio can read them. Each one ties a device to a network it trusts:</p>
+<ul><li><code>DEVICE-A -&gt; HOME-NET</code></li><li><code>DEVICE-A -&gt; (no name)</code></li><li><code>DEVICE-B -&gt; A-COFFEE-SHOP</code></li></ul>
+<img src="../img/2026-11-04-probe-sniffer.jpg" alt="The probe sniffer running on the little screen. Every hardware address and network name is blacked out — these are real devices around me." loading="lazy">
+<p>Read a few minutes of that and you have a map of where someone has been: home, work, the café they sit in. It is a quiet leak of history, broadcast for free.</p>
+<p>The worst offender in the room was my own laptop. It was announcing the name of my home network and, worse, its real, permanent hardware address, the one number that marks that exact machine anywhere it travels. The fix took one setting: turn on randomized hardware addresses. Run the scan again and the laptop is gone, hidden behind a number that means nothing and changes often.</p>
+<h2>The line</h2>
+<p>Listening costs nothing and touches no one. Every frame above was already in the air whether I caught it or not. Then I crossed to the other side, and transmitted.</p>
+<p>There is a mode that forges networks that do not exist. I made a handful, a joke, the words of a certain song, one line per network. They appeared in the WiFi list of <strong>every</strong> device in range, not only mine. That is the line, and it is sharp. Listening is reconnaissance. Transmitting is an attack, because the air does not belong to me, and the forgery lands in my neighbours' phones as readily as my own.</p>
+<img src="../img/2026-11-04-forged-networks.png" alt="The forged networks I broadcast for a minute, showing up in a laptop's WiFi list. They lead nowhere; the names are a joke." loading="lazy">
+<h2>The twin</h2>
+<p>The joke and the real threat are the same trick. Instead of song lyrics, an attacker forges a beacon carrying a <strong>real</strong> name, a home network or a coffee-shop WiFi, at a stronger signal than the genuine one. A second forged frame knocks your device off the real access point. It reconnects to the twin, and now someone sits between you and the internet, serving a fake login page and reading what passes through.</p>
+<pre class="diagram">flowchart TD
+    A[&quot;Attacker radio&lt;br/&gt;forged beacon&quot;] --&gt;|&quot;spoofs a real name,&lt;br/&gt;stronger signal&quot;| V[&quot;Your device&quot;]
+    A --&gt;|&quot;deauth frame:&lt;br/&gt;kicks you off the real AP&quot;| V
+    V --&gt;|&quot;reconnects to the twin&quot;| A
+    A --&gt; M[&quot;Attacker in the middle:&lt;br/&gt;fake login, traffic read&quot;]</pre>
+<p>The weakness underneath is small and old: a beacon is never signed. Nothing proves a network name belongs to the radio sending it, so your device trusts the loudest voice claiming a name it knows.</p>
+<h2>Keeping the shields up</h2>
+<ul><li><strong>WPA3, where it is offered.</strong> It protects management frames, which blocks the deauth that an evil twin needs to pry you off the real network.</li><li><strong>Do not auto-join open networks.</strong> The twin is usually open, or fails the real password.</li><li><strong>Check the padlock before trusting a name.</strong> A network you know, suddenly open, is a warning, not a convenience.</li><li><strong>Use a VPN on anything you do not control.</strong> If someone is in the middle, let them read ciphertext.</li></ul>
+<p>Captain's log, supplemental. I spent the night learning that the quiet air is not quiet at all, and that the distance between watching and attacking is a single decision to transmit. Next on the chart: write my own scanner firmware for the little screen, one that names the maker behind each address as it appears, so the device explains itself instead of only listing numbers.</p>
+<p>End log.</p></main></body></html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forget and Rebuild · Captain's Log · Julien Serbanescu</title><meta name="description" content="Two days back on LeetCode in Python: hashmaps, sliding windows, greedy, design-a-class, heaps, intervals and a first grid DFS.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-25-forget-and-rebuild/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-25-forget-and-rebuild/"><meta property="og:title" content="Forget and Rebuild · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="Two days back on LeetCode in Python: hashmaps, sliding windows, greedy, design-a-class, heaps, intervals and a first grid DFS."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Forget and Rebuild","datePublished":"2026-10-25","description":"Two days back on LeetCode in Python: hashmaps, sliding windows, greedy, design-a-class, heaps, intervals and a first grid DFS.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-10-25-forget-and-rebuild/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>Forget and Rebuild</h1><p class="meta">Stardate 2026.298 · 2026-10-25</p>
+<p>Captain's log, stardate 2026.298.</p>
+<p>Two days back on LeetCode after a long time away. Twenty-odd problems in Python. I expected the algorithms to be the hard part. The hard part was my own habits.</p>
+<h2>Small tools I didn't know I was missing</h2>
+<p><code>dict.get(key, 0)</code> counts in one line without a <code>KeyError</code>. Dict keys must be hashable, so a sorted tuple works as a key where a list fails. That one idea is all of Group Anagrams. And a sliding window has to *shrink*. My first version rebuilt the whole set on every step, which is slower and still wrong.</p>
+<h2>Hidden loops</h2>
+<p>The most useful lesson came from a quiz on time complexity, not from a problem. <code>list.remove</code>, <code>pop(0)</code> and <code>x in list</code> each walk the list. <code>s += c</code> in a loop copies the string every time. My &quot;simple&quot; cookie-matching solution was quietly O(m²) because of one <code>remove</code>. The rule I took away: count the work per item over the whole run, not how deep the loops are nested. Daily Temperatures has a <code>while</code> inside a <code>for</code> and is still O(n), because each index is pushed once and popped once.</p>
+<h2>Don't do the work now</h2>
+<p>The design problems shared one trick. To reset every key in O(1), don't touch the keys. Record *when* the reset happened, and on each read check whether the key was written before or after it. Snapshot Array works the same way: store changes, not copies, and binary-search for the right version with <code>bisect</code>. Lazy turns out to be a strategy, not a vice.</p>
+<pre class="diagram">flowchart TD
+    G[&quot;get(key)&quot;] --&gt; M{&quot;key stored?&quot;}
+    M --&gt;|no| N[&quot;return None&quot;]
+    M --&gt;|yes| W{&quot;written before&lt;br/&gt;the last reset?&quot;}
+    W --&gt;|yes| R[&quot;return reset value&quot;]
+    W --&gt;|no| V[&quot;return stored value&quot;]</pre>
+<h2>The bug that taught me recursion</h2>
+<p>My first grid DFS for Number of Islands wrote <code>return dfs(...)</code> inside the loop over four directions. It explored one direction and quit. The function only exists for its side effect, sinking land cells, so there is nothing to return. Delete one word and it works.</p>
+<pre class="diagram">flowchart LR
+    subgraph Bug[&quot;return dfs(...)&quot;]
+        A1[&quot;cell&quot;] --&gt; B1[&quot;right&quot;]
+        A1 -.-&gt;|never reached| C1[&quot;left, up, down&quot;]
+    end
+    subgraph Fix[&quot;dfs(...)&quot;]
+        A2[&quot;cell&quot;] --&gt; B2[&quot;right&quot;]
+        A2 --&gt; C2[&quot;left&quot;]
+        A2 --&gt; D2[&quot;up&quot;]
+        A2 --&gt; E2[&quot;down&quot;]
+    end</pre>
+<h2>Forget and rebuild</h2>
+<p>In the morning I built an LRU cache from a hashmap and a doubly linked list. By evening I had forgotten all of it. So I rebuilt it from the picture instead of from memory: a dict pointing at nodes, two dummy nodes at the ends, one helper to unlink a node and one to add it at the back.</p>
+<pre class="diagram">flowchart LR
+    D[&quot;dict&lt;br/&gt;key → node&quot;] -.-&gt; B
+    D -.-&gt; C
+    L[&quot;left dummy&quot;] &lt;--&gt; B[&quot;least recent&lt;br/&gt;(evict here)&quot;] &lt;--&gt; C[&quot;...&quot;] &lt;--&gt; E[&quot;most recent&quot;] &lt;--&gt; R[&quot;right dummy&lt;br/&gt;(insert before)&quot;]</pre>
+<p>Five bugs later the tests passed. The last one was subtle: updating a key that already existed left its old node in the list, and it crashed three operations later.</p>
+<p>That rebuild taught me more than the first attempt did. Forgetting was the useful part.</p>
+<p>Captain's log, supplemental. Next on the chart: topological sort, which I haven't touched yet, and re-solving these cold before they fade again.</p>
+<p>End log.</p></main></body></html>

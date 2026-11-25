@@ -38,7 +38,7 @@ function parseEntry(path, raw) {
 }
 
 // Newest first: file names start with the date.
-const LOG_ENTRIES = Object.entries(entryFiles)
+export const LOG_ENTRIES = Object.entries(entryFiles)
   .map(([path, raw]) => parseEntry(path, raw))
   .sort((a, b) => b.slug.localeCompare(a.slug));
 

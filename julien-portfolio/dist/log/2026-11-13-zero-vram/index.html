@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero VRAM · Captain's Log · Julien Serbanescu</title><meta name="description" content="Running a 30B coding agent on a laptop with no graphics card, the one flag that was holding the integrated GPU back, and why memory bandwidth sets the speed limit.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-13-zero-vram/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-11-13-zero-vram/"><meta property="og:title" content="Zero VRAM · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="Running a 30B coding agent on a laptop with no graphics card, the one flag that was holding the integrated GPU back, and why memory bandwidth sets the speed limit."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Zero VRAM","datePublished":"2026-11-13","description":"Running a 30B coding agent on a laptop with no graphics card, the one flag that was holding the integrated GPU back, and why memory bandwidth sets the speed limit.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-11-13-zero-vram/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>Zero VRAM</h1><p class="meta">Stardate 2026.317 · 2026-11-13</p>
+<p>Captain's log, stardate 2026.317.</p>
+<p>The question tonight was simple. Can a laptop with no graphics card run a real coding agent, privately, with nothing leaving the machine? The common answer is no: buy an Nvidia card. I wanted to measure it before I believed it.</p>
+<h2>The chip that was sitting idle</h2>
+<p>My laptop has an Intel Iris Xe, a graphics chip built into the processor. It has no memory of its own. It borrows system RAM. I ran a model through Ollama and checked where it ran: 100% CPU. The GPU was doing nothing.</p>
+<p>The server log explained why, in one line: <code>dropping integrated GPU; to enable, set OLLAMA_IGPU_ENABLE=1</code>. The tool saw the chip and chose to ignore it. Two settings later, the same 30B coding model ran entirely on the iGPU.</p>
+<img src="../img/zerovram.png" alt="CPU vs Iris Xe on qwen3-coder:30b" loading="lazy">
+<ul><li>Reading the prompt: <strong>37.5 → 67 tokens/s</strong> (1.8×)</li><li>Generating code: <strong>5.9 → 9.8 tokens/s</strong> (1.7×)</li></ul>
+<h2>Why it stops there</h2>
+<p>Before trusting those numbers I wrote my own GPU kernels in OpenCL and measured memory speed directly. The CPU with all 20 threads topped out near 30 GB/s, and so did the GPU. Generating text is mostly reading the model's weights from memory, over and over. Two engines sharing one narrow road do not drive faster than one. A discrete card reads its own memory at about 30 times that speed, and that gap is the real price of a graphics card.</p>
+<p>The model helps too. It is a mixture of experts: 30 billion parameters in total, but only about 3 billion are used for each token. That is why a 30B model fits on a laptop at all.</p>
+<h2>Building the agent</h2>
+<p>Existing agents send twenty thousand tokens of instructions with every request. At 67 tokens/s, that is five minutes before the first word. So I wrote a small one, <strong>tinyagent</strong>, with a system prompt of about 300 tokens. It lists folders, searches and reads files without being told where to look, and it asks before it writes anything or runs a command. Along the way, the model sometimes wrote its tool calls as plain text instead of real calls. The agent now spots that and runs them anyway.</p>
+<p>Captain's log, supplemental. The setup script, the benchmark and the agent are open source as <a href="https://github.com/Julien-ser/zerovram" rel="noopener noreferrer">zerovram</a>. It is not a frontier model. It is a private coding assistant on hardware people already own, and the lesson I keep relearning: measure the bottleneck before you buy your way past it.</p>
+<p>End log.</p></main></body></html>

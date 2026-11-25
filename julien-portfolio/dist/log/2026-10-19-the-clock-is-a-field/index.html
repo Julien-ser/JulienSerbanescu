@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Clock Is a Field · Captain's Log · Julien Serbanescu</title><meta name="description" content="Splunk training on working with time: time modifiers, bin, strftime, timechart and timewrap.">
+<link rel="canonical" href="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-19-the-clock-is-a-field/"><link rel="icon" type="image/svg+xml" href="https://julien-ser.github.io/JulienSerbanescu/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://julien-ser.github.io/JulienSerbanescu/log/2026-10-19-the-clock-is-a-field/"><meta property="og:title" content="The Clock Is a Field · Captain's Log · Julien Serbanescu">
+<meta property="og:description" content="Splunk training on working with time: time modifiers, bin, strftime, timechart and timewrap."><meta property="og:image" content="https://julien-ser.github.io/JulienSerbanescu/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>:root{color-scheme:dark}body{margin:0;background:#121715;color:#e8ebe5;font:17px/1.7 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 80px}a{color:#e3bd6a}nav{font:13px 'Space Mono',monospace;display:flex;gap:18px;flex-wrap:wrap}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.1 'Chakra Petch',sans-serif;margin:28px 0 8px}h2{font:600 1.35rem 'Chakra Petch',sans-serif;margin:36px 0 8px}
+.meta{font:13px 'Space Mono',monospace;color:#b59a5c}img{max-width:100%;border-radius:4px}code,pre{font-family:'Space Mono',monospace;font-size:.85em;background:#0d100f;border-radius:3px}
+code{padding:1px 5px}pre{padding:14px;overflow:auto;white-space:pre-wrap}li{margin:6px 0}.list li{list-style:none;margin:0 0 22px}.list{padding:0}.list p{margin:4px 0;color:#c9cec9}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Clock Is a Field","datePublished":"2026-10-19","description":"Splunk training on working with time: time modifiers, bin, strftime, timechart and timewrap.","author":{"@type":"Person","name":"Julien Serbanescu","url":"https://julien-ser.github.io/JulienSerbanescu/"},"url":"https://julien-ser.github.io/JulienSerbanescu/log/2026-10-19-the-clock-is-a-field/"}</script></head>
+<body><main><nav><a href="https://julien-ser.github.io/JulienSerbanescu/">Julien Serbanescu</a><a href="https://julien-ser.github.io/JulienSerbanescu/log/">Captain's Log</a></nav>
+<h1>The Clock Is a Field</h1><p class="meta">Stardate 2026.292 · 2026-10-19</p>
+<p>Captain's log, stardate 2026.292.</p>
+<p>Today I studied how Splunk handles time. I expected a footnote. It turned out to be most of the job.</p>
+<p>Every event that lands in Splunk gets a timestamp, stored in a field called <code>_time</code> as epoch seconds. Host, source, sourcetype and index ride along with it. So the clock is not something outside the data. It is a field, and you can search it, cut it and reshape it like any other.</p>
+<h2>Steering through time</h2>
+<p>The time picker is the blunt tool. <code>earliest</code> and <code>latest</code> in the search itself are the precise one, and they win over the picker. <code>-7d@d</code> means seven days back, then snap down to midnight. <code>@w1</code> snaps to Monday. Once the snapping clicked, the syntax stopped looking like noise.</p>
+<p>Real-time searches exist, and you can watch events arrive. They are also expensive. A scheduled report usually does the same job for less.</p>
+<h2>Shaping the data</h2>
+<ul><li><code>bin span=1h _time</code> drops events into hourly buckets so <code>stats</code> can sum them.</li><li><code>eval</code> with <code>strftime</code> turns epoch seconds into something a person can read: <code>May 12, 07 PM</code>.</li><li><code>timechart</code> puts <code>_time</code> on the x-axis and splits by any field. <code>limit=5</code> keeps the top five and folds the rest into OTHER.</li><li><code>timewrap 1w</code> lays this week over last week. Two lines, same weekdays. A spike stops being a guess and becomes a comparison.</li></ul>
+<h2>The trap</h2>
+<p>Splunk gives you <code>date_hour</code> and other <code>date_*</code> fields for free. They come from the raw event text and ignore your time zone setting, so they can disagree with the <code>_time</code> on your screen. Filter on <code>date_hour</code> between 2 and 5 and you may get the wrong three hours. The fix is to derive the hour yourself: <code>strftime(_time, &quot;%H&quot;)</code>.</p>
+<p>Captain's log, supplemental. I learned this for my day job. But my curiosity keeps drifting toward security, where &quot;when&quot; is half of &quot;what happened.&quot; I intend to get it right.</p>
+<p>End log.</p></main></body></html>
