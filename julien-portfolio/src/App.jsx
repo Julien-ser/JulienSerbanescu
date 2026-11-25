@@ -1086,7 +1086,7 @@ function AskMe() {
 // Each number is measured: FalseCoTQA paper, the Co-operators model's test set, the Triton benchmark.
 const HIGHLIGHTS = [
   { tag: 'RESEARCH', value: '−30%', note: '5 papers · 2× NSERC',
-    text: 'QA accuracy when a model gets a plausible but wrong reasoning chain. FalseCoTQA, first author, SIGIR-AP.' },
+    text: 'QA accuracy when a model gets a plausible but wrong reasoning chain. FalseCoTQA, first author, SIGIR-AP 2025 best paper nominee.' },
   { tag: 'PRODUCTION', value: '96.9%', note: 'a human approves every action',
     text: 'Test accuracy of the email triage model I shipped at Co-operators. Runs on AKS, deploys through ArgoCD.' },
   { tag: 'AGENTS', value: '1.16×', note: 'next: agents that verify themselves',
@@ -1098,7 +1098,7 @@ const HIGHLIGHTS = [
 const PAPERS = [
   { title: 'From Hints to Answers: Uncertainty-Aware LLM-Guided Retrieval for Multi-Hop Question Answering', venue: 'Canadian AI 2026 (PMLR v318)', href: 'https://proceedings.mlr.press/v318/alavi26a.html' },
   { title: 'Cause-Conditioned Multi-Task Learning for Answerable Question Suggestion in MRC', venue: 'Canadian AI 2026 (PMLR v318)', href: 'https://proceedings.mlr.press/v318/moradisani26a.html' },
-  { title: 'FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought', venue: 'SIGIR-AP 2025 · first author', href: 'https://dl.acm.org/doi/pdf/10.1145/3767695.3769494' },
+  { title: 'FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought', venue: 'SIGIR-AP 2025 · first author · best paper nominee', href: 'https://dl.acm.org/doi/pdf/10.1145/3767695.3769494' },
   { title: 'Uncovering the Persuasive Fingerprint of LLMs in Jailbreaking Attacks', venue: 'CIKM 2025', href: 'https://dl.acm.org/doi/pdf/10.1145/3746252.3760929' },
   { title: 'UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension', venue: 'SIGIR-AP 2024', href: 'https://dl.acm.org/doi/pdf/10.1145/3673791.3698413' },
 ];
@@ -1117,6 +1117,8 @@ function HomeApp({ heroImage, onOpenLog }) {
           <p className="hero-eyebrow">rst:0x1 (POWERON) · boot ok</p>
           <h1 className="hero-title">Julien Serbanescu</h1>
           <p className="hero-subtitle">I find where AI breaks, then build agents that hold up.</p>
+          {/* The quotable fact line: same wording as llms.txt, the JSON-LD description and every profile bio */}
+          <p className="hero-facts">Computer engineering student at the University of Guelph. 5 papers on where LLMs fail (SIGIR-AP, CIKM, Canadian AI; one a SIGIR-AP 2025 best paper nominee), ML in production at Co-operators, merged PRs in pydantic-ai and mcp-atlassian.</p>
 
           <AskMe />
 

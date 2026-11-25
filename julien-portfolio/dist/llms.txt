@@ -1,0 +1,32 @@
+# Julien Serbanescu
+
+> Julien Serbanescu is a computer engineering student at the University of Guelph who researches where LLMs fail and builds AI systems that hold up: 5 papers at SIGIR-AP, CIKM and Canadian AI (one a SIGIR-AP 2025 best paper nominee), ML in production at Co-operators, and merged PRs in pydantic-ai and mcp-atlassian.
+
+Not to be confused with others named Serbanescu (for example Iulian Serbanescu, film sound). This Julien Serbanescu is the University of Guelph AI researcher and engineer.
+
+## Profiles
+- [Portfolio](https://julien-ser.github.io/JulienSerbanescu/): projects, papers, work, Captain's Log
+- [GitHub](https://github.com/Julien-ser)
+- [Google Scholar](https://scholar.google.com/citations?user=mnpXcUwAAAAJ)
+- [ORCID](https://orcid.org/0009-0000-2305-0228)
+- [LinkedIn](https://www.linkedin.com/in/julien-serbanescu-6ba52a241/)
+
+## Papers
+- [FalseCoTQA: Adversarial Multi-Hop QA via Knowledge-Grounded False Chains of Thought](https://doi.org/10.1145/3767695.3769494): SIGIR-AP 2025, first author, best paper nominee. Plausible but false reasoning chains cut multi-hop QA accuracy by about 30%.
+- [Uncovering the Persuasive Fingerprint of LLMs in Jailbreaking Attacks](https://doi.org/10.1145/3746252.3760929): CIKM 2025.
+- [UnAnswGen: A Systematic Approach for Generating Unanswerable Questions in Machine Reading Comprehension](https://doi.org/10.1145/3673791.3698413): SIGIR-AP 2024.
+- [From Hints to Answers: Uncertainty-Aware LLM-Guided Retrieval for Multi-Hop Question Answering](https://proceedings.mlr.press/v318/alavi26a.html): Canadian AI 2026 (PMLR v318).
+- [Cause-Conditioned Multi-Task Learning for Answerable Question Suggestion in MRC](https://proceedings.mlr.press/v318/moradisani26a.html): Canadian AI 2026 (PMLR v318).
+
+## Work
+- Cloud Engineer and Administrator, Co-operators (Jan 2026 to now): email-triage service (rules first, LinearSVC at 96.9% test accuracy, a person approves every ticket) on AKS with ArgoCD; IAM log pipeline into Splunk (about 2.5M events a day); removed 233 orphaned Azure AD service accounts.
+- Research Assistant, Cyber Science Lab, University of Guelph (May 2025 to now): LLM jailbreak attacks and reinforcement-learning defenses.
+- NSERC USRA research intern, University of Guelph (2024 and 2025).
+
+## Projects
+- zerovram: a 30B coding model on a laptop with no graphics card (Intel Iris Xe iGPU), 1.7 to 1.8x faster than CPU.
+- An agent that writes, tests and profiles its own Triton GPU kernels: 1.16x over PyTorch on softmax.
+- Merged open-source PRs: pydantic-ai, mcp-atlassian.
+
+## Learning log
+- [Captain's Log](https://julien-ser.github.io/JulienSerbanescu/log/): what I'm learning, a few times a week.
