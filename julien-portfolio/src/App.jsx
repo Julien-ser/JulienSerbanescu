@@ -1,8 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  User, Briefcase, Microscope, FolderGit2, Bot,
-  Trophy, Users, GraduationCap, Mail, SquareTerminal, ScrollText, GitPullRequest,
-} from 'lucide-react';
 import './react-styles.css';
 import CaptainsLogApp, { LogIntroButton, Mermaid } from './CaptainsLog.jsx';
 
@@ -672,7 +668,7 @@ function App() {
   return (
     <div className="desktop-ui">
       {/* Desktop background */}
-      <div className="desktop-bg" />
+      <div className="desktop-bg"><BoardArt /></div>
       {/* Film grain overlay */}
       <div className="noise-layer" />
       {/* macOS-style menu bar */}
@@ -684,6 +680,7 @@ function App() {
 
       {/* Dock */}
       <nav className="dock" aria-label="Applications">
+        <span className="dock-ref" aria-hidden="true">J1</span>
         {Object.values(APPS).map((app) => {
           const isOpen = openWindows.some((w) => w.id === app.id);
           return (
@@ -693,14 +690,13 @@ function App() {
               className={`dock-item ${isOpen ? 'is-open' : ''}`}
               data-app={app.id}
               onClick={() => openWindow(app.id)}
-              data-label={app.title}
               aria-label={isOpen ? `${app.title} (open)` : app.title}
               aria-pressed={isOpen}
             >
-              <span className="dock-icon">
-                <AppIcon id={app.id} />
+              <span className="pin-label" aria-hidden="true">{PIN_LABELS[app.id] || app.title}</span>
+              <span className="pin-pad" aria-hidden="true">
+                {isOpen && <span className="pin-jumper" />}
               </span>
-              {isOpen && <span className="dock-dot" aria-hidden="true" />}
             </button>
           );
         })}
@@ -901,27 +897,44 @@ function OpenSourceApp() {
   );
 }
 
-// ===================== Dock icon system ====================
+// ===================== Dev-board theme ====================
 
-const APP_ICONS = {
-  about: User,
-  log: ScrollText,
-  experience: Briefcase,
-  research: Microscope,
-  projects: FolderGit2,
-  opensource: GitPullRequest,
-  robots: Bot,
-  competitions: Trophy,
-  organizations: Users,
-  certificates: GraduationCap,
-  contact: Mail,
-  terminal: SquareTerminal,
+// Silkscreen labels for the J1 pin header, short enough to fit one pin.
+const PIN_LABELS = {
+  about: 'ABOUT', log: 'LOG', experience: 'EXP', research: 'RESEARCH',
+  projects: 'PROJECTS', opensource: 'OSS', robots: 'ROBOTS', competitions: 'COMPS',
+  organizations: 'ORGS', certificates: 'CERTS', contact: 'CONTACT', terminal: 'TERM',
 };
 
-function AppIcon({ id }) {
-  const Icon = APP_ICONS[id];
-  if (!Icon) return null;
-  return <Icon size={22} strokeWidth={1.75} absoluteStrokeWidth aria-hidden="true" />;
+// Background: the page is an ESP32-style dev board, kept faint so the content leads.
+function BoardArt() {
+  return (
+    <svg className="board-art" viewBox="0 0 1280 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="#1d2723" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M0,560 H90 L120,530 H300" />
+        <path d="M1280,250 H1180 L1150,280 V420" />
+        <path d="M640,800 V720 L670,690 H900" />
+        <path d="M0,180 H60 L80,160 H200" />
+      </g>
+      <g fill="#121715" stroke="#1d2723" strokeWidth="2.5">
+        <circle cx="300" cy="530" r="5" /><circle cx="1150" cy="420" r="5" />
+        <circle cx="900" cy="690" r="5" /><circle cx="200" cy="160" r="5" />
+      </g>
+      <g opacity="0.35" fill="#d4ab52">
+        <rect x="34" y="260" width="16" height="16" />
+        {[296, 324, 352, 380, 408].map((y) => <circle key={y} cx="42" cy={y} r="8" />)}
+        {[520, 548, 576, 604].map((y) => <circle key={y} cx="1238" cy={y} r="8" />)}
+      </g>
+      <path d="M1040,96 H1052 V56 H1066 V96 H1080 V56 H1094 V96 H1108 V56 H1122 V96 H1136 V56 H1150 V96 H1162"
+        fill="none" stroke="#5c4f2c" strokeWidth="3" />
+      {[[28, 28], [1252, 28], [28, 772], [1252, 772]].map(([x, y]) => (
+        <g key={`${x}-${y}`}>
+          <circle cx={x} cy={y} r="12" fill="#c9a04c" />
+          <circle cx={x} cy={y} r="6.5" fill="#050605" />
+        </g>
+      ))}
+    </svg>
+  );
 }
 
 // ===================== Sub-app components ====================
@@ -945,58 +958,6 @@ function MenuBar() {
         <span className="menu-bar-clock">{fmt}</span>
       </div>
     </div>
-  );
-}
-
-function TypewriterCycle() {
-  const roles = [
-    'AI Engineer',
-    'Cloud Architect',
-    'Robotics Builder',
-    'Published Researcher',
-    'Cybersecurity Practitioner',
-  ];
-  const [display, setDisplay] = useState('');
-  const state = useRef({ role: 0, char: 0, phase: 'typing' });
-
-  useEffect(() => {
-    let timer;
-    const tick = () => {
-      const s = state.current;
-      const current = roles[s.role];
-      if (s.phase === 'typing') {
-        s.char++;
-        setDisplay(current.slice(0, s.char));
-        if (s.char >= current.length) {
-          s.phase = 'pause';
-          timer = setTimeout(tick, 1800);
-        } else {
-          timer = setTimeout(tick, 58);
-        }
-      } else if (s.phase === 'pause') {
-        s.phase = 'deleting';
-        timer = setTimeout(tick, 30);
-      } else {
-        s.char--;
-        setDisplay(current.slice(0, s.char));
-        if (s.char <= 0) {
-          s.role = (s.role + 1) % roles.length;
-          s.char = 0;
-          s.phase = 'typing';
-          timer = setTimeout(tick, 280);
-        } else {
-          timer = setTimeout(tick, 32);
-        }
-      }
-    };
-    timer = setTimeout(tick, 900);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <p className="typer" aria-label="Current role">
-      {display}<span className="typer-cursor" aria-hidden="true" />
-    </p>
   );
 }
 
@@ -1070,45 +1031,26 @@ function AskMe() {
   );
 }
 
+// Each number is measured: FalseCoTQA paper, the Co-operators model's test set, the Triton benchmark.
+const HIGHLIGHTS = [
+  { tag: 'RESEARCH', value: '−30%', note: '5 papers · 2× NSERC',
+    text: 'QA accuracy when a model gets a plausible but wrong reasoning chain. FalseCoTQA, first author, SIGIR-AP.' },
+  { tag: 'PRODUCTION', value: '96.9%', note: 'a human approves every action',
+    text: 'Test accuracy of the email triage model I shipped at Co-operators. Runs on AKS, deploys through ArgoCD.' },
+  { tag: 'AGENTS', value: '1.16×', note: 'next: agents that verify themselves',
+    text: 'Speedup over PyTorch on softmax from an agent that writes, tests and profiles its own Triton kernels.' },
+];
+
 function HomeApp({ heroImage, onOpenLog }) {
   return (
     <div className="home-app">
       <div className="hero-container">
         <div className="hero-text">
-          <p className="hero-eyebrow">Computer Engineering &amp; Entrepreneurship</p>
+          <p className="hero-eyebrow">rst:0x1 (POWERON) · boot ok</p>
           <h1 className="hero-title">Julien Serbanescu</h1>
-          <p className="hero-subtitle">Building production AI systems, resilient cloud infrastructure, and intelligent robotics.</p>
-          <TypewriterCycle />
+          <p className="hero-subtitle">I find where AI breaks, then build agents that hold up.</p>
 
           <AskMe />
-
-          <p className="hero-description">
-            Two-time NSERC USRA recipient, published researcher (SIGIR-AP, CIKM), and Cloud Engineer at Co-Operators.
-            I build systems that move from research prototype to real-world deployment.
-          </p>
-
-          <div className="tech-badges">
-            <span className="tech-badge">AI/ML</span>
-            <span className="tech-badge">Cloud Engineering</span>
-            <span className="tech-badge">Robotics</span>
-            <span className="tech-badge">Research</span>
-            <span className="tech-badge">Cybersecurity</span>
-          </div>
-
-          <div className="hero-metrics">
-            <div className="hero-metric">
-              <span className="hero-metric-value">5</span>
-              <span className="hero-metric-label">Conference Papers</span>
-            </div>
-            <div className="hero-metric">
-              <span className="hero-metric-value">2×</span>
-              <span className="hero-metric-label">NSERC USRA</span>
-            </div>
-            <div className="hero-metric">
-              <span className="hero-metric-value">3.94</span>
-              <span className="hero-metric-label">GPA</span>
-            </div>
-          </div>
 
           <div className="hero-links">
             <a href="https://www.linkedin.com/in/julien-serbanescu-6ba52a241/" target="_blank" rel="noopener noreferrer" className="hero-link-btn">LinkedIn</a>
@@ -1127,6 +1069,16 @@ function HomeApp({ heroImage, onOpenLog }) {
           <LogIntroButton />
         </div>
       </div>
+      <section className="chip-cards" aria-label="Highlights">
+        {HIGHLIGHTS.map((h) => (
+          <article key={h.tag} className="chip-card">
+            <span className="chip-tag">{h.tag}</span>
+            <span className="chip-value">{h.value}</span>
+            <p className="chip-text">{h.text}</p>
+            <span className="chip-note">{h.note}</span>
+          </article>
+        ))}
+      </section>
     </div>
   );
 }
