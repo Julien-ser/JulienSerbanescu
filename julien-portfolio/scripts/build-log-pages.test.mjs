@@ -1,7 +1,7 @@
 // Run: node --test scripts/
 import test from 'node:test';
 import assert from 'node:assert';
-import { body, inline, parseEntry } from './build-log-pages.mjs';
+import { body, homeSnapshot, inline, parseEntry } from './build-log-pages.mjs';
 
 test('frontmatter parses, CRLF tolerated', () => {
   const e = parseEntry('2026-11-13-zero-vram.md', '---\r\ntitle: Zero VRAM\r\ndate: 2026-11-13\r\n---\r\nHello');
@@ -21,4 +21,18 @@ test('blocks: heading, list, known image, unknown image dropped', () => {
   assert.match(html, /<img src="..\/img\/a.png" alt="alt"/);
   assert.doesNotMatch(html, /missing\.png/);
   assert.match(html, /<p>plain<\/p>/);
+});
+
+test('home snapshot: llms.txt facts land inside #root as plain HTML', () => {
+  const llms = '# Julien Serbanescu\n\n> One-liner with <b>.\n\n## Papers\n- [FalseCoTQA](https://doi.org/x): SIGIR-AP 2025.';
+  const html = homeSnapshot(llms, '<body><div id="root"></div><script type="module" src="a.js"></script></body>');
+  assert.match(html, /<div id="root"><main class="static-home">/);
+  assert.match(html, /<h1>Julien Serbanescu<\/h1>/);
+  assert.match(html, /<p>One-liner with &lt;b&gt;.<\/p>/);
+  assert.match(html, /<li><a href="https:\/\/doi.org\/x" rel="noopener noreferrer">FalseCoTQA<\/a>: SIGIR-AP 2025.<\/li>/);
+  assert.match(html, /<\/main><\/div><script type="module"/);
+});
+
+test('home snapshot fails loudly when the empty root is missing', () => {
+  assert.throws(() => homeSnapshot('# x', '<div id="app"></div>'), /root/);
 });

@@ -36,13 +36,16 @@ export function inline(text) {
 }
 
 export function body(md, images) {
-  return md.split(/\n{2,}/).map((block) => {
+  // A heading always ends its block, even when a list follows on the next line.
+  return md.replace(/^(#{1,2} .*)\n(?=\S)/gm, '$1\n\n').split(/\n{2,}/).map((block) => {
     const lines = block.split('\n');
     const diagram = block.match(/^```mermaid\n([\s\S]*?)\n```$/);
     if (diagram) return `<pre class="diagram">${esc(diagram[1])}</pre>`;
     const img = block.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (img) return images.has(img[2]) ? `<img src="../img/${esc(img[2])}" alt="${esc(img[1])}" loading="lazy">` : '';
+    if (block.startsWith('# ')) return `<h1>${esc(block.slice(2))}</h1>`;
     if (block.startsWith('## ')) return `<h2>${esc(block.slice(3))}</h2>`;
+    if (lines.every((l) => l.startsWith('> '))) return `<p>${inline(lines.map((l) => l.slice(2)).join(' '))}</p>`;
     if (lines.every((l) => l.startsWith('- '))) return `<ul>${lines.map((l) => `<li>${inline(l.slice(2))}</li>`).join('')}</ul>`;
     return `<p>${inline(lines.join(' '))}</p>`;
   }).join('\n');
@@ -71,7 +74,17 @@ ${content}</main></body></html>
 `;
 }
 
+// The home page is a React app, so a crawler that skips JavaScript (most AI crawlers) saw only the title.
+// Put the llms.txt facts inside #root as plain HTML; createRoot() replaces them once the app loads.
+export function homeSnapshot(llms, indexHtml) {
+  const empty = '<div id="root"></div>';
+  if (!indexHtml.includes(empty)) throw new Error('dist/index.html has no empty <div id="root"></div>');
+  return indexHtml.replace(empty, `<div id="root"><main class="static-home">${body(llms.replace(/\r\n/g, '\n').trim(), new Set())}</main></div>`);
+}
+
 export function build() {
+  const indexPath = join(app, 'dist', 'index.html');
+  writeFileSync(indexPath, homeSnapshot(readFileSync(join(app, 'public', 'llms.txt'), 'utf8'), readFileSync(indexPath, 'utf8')));
   const files = readdirSync(LOGS).filter((f) => f.endsWith('.md'));
   const entries = files.map((f) => parseEntry(f, readFileSync(join(LOGS, f), 'utf8'))).sort((a, b) => b.slug.localeCompare(a.slug));
   const imgDir = join(LOGS, 'img');
